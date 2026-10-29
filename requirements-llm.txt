@@ -1,0 +1,2 @@
+# Optional: only needed for the LLM semantic check (set LLM_MODEL and a provider key).
+litellm==1.55.10
