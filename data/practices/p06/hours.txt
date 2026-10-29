@@ -1,0 +1,17 @@
+# Office hours and contact details
+Practice: Summit Multispecialty Group
+Specialty: Multispecialty
+Address: 900 Demo Boulevard, Minneapolis, MN
+Timezone: America/Chicago
+Main phone: (555) 555-0190
+
+Monday: 8:00 AM - 6:00 PM
+Tuesday: 8:00 AM - 6:00 PM
+Wednesday: 8:00 AM - 6:00 PM
+Thursday: 8:00 AM - 6:00 PM
+Friday: 8:00 AM - 6:00 PM
+Saturday: 9:00 AM - 1:00 PM
+Sunday: Closed
+
+After-hours: Calls forward to the on-call line at (555) 555-0198.
+Holidays: 2026-11-26 Thanksgiving Day; 2026-12-25 Christmas Day; 2027-01-01 New Year's Day

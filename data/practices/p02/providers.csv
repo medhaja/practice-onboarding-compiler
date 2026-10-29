@@ -1,0 +1,4 @@
+provider_id,name,credentials,specialty,accepting_new_patients
+p02-prov01,Elena Vargas,MD,internal medicine,yes
+p02-prov02,Marcus Bell,MD,internal medicine,yes
+p02-prov03,Tessa Moreno,PA-C,internal medicine,yes

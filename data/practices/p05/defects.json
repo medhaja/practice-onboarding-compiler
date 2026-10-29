@@ -1,0 +1,41 @@
+{
+  "practice_id": "p05",
+  "defects": [
+    {
+      "id": "p05-d1",
+      "type": "holiday_free_text",
+      "key": "holidays",
+      "severity": "low",
+      "location": "hours.txt:17",
+      "description": "Holiday closures are free text, not dates.",
+      "expected_fix": "2026-11-26, 2026-12-25"
+    },
+    {
+      "id": "p05-d2",
+      "type": "duplicate_visit_type",
+      "key": "flu shot visit",
+      "severity": "medium",
+      "location": "call_script.md:15",
+      "description": "'Flu Shot Visit' duplicates 'Flu Shot'.",
+      "expected_fix": "Flu Shot"
+    },
+    {
+      "id": "p05-d3",
+      "type": "unknown_provider",
+      "key": "castellano",
+      "severity": "medium",
+      "location": "call_script.md:21",
+      "description": "Dr. Castellano is named in the script but not on the roster.",
+      "expected_fix": ""
+    },
+    {
+      "id": "p05-d4",
+      "type": "faq_script_contradiction",
+      "key": "walk_ins",
+      "severity": "medium",
+      "location": "faq.md:4",
+      "description": "FAQ answer contradicts the call script (call_script.md:24).",
+      "expected_fix": "We welcome walk-ins any time we are open."
+    }
+  ]
+}

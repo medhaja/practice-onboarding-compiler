@@ -1,0 +1,7 @@
+provider_id,name,credentials,specialty,accepting_new_patients
+p03-prov01,Grace Abernathy,MD,cardiology,yes
+p03-prov02,Daniel Osei,MD,cardiology,no
+p03-prov03,Mei Tanaka,MD,cardiology,yes
+p03-prov04,Rafael Duarte,MD,cardiology,yes
+p03-prov05,Hannah Kowalski,MD,cardiology,no
+p03-prov06,Leon Fischer,NP,cardiology,yes

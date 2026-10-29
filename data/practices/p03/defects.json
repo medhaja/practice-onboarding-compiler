@@ -1,0 +1,68 @@
+{
+  "practice_id": "p03",
+  "defects": [
+    {
+      "id": "p03-d1",
+      "type": "holiday_free_text",
+      "key": "holidays",
+      "severity": "low",
+      "location": "hours.txt:17",
+      "description": "Holiday closures are free text, not dates.",
+      "expected_fix": "2026-12-24, 2026-12-25, 2027-01-01"
+    },
+    {
+      "id": "p03-d2",
+      "type": "hours_conflict",
+      "key": "friday",
+      "severity": "high",
+      "location": "call_script.md:9",
+      "description": "Script gives Friday hours as 08:00-17:00; hours.txt says 08:00-15:00.",
+      "expected_fix": "08:00-15:00"
+    },
+    {
+      "id": "p03-d3",
+      "type": "duplicate_visit_type",
+      "key": "follow up visit",
+      "severity": "medium",
+      "location": "call_script.md:17",
+      "description": "'Follow Up Visit' duplicates 'Follow-up Visit'.",
+      "expected_fix": "Follow-up Visit"
+    },
+    {
+      "id": "p03-d4",
+      "type": "unknown_provider",
+      "key": "whitcombe",
+      "severity": "medium",
+      "location": "call_script.md:26",
+      "description": "Dr. Whitcombe is named in the script but not on the roster.",
+      "expected_fix": ""
+    },
+    {
+      "id": "p03-d5",
+      "type": "invalid_phone",
+      "key": "(555) 555-01",
+      "severity": "high",
+      "location": "call_script.md:35",
+      "description": "Billing transfer number '(555) 555-01' is not a valid 10-digit number.",
+      "expected_fix": null
+    },
+    {
+      "id": "p03-d6",
+      "type": "faq_script_contradiction",
+      "key": "new_patients",
+      "severity": "medium",
+      "location": "faq.md:10",
+      "description": "FAQ answer contradicts the call script (call_script.md:31).",
+      "expected_fix": "We are accepting new patients."
+    },
+    {
+      "id": "p03-d7",
+      "type": "missing_red_flag",
+      "key": "chest pain",
+      "severity": "high",
+      "location": "protocols.md",
+      "description": "No 'chest pain' rule, which cardiology requires.",
+      "expected_fix": "emergency"
+    }
+  ]
+}

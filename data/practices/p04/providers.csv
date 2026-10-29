@@ -1,0 +1,6 @@
+provider_id,name,credentials,specialty,accepting_new_patients
+p04-prov01,Owen Gallagher,MD,pulmonology,yes
+p04-prov02,Sofia Lindqvist,MD,pulmonology,yes
+p04-prov03,Ibrahim Haddad,MD,pulmonology,no
+p04-prov04,Carmen Ortiz,NP,pulmonology,yes
+p04-prov05,Wesley Park,PA-C,pulmonology,yes

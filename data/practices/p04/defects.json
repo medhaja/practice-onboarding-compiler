@@ -1,0 +1,77 @@
+{
+  "practice_id": "p04",
+  "defects": [
+    {
+      "id": "p04-d1",
+      "type": "missing_timezone",
+      "key": "timezone",
+      "severity": "high",
+      "location": "hours.txt",
+      "description": "No timezone line in hours.txt.",
+      "expected_fix": "America/Denver"
+    },
+    {
+      "id": "p04-d2",
+      "type": "invalid_phone",
+      "key": "(555) 55-0177",
+      "severity": "high",
+      "location": "hours.txt:15",
+      "description": "After-hours phone '(555) 55-0177' is not a valid 10-digit number.",
+      "expected_fix": "(555) 555-0177"
+    },
+    {
+      "id": "p04-d3",
+      "type": "holiday_free_text",
+      "key": "holidays",
+      "severity": "low",
+      "location": "hours.txt:16",
+      "description": "Holiday closures are free text, not dates.",
+      "expected_fix": "2026-11-26, 2026-12-25, 2027-01-01, 2027-05-31"
+    },
+    {
+      "id": "p04-d4",
+      "type": "hours_conflict",
+      "key": "saturday",
+      "severity": "high",
+      "location": "call_script.md:8",
+      "description": "Script gives Saturday hours as 08:00-10:00; hours.txt says 08:00-12:00.",
+      "expected_fix": "08:00-12:00"
+    },
+    {
+      "id": "p04-d5",
+      "type": "duplicate_visit_type",
+      "key": "new pt consult",
+      "severity": "medium",
+      "location": "call_script.md:15",
+      "description": "'New Pt Consult' duplicates 'New Patient Consult'.",
+      "expected_fix": "New Patient Consult"
+    },
+    {
+      "id": "p04-d6",
+      "type": "unknown_provider",
+      "key": "brandt",
+      "severity": "medium",
+      "location": "call_script.md:23",
+      "description": "Dr. Brandt is named in the script but not on the roster.",
+      "expected_fix": ""
+    },
+    {
+      "id": "p04-d7",
+      "type": "faq_script_contradiction",
+      "key": "refill_days",
+      "severity": "medium",
+      "location": "faq.md:13",
+      "description": "FAQ answer contradicts the call script (call_script.md:29).",
+      "expected_fix": "Prescription refills are processed within 2 business days."
+    },
+    {
+      "id": "p04-d8",
+      "type": "red_flag_no_escalation",
+      "key": "coughing up blood",
+      "severity": "high",
+      "location": "protocols.md:5",
+      "description": "The 'coughing up blood' rule has no escalation.",
+      "expected_fix": "emergency"
+    }
+  ]
+}

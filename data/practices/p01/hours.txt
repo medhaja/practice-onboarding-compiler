@@ -1,0 +1,17 @@
+# Office hours and contact details
+Practice: Maple Grove Internal Medicine
+Specialty: Internal Medicine
+Address: 410 Example Avenue, Springfield, IL
+Timezone: America/Chicago
+Main phone: (555) 01-23
+
+Monday: 8:00 AM - 5:00 PM
+Tuesday: 8:00 AM - 5:00 PM
+Wednesday: 8:00 AM - 5:00 PM
+Thursday: 8:00 AM - 5:00 PM
+Friday: 8:00 AM - 5:00 PM
+Saturday: 9:00 AM - 12:00 PM
+Sunday: Closed
+
+After-hours: Calls forward to the on-call line at (555) 555-0188.
+Holidays: We close for Thanksgiving and the Friday after, Christmas Eve afternoon, and New Year's Day.

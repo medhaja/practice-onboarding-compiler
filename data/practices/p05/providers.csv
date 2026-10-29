@@ -1,0 +1,4 @@
+provider_id,name,credentials,specialty,accepting_new_patients
+p05-prov01,Nadia Farouk,MD,urgent care,yes
+p05-prov02,Chris Albright,PA-C,urgent care,yes
+p05-prov03,Yuki Sato,NP,urgent care,yes

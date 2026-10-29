@@ -1,0 +1,17 @@
+# Office hours and contact details
+Practice: Lakeside QuickCare
+Specialty: Urgent Care
+Address: 5 Imaginary Pier, Tacoma, WA
+Timezone: America/Los_Angeles
+Main phone: (555) 555-0180
+
+Monday: 8:00 AM - 8:00 PM
+Tuesday: 8:00 AM - 8:00 PM
+Wednesday: 8:00 AM - 8:00 PM
+Thursday: 8:00 AM - 8:00 PM
+Friday: 8:00 AM - 8:00 PM
+Saturday: 8:00 AM - 8:00 PM
+Sunday: 8:00 AM - 8:00 PM
+
+After-hours: Calls forward to the on-call line at (555) 555-0189.
+Holidays: We are open every day except Thanksgiving and Christmas Day.

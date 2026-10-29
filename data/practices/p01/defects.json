@@ -1,0 +1,59 @@
+{
+  "practice_id": "p01",
+  "defects": [
+    {
+      "id": "p01-d1",
+      "type": "invalid_phone",
+      "key": "(555) 01-23",
+      "severity": "high",
+      "location": "hours.txt:6",
+      "description": "Main phone '(555) 01-23' is not a valid 10-digit number.",
+      "expected_fix": "(555) 555-0123"
+    },
+    {
+      "id": "p01-d2",
+      "type": "holiday_free_text",
+      "key": "holidays",
+      "severity": "low",
+      "location": "hours.txt:17",
+      "description": "Holiday closures are free text, not dates.",
+      "expected_fix": "2026-11-26, 2026-11-27, 2026-12-24, 2027-01-01"
+    },
+    {
+      "id": "p01-d3",
+      "type": "hours_conflict",
+      "key": "saturday",
+      "severity": "high",
+      "location": "call_script.md:8",
+      "description": "Script gives Saturday hours as 09:00-13:00; hours.txt says 09:00-12:00.",
+      "expected_fix": "09:00-12:00"
+    },
+    {
+      "id": "p01-d4",
+      "type": "duplicate_visit_type",
+      "key": "new pt visit",
+      "severity": "medium",
+      "location": "call_script.md:15",
+      "description": "'New Pt Visit' duplicates 'New Patient Visit'.",
+      "expected_fix": "New Patient Visit"
+    },
+    {
+      "id": "p01-d5",
+      "type": "unknown_provider",
+      "key": "halvorsen",
+      "severity": "medium",
+      "location": "call_script.md:22",
+      "description": "Dr. Halvorsen is named in the script but not on the roster.",
+      "expected_fix": ""
+    },
+    {
+      "id": "p01-d6",
+      "type": "faq_script_contradiction",
+      "key": "walk_ins",
+      "severity": "medium",
+      "location": "faq.md:4",
+      "description": "FAQ answer contradicts the call script (call_script.md:25).",
+      "expected_fix": "We see patients by appointment only."
+    }
+  ]
+}

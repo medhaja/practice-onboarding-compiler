@@ -1,0 +1,52 @@
+[
+  {
+    "message": "Hi, I'd like to book an appointment for next week.",
+    "expected_intent": "book_appointment",
+    "expected_escalation": null
+  },
+  {
+    "message": "What are your hours on Saturday?",
+    "expected_intent": "hours",
+    "expected_escalation": null
+  },
+  {
+    "message": "I need a refill on my blood pressure medication.",
+    "expected_intent": "prescription_refill",
+    "expected_escalation": null
+  },
+  {
+    "message": "I have a question about a charge on my bill.",
+    "expected_intent": "billing",
+    "expected_escalation": null
+  },
+  {
+    "message": "I'm having chest pain and it won't go away.",
+    "expected_intent": "red_flag",
+    "expected_escalation": "emergency"
+  },
+  {
+    "message": "My dad seems confused and doesn't know where he is.",
+    "expected_intent": "red_flag",
+    "expected_escalation": "emergency"
+  },
+  {
+    "message": "Is Dr. Ruiz taking new patients?",
+    "expected_intent": "provider_info",
+    "expected_escalation": null
+  },
+  {
+    "message": "Do you accept walk-ins?",
+    "expected_intent": "faq",
+    "expected_escalation": null
+  },
+  {
+    "message": "Who do I call after hours if the office is closed?",
+    "expected_intent": "after_hours",
+    "expected_escalation": null
+  },
+  {
+    "message": "I need to reschedule my appointment on Thursday.",
+    "expected_intent": "reschedule",
+    "expected_escalation": null
+  }
+]

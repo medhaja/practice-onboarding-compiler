@@ -1,0 +1,17 @@
+# Office hours and contact details
+Practice: Harborview Heart Clinic
+Specialty: Cardiology
+Address: 12 Sample Wharf, Salem, MA
+Timezone: America/New_York
+Main phone: (555) 555-0160
+
+Monday: 8:00 AM - 5:00 PM
+Tuesday: 8:00 AM - 5:00 PM
+Wednesday: 8:00 AM - 5:00 PM
+Thursday: 8:00 AM - 5:00 PM
+Friday: 8:00 AM - 3:00 PM
+Saturday: Closed
+Sunday: Closed
+
+After-hours: Calls forward to the on-call line at (555) 555-0168.
+Holidays: Closed Christmas Day and New Year's Day, and we close early on Christmas Eve.

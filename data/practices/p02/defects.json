@@ -1,0 +1,50 @@
+{
+  "practice_id": "p02",
+  "defects": [
+    {
+      "id": "p02-d1",
+      "type": "missing_timezone",
+      "key": "timezone",
+      "severity": "high",
+      "location": "hours.txt",
+      "description": "No timezone line in hours.txt.",
+      "expected_fix": "America/Phoenix"
+    },
+    {
+      "id": "p02-d2",
+      "type": "missing_after_hours",
+      "key": "after_hours",
+      "severity": "high",
+      "location": "hours.txt",
+      "description": "No after-hours instructions in any file.",
+      "expected_fix": null
+    },
+    {
+      "id": "p02-d3",
+      "type": "faq_script_contradiction",
+      "key": "telehealth",
+      "severity": "medium",
+      "location": "faq.md:7",
+      "description": "FAQ answer contradicts the call script (call_script.md:23).",
+      "expected_fix": "We offer telehealth video visits for follow-ups."
+    },
+    {
+      "id": "p02-d4",
+      "type": "hours_conflict",
+      "key": "saturday",
+      "severity": "high",
+      "location": "faq.md:16",
+      "description": "FAQ gives Saturday hours as 09:00-13:00; hours.txt says closed.",
+      "expected_fix": "closed"
+    },
+    {
+      "id": "p02-d5",
+      "type": "red_flag_no_escalation",
+      "key": "stroke symptoms",
+      "severity": "high",
+      "location": "protocols.md:5",
+      "description": "The 'stroke symptoms' rule has no escalation.",
+      "expected_fix": "emergency"
+    }
+  ]
+}

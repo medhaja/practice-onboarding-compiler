@@ -1,0 +1,13 @@
+provider_id,name,credentials,specialty,accepting_new_patients
+p06-prov01,Laura Bennett,MD,multispecialty,yes
+p06-prov02,Kwame Mensah,MD,multispecialty,yes
+p06-prov03,Isabel Cruz,MD,multispecialty,no
+p06-prov04,Thomas Reilly,MD,multispecialty,yes
+p06-prov05,Anika Sharma,MD,multispecialty,yes
+p06-prov06,Victor Petrov,DO,multispecialty,yes
+p06-prov07,Ruth Adeyemi,MD,multispecialty,no
+p06-prov08,Paolo Ricci,MD,multispecialty,yes
+p06-prov09,Hye-jin Kim,NP,multispecialty,yes
+p06-prov10,Sean Murphy,PA-C,multispecialty,yes
+p06-prov11,Fatima Khan,NP,multispecialty,yes
+p06-prov12,Erik Johansson,MD,multispecialty,yes

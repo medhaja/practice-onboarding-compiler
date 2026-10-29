@@ -1,0 +1,5 @@
+provider_id,name,credentials,specialty,accepting_new_patients
+p01-prov01,Ana Ruiz,MD,internal medicine,yes
+p01-prov02,Samuel Okafor,MD,internal medicine,no
+p01-prov03,Jordan Lee,NP,internal medicine,yes
+p01-prov04,Priya Natarajan,DO,internal medicine,yes

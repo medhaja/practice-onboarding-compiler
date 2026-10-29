@@ -1,0 +1,16 @@
+# Office hours and contact details
+Practice: Cedar Ridge Pulmonology
+Specialty: Pulmonology
+Address: 301 Fictional Street, Boulder, CO
+Main phone: (555) 555-0170
+
+Monday: 8:00 AM - 4:30 PM
+Tuesday: 8:00 AM - 4:30 PM
+Wednesday: 8:00 AM - 4:30 PM
+Thursday: 8:00 AM - 4:30 PM
+Friday: 8:00 AM - 4:30 PM
+Saturday: 8:00 AM - 12:00 PM
+Sunday: Closed
+
+After-hours: Calls forward to the on-call line at (555) 55-0177.
+Holidays: Closed on Thanksgiving, Christmas Day, New Year's Day and Memorial Day.
