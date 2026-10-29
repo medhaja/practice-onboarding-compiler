@@ -1,0 +1,584 @@
+{
+  "practice_id": "p06",
+  "practice_name": {
+    "source": "hours.txt:2",
+    "value": "Summit Multispecialty Group"
+  },
+  "specialty": {
+    "source": "hours.txt:3",
+    "value": "multispecialty"
+  },
+  "address": {
+    "source": "hours.txt:4",
+    "value": "900 Demo Boulevard, Minneapolis, MN"
+  },
+  "timezone": {
+    "source": "hours.txt:5",
+    "value": "America/Chicago"
+  },
+  "main_phone": {
+    "source": "hours.txt:6",
+    "raw": "(555) 555-0190",
+    "value": "(555) 555-0190"
+  },
+  "languages": [
+    {
+      "source": "call_script.md:1",
+      "value": "en"
+    },
+    {
+      "source": "call_script.md:5",
+      "value": "es"
+    }
+  ],
+  "hours": [
+    {
+      "source": "hours.txt:8",
+      "id": "h-monday",
+      "day": "monday",
+      "closed": false,
+      "open": "08:00",
+      "close": "18:00"
+    },
+    {
+      "source": "hours.txt:9",
+      "id": "h-tuesday",
+      "day": "tuesday",
+      "closed": false,
+      "open": "08:00",
+      "close": "18:00"
+    },
+    {
+      "source": "hours.txt:10",
+      "id": "h-wednesday",
+      "day": "wednesday",
+      "closed": false,
+      "open": "08:00",
+      "close": "18:00"
+    },
+    {
+      "source": "hours.txt:11",
+      "id": "h-thursday",
+      "day": "thursday",
+      "closed": false,
+      "open": "08:00",
+      "close": "18:00"
+    },
+    {
+      "source": "hours.txt:12",
+      "id": "h-friday",
+      "day": "friday",
+      "closed": false,
+      "open": "08:00",
+      "close": "18:00"
+    },
+    {
+      "source": "hours.txt:13",
+      "id": "h-saturday",
+      "day": "saturday",
+      "closed": false,
+      "open": "09:00",
+      "close": "13:00"
+    },
+    {
+      "source": "hours.txt:14",
+      "id": "h-sunday",
+      "day": "sunday",
+      "closed": true,
+      "open": null,
+      "close": null
+    }
+  ],
+  "holidays": [
+    {
+      "source": "hours.txt:17",
+      "id": "hol1",
+      "raw": "2026-11-26 Thanksgiving Day",
+      "date": "2026-11-26",
+      "name": "Thanksgiving Day"
+    },
+    {
+      "source": "hours.txt:17",
+      "id": "hol2",
+      "raw": "2026-12-25 Christmas Day",
+      "date": "2026-12-25",
+      "name": "Christmas Day"
+    },
+    {
+      "source": "hours.txt:17",
+      "id": "hol3",
+      "raw": "2027-01-01 New Year's Day",
+      "date": "2027-01-01",
+      "name": "New Year's Day"
+    }
+  ],
+  "after_hours": {
+    "source": "hours.txt:16",
+    "action": "Calls forward to the on-call line at (555) 555-0198.",
+    "phone": {
+      "source": "hours.txt:16",
+      "raw": "(555) 555-0198",
+      "value": "(555) 555-0198"
+    }
+  },
+  "providers": [
+    {
+      "source": "providers.csv:2",
+      "id": "p06-prov01",
+      "name": "Laura Bennett",
+      "credentials": "MD",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:3",
+      "id": "p06-prov02",
+      "name": "Kwame Mensah",
+      "credentials": "MD",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:4",
+      "id": "p06-prov03",
+      "name": "Isabel Cruz",
+      "credentials": "MD",
+      "specialty": "multispecialty",
+      "accepting_new_patients": false
+    },
+    {
+      "source": "providers.csv:5",
+      "id": "p06-prov04",
+      "name": "Thomas Reilly",
+      "credentials": "MD",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:6",
+      "id": "p06-prov05",
+      "name": "Anika Sharma",
+      "credentials": "MD",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:7",
+      "id": "p06-prov06",
+      "name": "Victor Petrov",
+      "credentials": "DO",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:8",
+      "id": "p06-prov07",
+      "name": "Ruth Adeyemi",
+      "credentials": "MD",
+      "specialty": "multispecialty",
+      "accepting_new_patients": false
+    },
+    {
+      "source": "providers.csv:9",
+      "id": "p06-prov08",
+      "name": "Paolo Ricci",
+      "credentials": "MD",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:10",
+      "id": "p06-prov09",
+      "name": "Hye-jin Kim",
+      "credentials": "NP",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:11",
+      "id": "p06-prov10",
+      "name": "Sean Murphy",
+      "credentials": "PA-C",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:12",
+      "id": "p06-prov11",
+      "name": "Fatima Khan",
+      "credentials": "NP",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    },
+    {
+      "source": "providers.csv:13",
+      "id": "p06-prov12",
+      "name": "Erik Johansson",
+      "credentials": "MD",
+      "specialty": "multispecialty",
+      "accepting_new_patients": true
+    }
+  ],
+  "visit_types": [
+    {
+      "source": "call_script.md:12",
+      "id": "vt1",
+      "name": "New Patient Visit",
+      "minutes": 40
+    },
+    {
+      "source": "call_script.md:13",
+      "id": "vt2",
+      "name": "Follow-up Visit",
+      "minutes": 20
+    },
+    {
+      "source": "call_script.md:14",
+      "id": "vt3",
+      "name": "Cardiology Consult",
+      "minutes": 60
+    },
+    {
+      "source": "call_script.md:15",
+      "id": "vt4",
+      "name": "Pulmonary Function Test",
+      "minutes": 60
+    },
+    {
+      "source": "call_script.md:16",
+      "id": "vt5",
+      "name": "Annual Physical",
+      "minutes": 30
+    }
+  ],
+  "faqs": [
+    {
+      "source": "faq.md:4",
+      "id": "faq1",
+      "question": "Do you accept walk-ins?",
+      "answer": "No. We see patients by appointment only."
+    },
+    {
+      "source": "faq.md:7",
+      "id": "faq2",
+      "question": "Do you offer telehealth?",
+      "answer": "Yes. We offer telehealth video visits for follow-ups."
+    },
+    {
+      "source": "faq.md:10",
+      "id": "faq3",
+      "question": "Are you accepting new patients?",
+      "answer": "Yes, we are accepting new patients."
+    },
+    {
+      "source": "faq.md:13",
+      "id": "faq4",
+      "question": "How long do prescription refills take?",
+      "answer": "Prescription refills are processed within 2 business days."
+    },
+    {
+      "source": "faq.md:16",
+      "id": "faq5",
+      "question": "Are you open on Saturdays?",
+      "answer": "Our Saturday hours are 9 AM to 1 PM."
+    },
+    {
+      "source": "faq.md:19",
+      "id": "faq6",
+      "question": "How do I reach you?",
+      "answer": "Call our main line at (555) 555-0190."
+    },
+    {
+      "source": "faq.md:22",
+      "id": "faq7",
+      "question": "Where do I park?",
+      "answer": "Free parking is available in the lot next to the building."
+    },
+    {
+      "source": "faq.md:25",
+      "id": "faq8",
+      "question": "What should I bring to my first visit?",
+      "answer": "Please bring a photo ID, your insurance card and a list of your medications."
+    }
+  ],
+  "script": [
+    {
+      "source": "call_script.md:4",
+      "id": "s1",
+      "section": "greeting",
+      "text": "Thank you for calling Summit Multispecialty Group. This is the virtual front desk."
+    },
+    {
+      "source": "call_script.md:5",
+      "id": "s2",
+      "section": "greeting",
+      "text": "Para español, diga \"español\" en cualquier momento."
+    },
+    {
+      "source": "call_script.md:6",
+      "id": "s3",
+      "section": "greeting",
+      "text": "How can I help you today?"
+    },
+    {
+      "source": "call_script.md:9",
+      "id": "s4",
+      "section": "hours",
+      "text": "Our Saturday hours are 9 AM to 1 PM."
+    },
+    {
+      "source": "call_script.md:19",
+      "id": "s5",
+      "section": "providers",
+      "text": "Dr. Bennett has openings for new patients."
+    },
+    {
+      "source": "call_script.md:20",
+      "id": "s6",
+      "section": "providers",
+      "text": "Dr. Mensah has openings for new patients."
+    },
+    {
+      "source": "call_script.md:21",
+      "id": "s7",
+      "section": "providers",
+      "text": "Dr. Cruz has a full panel."
+    },
+    {
+      "source": "call_script.md:22",
+      "id": "s8",
+      "section": "providers",
+      "text": "Dr. Reilly has openings for new patients."
+    },
+    {
+      "source": "call_script.md:23",
+      "id": "s9",
+      "section": "providers",
+      "text": "Dr. Sharma has openings for new patients."
+    },
+    {
+      "source": "call_script.md:24",
+      "id": "s10",
+      "section": "providers",
+      "text": "Dr. Petrov has openings for new patients."
+    },
+    {
+      "source": "call_script.md:25",
+      "id": "s11",
+      "section": "providers",
+      "text": "Dr. Adeyemi has a full panel."
+    },
+    {
+      "source": "call_script.md:26",
+      "id": "s12",
+      "section": "providers",
+      "text": "Dr. Ricci has openings for new patients."
+    },
+    {
+      "source": "call_script.md:27",
+      "id": "s13",
+      "section": "providers",
+      "text": "Hye-jin Kim, NP, has openings for new patients."
+    },
+    {
+      "source": "call_script.md:28",
+      "id": "s14",
+      "section": "providers",
+      "text": "Sean Murphy, PA-C, has openings for new patients."
+    },
+    {
+      "source": "call_script.md:29",
+      "id": "s15",
+      "section": "providers",
+      "text": "Fatima Khan, NP, has openings for new patients."
+    },
+    {
+      "source": "call_script.md:30",
+      "id": "s16",
+      "section": "providers",
+      "text": "Dr. Johansson has openings for new patients."
+    },
+    {
+      "source": "call_script.md:33",
+      "id": "s17",
+      "section": "policies",
+      "text": "We see patients by appointment only."
+    },
+    {
+      "source": "call_script.md:34",
+      "id": "s18",
+      "section": "policies",
+      "text": "We offer telehealth video visits for follow-ups."
+    },
+    {
+      "source": "call_script.md:35",
+      "id": "s19",
+      "section": "policies",
+      "text": "We are accepting new patients."
+    },
+    {
+      "source": "call_script.md:36",
+      "id": "s20",
+      "section": "policies",
+      "text": "Prescription refills are processed within 2 business days."
+    },
+    {
+      "source": "call_script.md:44",
+      "id": "s21",
+      "section": "closing",
+      "text": "Is there anything else I can help you with?"
+    }
+  ],
+  "transfers": [
+    {
+      "source": "call_script.md:39",
+      "id": "t1",
+      "reason": "Billing",
+      "phone": {
+        "source": "call_script.md:39",
+        "raw": "(555) 555-0192",
+        "value": "(555) 555-0192"
+      }
+    },
+    {
+      "source": "call_script.md:40",
+      "id": "t2",
+      "reason": "Nurse line",
+      "phone": {
+        "source": "call_script.md:40",
+        "raw": "(555) 555-0194",
+        "value": "(555) 555-0194"
+      }
+    },
+    {
+      "source": "call_script.md:41",
+      "id": "t3",
+      "reason": "Referrals",
+      "phone": {
+        "source": "call_script.md:41",
+        "raw": "(555) 555-0196",
+        "value": "(555) 555-0196"
+      }
+    }
+  ],
+  "escalation_rules": [
+    {
+      "source": "protocols.md:4",
+      "id": "rf1",
+      "symptom": "chest pain",
+      "keywords": [
+        "chest pain",
+        "chest pressure",
+        "chest tightness"
+      ],
+      "level": "emergency",
+      "say": "Please hang up and call 911 now."
+    },
+    {
+      "source": "protocols.md:5",
+      "id": "rf2",
+      "symptom": "stroke symptoms",
+      "keywords": [
+        "face drooping",
+        "slurred speech",
+        "sudden weakness",
+        "stroke"
+      ],
+      "level": "emergency",
+      "say": "Please hang up and call 911 now."
+    },
+    {
+      "source": "protocols.md:6",
+      "id": "rf3",
+      "symptom": "shortness of breath",
+      "keywords": [
+        "shortness of breath",
+        "can't breathe",
+        "cannot breathe",
+        "trouble breathing"
+      ],
+      "level": "emergency",
+      "say": "Please hang up and call 911 now."
+    },
+    {
+      "source": "protocols.md:7",
+      "id": "rf4",
+      "symptom": "fainting",
+      "keywords": [
+        "fainted",
+        "passed out",
+        "fainting"
+      ],
+      "level": "emergency",
+      "say": "Please hang up and call 911 now."
+    },
+    {
+      "source": "protocols.md:8",
+      "id": "rf5",
+      "symptom": "coughing up blood",
+      "keywords": [
+        "coughing up blood",
+        "coughing blood"
+      ],
+      "level": "emergency",
+      "say": "Please hang up and call 911 now."
+    },
+    {
+      "source": "protocols.md:9",
+      "id": "rf6",
+      "symptom": "palpitations",
+      "keywords": [
+        "racing heart",
+        "palpitations",
+        "heart racing"
+      ],
+      "level": "urgent",
+      "say": "I'm connecting you to the nurse line now."
+    },
+    {
+      "source": "protocols.md:10",
+      "id": "rf7",
+      "symptom": "high fever",
+      "keywords": [
+        "fever of 104",
+        "very high fever"
+      ],
+      "level": "urgent",
+      "say": "I'm connecting you to the nurse line now."
+    },
+    {
+      "source": "protocols.md:11",
+      "id": "rf8",
+      "symptom": "severe allergic reaction",
+      "keywords": [
+        "throat swelling",
+        "allergic reaction",
+        "hives and swelling"
+      ],
+      "level": "emergency",
+      "say": "Please hang up and call 911 now."
+    },
+    {
+      "source": "protocols.md:12",
+      "id": "rf9",
+      "symptom": "blue lips",
+      "keywords": [
+        "blue lips",
+        "lips turning blue"
+      ],
+      "level": "emergency",
+      "say": "Please hang up and call 911 now."
+    },
+    {
+      "source": "protocols.md:13",
+      "id": "rf10",
+      "symptom": "confusion",
+      "keywords": [
+        "confused",
+        "confusion"
+      ],
+      "level": "emergency",
+      "say": "Please hang up and call 911 now."
+    }
+  ]
+}
