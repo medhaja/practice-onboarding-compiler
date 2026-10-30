@@ -1,0 +1,8 @@
+0:00 The problem
+0:30 Architecture
+1:01 Sample data
+1:29 Compile
+1:59 Validate
+2:29 Semantic check
+2:54 Run it & limits
+3:32 Recap

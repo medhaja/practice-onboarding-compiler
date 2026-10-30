@@ -1,0 +1,189 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.850
+From the outside, Asha's bottleneck looks like going live, not selling.
+
+2
+00:00:04.850 --> 00:00:10.875
+Public posts mention contracted revenue piling up, and more demand than the team can onboard.
+
+3
+00:00:10.875 --> 00:00:19.600
+My guess is that every new practice needs someone to turn its scripts, hours, provider lists and protocols into agent settings by hand.
+
+4
+00:00:19.600 --> 00:00:21.900
+This prototype tests that guess.
+
+5
+00:00:21.900 --> 00:00:29.500
+It compiles a practice's intake packet into an agent config, checks it, and leaves a person only the exceptions.
+
+6
+00:00:30.100 --> 00:00:34.500
+Plain code handles anything that must be exact and repeatable.
+
+7
+00:00:34.500 --> 00:00:38.650
+The compiler parses five packet files into a typed config.
+
+8
+00:00:38.650 --> 00:00:42.100
+The validator runs nine deterministic rules.
+
+9
+00:00:42.100 --> 00:00:47.075
+A semantic check looks for an FAQ answer that contradicts the call script.
+
+10
+00:00:47.075 --> 00:00:50.650
+That is the only place a language model is allowed.
+
+11
+00:00:50.650 --> 00:00:53.550
+Everything ends up as a list of issues.
+
+12
+00:00:53.550 --> 00:01:00.550
+The later stages, repair, review, smoke test and export, are designed in the PRD but not built yet.
+
+13
+00:01:01.150 --> 00:01:04.000
+There's no real practice data anywhere.
+
+14
+00:01:04.000 --> 00:01:07.275
+A seeded generator writes six fake practices:
+
+15
+00:01:07.275 --> 00:01:13.300
+internal medicine, cardiology, pulmonology, urgent care and a multispecialty group.
+
+16
+00:01:13.300 --> 00:01:18.275
+Each packet ships a defects file, the answer key for the mistakes planted in it.
+
+17
+00:01:18.275 --> 00:01:23.675
+Thirty in total, and one practice is deliberately clean, to catch false alarms.
+
+18
+00:01:23.675 --> 00:01:28.775
+A test regenerates everything and fails if the committed data has drifted.
+
+19
+00:01:29.375 --> 00:01:34.250
+Let's follow one practice, Harborview Heart Clinic, a cardiology packet.
+
+20
+00:01:34.250 --> 00:01:39.300
+Load packet reads the five files as lines, and compile packet walks them.
+
+21
+00:01:39.300 --> 00:01:43.075
+Line twelve of the hours file says Friday, eight to three.
+
+22
+00:01:43.075 --> 00:01:54.650
+A pattern match finds the day, parse time converts the times to twenty-four hour form, and the result is a day-hours object with the source hours.txt:12.
+
+23
+00:01:54.650 --> 00:01:59.075
+Pydantic requires a source on every item, and checks its format.
+
+24
+00:01:59.675 --> 00:02:02.750
+Now the compiled config goes to run rules.
+
+25
+00:02:02.750 --> 00:02:05.100
+Take the hours conflict rule.
+
+26
+00:02:05.100 --> 00:02:13.100
+It scans every line the agent might say, script lines and FAQ answers, for phrases like "our Friday hours are".
+
+27
+00:02:13.100 --> 00:02:15.825
+Line nine of the script says eight to five.
+
+28
+00:02:15.825 --> 00:02:18.325
+The official hours say eight to three.
+
+29
+00:02:18.325 --> 00:02:23.100
+So it raises a high-severity issue, and cites both lines as evidence.
+
+30
+00:02:23.100 --> 00:02:28.525
+For this practice the checks raise seven issues, matching its seven planted defects.
+
+31
+00:02:29.125 --> 00:02:33.075
+The contradiction check has two backends with the same output.
+
+32
+00:02:33.075 --> 00:02:40.950
+If an LLM model is configured and LiteLLM is installed, it asks the model for contradictions as JSON.
+
+33
+00:02:40.950 --> 00:02:45.475
+That reply is validated, and every cited line must exist.
+
+34
+00:02:45.475 --> 00:02:49.000
+If anything fails, it falls back to a keyword mock.
+
+35
+00:02:49.000 --> 00:02:54.150
+The mock runs whenever no model is set, so nothing needs a key or a network.
+
+36
+00:02:54.750 --> 00:03:00.100
+To run it today, install the requirements, run the generator, and run pytest.
+
+37
+00:03:00.100 --> 00:03:05.825
+The thirty-nine tests include one per rule, and a golden config for the clean practice.
+
+38
+00:03:05.825 --> 00:03:12.625
+In mock mode, on this synthetic data, the checks find all thirty planted defects with no false alarms.
+
+39
+00:03:12.625 --> 00:03:17.975
+But there's no eval script yet, and synthetic defects are easier than real ones.
+
+40
+00:03:17.975 --> 00:03:19.500
+Other limits:
+
+41
+00:03:19.500 --> 00:03:28.225
+the packet format is a guess, the red-flag lists need a physician's review, and escalation fixes are flagged to always need a person.
+
+42
+00:03:28.225 --> 00:03:32.025
+Next come repair, review, the smoke test and the eval.
+
+43
+00:03:32.625 --> 00:03:34.300
+So, to recap.
+
+44
+00:03:34.300 --> 00:03:39.875
+The compiler is deterministic, and every value points back to a file and a line.
+
+45
+00:03:39.875 --> 00:03:45.175
+Nine rules and one semantic check turn mistakes into issues with evidence.
+
+46
+00:03:45.175 --> 00:03:49.025
+A model is optional, validated, and never required.
+
+47
+00:03:49.025 --> 00:03:53.900
+And the sample data carries its own answer key, so the checker can be scored.
