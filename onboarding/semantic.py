@@ -64,7 +64,7 @@ def mock_check(config: AgentConfig, packet: Packet) -> list[Issue]:
         for faq in config.faqs:
             faq_stance = stance(topic, faq.answer)
             if faq_stance and faq_stance != script_stance:
-                why = f"Script says '{line.text}' but the FAQ says '{faq.answer}'."
+                why = f"Script says \"{line.text}\" but the FAQ says \"{faq.answer}\""
                 issues.append(_contradiction(faq, line, topic, why, "mock"))
                 break
     return issues
