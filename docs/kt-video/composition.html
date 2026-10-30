@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>practice-onboarding-compiler · KT video</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --line: #2a313c;
+    --ink: #e6edf3;
+    --muted: #8b949e;
+    /* color meaning, used the same way in every scene */
+    --data: #58a6ff;    /* packet text / source data */
+    --config: #3fb950;  /* compiled, stored config */
+    --issue: #f0b429;   /* issues and evidence */
+    --model: #a371f7;   /* optional model path */
+    --high: #f85149;    /* high severity / failure */
+    --display: "Bahnschrift", "Segoe UI", sans-serif;
+    --body: "Segoe UI", sans-serif;
+    --mono: "Consolas", "Cascadia Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #000; }
+  #stage {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: radial-gradient(1400px 900px at 70% 0%, #131a24 0%, var(--bg) 60%);
+    color: var(--ink); font-family: var(--body); font-size: 28px;
+  }
+  section { position: absolute; inset: 0; display: none; }
+  .abs { position: absolute; }
+  #chapter {
+    position: absolute; left: 80px; top: 52px; font-family: var(--mono); font-size: 22px;
+    color: var(--muted); letter-spacing: 0.04em; z-index: 5;
+  }
+  #chapter b { color: var(--ink); font-weight: 400; }
+  h1, h2 { font-family: var(--display); font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .h2 { font-family: var(--display); font-weight: 600; font-size: 50px; }
+  .mono { font-family: var(--mono); }
+  .muted { color: var(--muted); }
+  .box {
+    position: absolute; background: var(--panel); border: 2px solid var(--line); border-radius: 14px;
+    padding: 18px 22px;
+  }
+  .box.data { border-color: var(--data); }
+  .box.config { border-color: var(--config); }
+  .box.issue { border-color: var(--issue); }
+  .box.model { border-color: var(--model); }
+  .box.planned { border: 2px dashed #3d4552; background: transparent; color: var(--muted); }
+  .label { font-size: 20px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .fn { font-family: var(--mono); font-size: 27px; }
+  .chip {
+    display: inline-block; font-family: var(--mono); font-size: 21px; padding: 6px 12px; border-radius: 8px;
+    background: #1f2630; border: 1px solid var(--line); color: var(--ink); white-space: nowrap;
+  }
+  .arrow { position: absolute; height: 3px; color: var(--muted); background: currentColor; transform-origin: 0 50%; }
+  .arrow::after {
+    content: ""; position: absolute; right: -2px; top: -7px; border-left: 14px solid currentColor;
+    border-top: 8.5px solid transparent; border-bottom: 8.5px solid transparent;
+  }
+  .varrow { position: absolute; width: 3px; transform-origin: 50% 0; }
+  .varrow::after {
+    content: ""; position: absolute; bottom: -2px; left: -7px; border-top: 14px solid currentColor;
+    border-left: 8.5px solid transparent; border-right: 8.5px solid transparent;
+  }
+  .sev { display: inline-block; font-size: 18px; font-weight: 600; padding: 3px 10px; border-radius: 6px;
+         text-transform: uppercase; letter-spacing: 0.06em; }
+  .sev.high { background: rgba(248, 81, 73, 0.18); color: var(--high); }
+  .sev.medium { background: rgba(240, 180, 41, 0.16); color: var(--issue); }
+  .sev.low { background: rgba(139, 148, 158, 0.18); color: var(--muted); }
+
+  /* code focus */
+  .code { position: absolute; background: #0a0e13; border: 2px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .code .path { font-family: var(--mono); font-size: 21px; color: var(--muted); padding: 14px 22px;
+                border-bottom: 1px solid var(--line); background: var(--panel); }
+  .code .rows { padding: 12px 0; }
+  .code .row { font-family: var(--mono); white-space: pre; display: flex; position: relative; }
+  .code .row .n { width: 72px; text-align: right; padding-right: 22px; color: #4b5563; flex: none; }
+  .code .row .hl { position: absolute; inset: 0 0 0 0; background: rgba(240, 180, 41, 0.14);
+                   border-left: 4px solid var(--issue); opacity: 0; }
+  .code .row .t { position: relative; }
+  .tok-kw { color: #ff7b72; }
+  .tok-str { color: #a5d6ff; }
+  .tok-com { color: #6e7681; }
+  .tok-num { color: #79c0ff; }
+
+  #controls {
+    width: 1920px; display: flex; gap: 16px; align-items: center; padding: 12px 20px; background: #111;
+    color: #ccc; font: 16px var(--body);
+  }
+  #controls input[type=range] { flex: 1; }
+  body.render #controls { display: none; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="chapter"></div>
+</div>
+<div id="controls">
+  <button id="play">Play</button>
+  <input id="scrub" type="range" min="0" max="1" step="0.001" value="0">
+  <span id="clock">0.00</span>
+</div>
+
+<script>
+(() => {
+  const stage = document.getElementById("stage");
+  const chapterEl = document.getElementById("chapter");
+  const MISSING = (window.MISSING = []);
+
+  // ---------------------------------------------------------------- helpers
+  const clamp01 = (x) => Math.max(0, Math.min(1, x));
+  const ease = (x) => { x = clamp01(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  const p = (lt, t0, dur = 0.6) => ease((lt - t0) / dur);
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  function el(parent, cls, html, style) {
+    const e = document.createElement("div");
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    if (style) Object.assign(e.style, style);
+    parent.appendChild(e);
+    return e;
+  }
+  function px(v) { return typeof v === "number" ? v + "px" : v; }
+  function place(e, x, y, w, h) {
+    e.style.left = px(x); e.style.top = px(y);
+    if (w != null) e.style.width = px(w);
+    if (h != null) e.style.height = px(h);
+    return e;
+  }
+  // Fade/slide an element in at k (0..1).
+  function show(e, k, dy = 14, dx = 0) {
+    e.style.opacity = k;
+    e.style.transform = `translate(${(1 - k) * dx}px, ${(1 - k) * dy}px)`;
+  }
+  function grow(arrow, k) { arrow.style.opacity = k > 0 ? 1 : 0; arrow.style.transform = `scaleX(${k})`; }
+  function growV(arrow, k) { arrow.style.opacity = k > 0 ? 1 : 0; arrow.style.transform = `scaleY(${k})`; }
+  function arrow(parent, x, y, w, color) {
+    const a = place(el(parent, "arrow"), x, y, w);
+    if (color) a.style.color = color;
+    return a;
+  }
+
+  // Word timestamps: W(scene, "phrase") -> seconds into the scene where the phrase starts.
+  let TIMING = null;
+  const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+  function W(sceneNo, phrase, offset = 0) {
+    const words = TIMING.scenes[sceneNo - 1].words.map((w) => ({ n: norm(w.word), t: w.start }));
+    const want = phrase.split(/\s+/).map(norm).filter(Boolean);
+    for (let i = 0; i + want.length <= words.length; i++) {
+      if (want.every((w, j) => words[i + j].n === w)) return words[i].t + offset;
+    }
+    MISSING.push(`scene ${sceneNo}: "${phrase}"`);
+    return 0;
+  }
+
+  // Code focus panel built from the real source file.
+  const SOURCES = {};
+  function highlightPy(line) {
+    let out = "", rest = line;
+    const re = /(#.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(def|for|in|if|elif|else|return|continue|not|and|or|is|None|True|False|try|except|as|import|from|class|with)\b|\b(\d+)\b/g;
+    let last = 0, m;
+    while ((m = re.exec(line))) {
+      out += esc(line.slice(last, m.index));
+      const cls = m[1] ? "tok-com" : m[2] ? "tok-str" : m[3] ? "tok-kw" : "tok-num";
+      out += `<span class="${cls}">${esc(m[0])}</span>`;
+      last = m.index + m[0].length;
+    }
+    return out + esc(line.slice(last));
+  }
+  function codePanel(parent, file, from, to, x, y, w, fontSize = 23) {
+    const lines = SOURCES[file].slice(from - 1, to);
+    const indent = Math.min(...lines.filter((l) => l.trim()).map((l) => l.match(/^ */)[0].length));
+    const box = place(el(parent, "code"), x, y, w);
+    el(box, "path", `${esc(file)} <span style="color:#4b5563">· lines ${from}–${to}</span>`);
+    const rows = el(box, "rows");
+    const map = {};
+    lines.forEach((l, i) => {
+      const r = el(rows, "row", null, { fontSize: fontSize + "px", lineHeight: Math.round(fontSize * 1.5) + "px" });
+      const hl = el(r, "hl");
+      el(r, "n", String(from + i));
+      el(r, "t", highlightPy(l.slice(indent)) || " ");
+      map[from + i] = hl;
+    });
+    // beats: [{lines:[..], at, until}]
+    box.highlight = (lt, beats) => {
+      const level = {};
+      for (const b of beats) {
+        const k = p(lt, b.at, 0.4) * (b.until != null ? 1 - p(lt, b.until, 0.4) : 1);
+        for (const n of b.lines) level[n] = Math.max(level[n] || 0, k);
+      }
+      for (const n in map) map[n].style.opacity = level[n] || 0;
+    };
+    return box;
+  }
+
+  // ---------------------------------------------------------------- scenes
+  const SCENES = [];
+
+  // 01 The problem
+  SCENES.push((root) => {
+    const S = 1;
+    const title = place(el(root, "abs", `<h1 style="font-size:84px">Practice Onboarding Compiler</h1>
+      <div style="font-size:34px;color:var(--muted);margin-top:10px">From intake packet to reviewed agent config</div>`), 80, 140);
+    const quotes = [
+      ["“We can't keep up with sales, and we have contracted ARR piling up”", "YC job post · Asha Health"],
+      ["“more demand than we can onboard”", "YC company page · Asha Health"],
+    ].map(([q, src], i) => {
+      const b = place(el(root, "box", `<div style="font-size:31px;line-height:1.35">${esc(q)}</div>
+        <div class="mono muted" style="font-size:19px;margin-top:14px">${esc(src)}</div>`), 80 + i * 900, 360, 860);
+      return b;
+    });
+    // queue of practices through a manual gate
+    const queue = el(root, "abs"); place(queue, 0, 600, 1920, 300);
+    const gate = place(el(queue, "box", `<div class="label" style="color:var(--issue)">manual setup</div>
+      <div style="font-size:24px;margin-top:6px">scripts · hours · providers · protocols</div>`), 760, 40, 400, 150);
+    gate.style.borderColor = "var(--issue)";
+    const live = place(el(queue, "abs", `<div class="label">live</div>`), 1230, 0);
+    const waiting = place(el(queue, "abs", `<div class="label">contracted, waiting</div>`), 50, 0);
+    const cards = [];
+    for (let i = 0; i < 6; i++) {
+      const c = place(el(queue, "box data", `<div class="mono" style="font-size:20px">clinic</div>`), 0, 80, 96, 70);
+      c.style.padding = "18px 0"; c.style.textAlign = "center";
+      cards.push(c);
+    }
+    const pipe = el(root, "abs"); place(pipe, 0, 640, 1920, 260);
+    const steps = [["Intake packet", "data"], ["Agent config", "config"], ["Exceptions only", "issue"]];
+    const stepEls = steps.map(([t, c], i) => place(el(pipe, `box ${c}`, `<div style="font-size:34px;font-family:var(--display)">${t}</div>`),
+      150 + i * 580, 40, 460, 110));
+    const pipeArrows = [0, 1].map((i) => arrow(pipe, 150 + i * 580 + 470, 95, 100));
+    stepEls.forEach((e) => { e.style.textAlign = "center"; e.style.paddingTop = "30px"; });
+    const foot = place(el(root, "abs muted", "Independent prototype · public information + synthetic data",
+      { fontSize: "22px" }), 80, 990);
+
+    const tQ1 = W(S, "Public posts"), tQ2 = W(S, "more demand"), tGuess = W(S, "My guess");
+    const tTest = W(S, "This prototype"), tComp = W(S, "compiles"), tCfg = W(S, "agent konfig"), tExc = W(S, "leaves a person");
+    return (lt) => {
+      show(title, 1, 0);
+      show(quotes[0], p(lt, tQ1)); show(quotes[1], p(lt, tQ2));
+      const qOut = 1 - p(lt, tTest, 0.8);
+      show(queue, p(lt, tGuess) * qOut);
+      // cards drift towards the gate, then pass one at a time
+      // one card at a time through the manual gate; the rest of the queue shuffles forward
+      const passAt = (i) => tGuess + 1.6 + i * 1.6;
+      cards.forEach((c, i) => {
+        let slot = i;
+        for (let j = 0; j < i; j++) slot -= p(lt, passAt(j), 1.0);
+        const k = p(lt, passAt(i), 1.0);
+        c.style.left = lerp(620 - slot * 112, 1230 + i * 104, k) + "px";
+      });
+      gate.style.zIndex = 2;
+      show(live, p(lt, tGuess)); show(waiting, p(lt, tGuess));
+      show(pipe, p(lt, tTest, 0.8), 20);
+      show(stepEls[0], p(lt, tComp)); grow(pipeArrows[0], p(lt, tCfg - 0.4));
+      show(stepEls[1], p(lt, tCfg)); grow(pipeArrows[1], p(lt, tExc - 0.4));
+      show(stepEls[2], p(lt, tExc));
+      show(foot, 1, 0);
+    };
+  });
+
+  // 02 Architecture
+  SCENES.push((root) => {
+    const S = 2;
+    const head = place(el(root, "abs", `<div class="h2">Plain code where it must be exact.<br><span style="color:var(--model)">A model only where meaning matters.</span></div>`), 80, 130);
+    const Y = 420, BW = 270, GAP = 92, X0 = 80;
+    const xs = [0, 1, 2, 3, 4].map((i) => X0 + i * (BW + GAP));
+    const packet = place(el(root, "box data", `<div class="label" style="color:var(--data)">packet files</div>`), xs[0], Y, BW, 330);
+    const files = ["hours.txt", "providers.csv", "call_script.md", "faq.md", "protocols.md"].map((f, i) =>
+      place(el(packet, "abs chip", f), 20, 62 + i * 52));
+    const compile = place(el(root, "box", `<div class="label">compiler</div><div class="fn" style="margin-top:8px">compile_packet</div>`), xs[1], Y + 100, BW, 130);
+    const config = place(el(root, "box config", `<div class="label" style="color:var(--config)">typed config</div><div class="fn" style="margin-top:8px">AgentConfig</div>
+      <div class="mono muted" style="font-size:19px;margin-top:8px">every value + file:line</div>`), xs[2], Y + 85, BW, 160);
+    const rules = place(el(root, "box", `<div class="label">validator</div><div class="fn" style="margin-top:8px">run_rules</div>
+      <div class="mono muted" style="font-size:19px;margin-top:4px">deterministic</div>`), xs[3], Y, BW, 140);
+    const badge = place(el(rules, "abs", "9 rules", { background: "var(--ink)", color: "var(--bg)", fontWeight: 700, fontSize: "20px",
+      padding: "4px 12px", borderRadius: "20px" }), BW - 110, -18);
+    const sem = place(el(root, "box", `<div class="label">semantic</div><div class="fn" style="margin-top:8px">semantic_check</div>
+      <div class="mono muted" style="font-size:19px;margin-top:4px">FAQ vs call script</div>`), xs[3], Y + 190, BW, 140);
+    const semTag = place(el(sem, "abs", "optional model", { background: "var(--model)", color: "#fff", fontWeight: 600, fontSize: "19px",
+      padding: "4px 12px", borderRadius: "20px" }), BW - 170, -18);
+    const issues = place(el(root, "box issue", `<div class="label" style="color:var(--issue)">output</div><div class="fn" style="margin-top:8px">list[Issue]</div>
+      <div class="mono muted" style="font-size:19px;margin-top:8px">severity · evidence</div>`), xs[4], Y + 85, BW, 160);
+    const a1 = arrow(root, xs[0] + BW + 8, Y + 165, GAP - 22, "var(--data)");
+    const a2 = arrow(root, xs[1] + BW + 8, Y + 165, GAP - 22, "var(--config)");
+    const a3a = arrow(root, xs[2] + BW + 8, Y + 112, GAP - 22, "var(--config)");
+    const a3b = arrow(root, xs[2] + BW + 8, Y + 218, GAP - 22, "var(--config)");
+    const a4a = arrow(root, xs[3] + BW + 8, Y + 112, GAP - 22, "var(--issue)");
+    const a4b = arrow(root, xs[3] + BW + 8, Y + 218, GAP - 22, "var(--issue)");
+    // planned stages
+    const planned = el(root, "abs"); place(planned, 0, 860, 1920, 160);
+    const pl = ["Repair", "Review", "Smoke test", "Export"].map((t, i) =>
+      place(el(planned, "box planned", `<div style="font-size:28px;text-align:center">${t}</div>`), 520 + i * 330, 30, 260, 80));
+    const plArrows = [0, 1, 2].map((i) => { const a = arrow(planned, 520 + i * 330 + 266, 70, 58, "#3d4552"); return a; });
+    const plLabel = place(el(planned, "abs label", "planned · in the PRD, not built yet"), 80, 55);
+
+    const t = {
+      exact: W(S, "Plain code"), comp: W(S, "The compiler"), five: W(S, "five packet"), typed: W(S, "typed konfig"),
+      val: W(S, "The validator"), nine: W(S, "nine deterministic"), sem: W(S, "A semantic"), only: W(S, "only place"),
+      iss: W(S, "Everything ends"), later: W(S, "The later"), built: W(S, "not built"),
+    };
+    return (lt) => {
+      show(head, p(lt, t.exact));
+      show(packet, p(lt, t.comp));
+      files.forEach((f, i) => show(f, p(lt, t.five + i * 0.12, 0.4), 8));
+      grow(a1, p(lt, t.comp + 0.4)); show(compile, p(lt, t.comp + 0.5));
+      grow(a2, p(lt, t.typed - 0.4)); show(config, p(lt, t.typed));
+      grow(a3a, p(lt, t.val));
+      show(rules, p(lt, t.val + 0.3)); show(badge, p(lt, t.nine), 6);
+      grow(a3b, p(lt, t.sem));
+      show(sem, p(lt, t.sem + 0.3)); show(semTag, p(lt, t.only), 6);
+      sem.style.borderColor = p(lt, t.only) > 0.5 ? "var(--model)" : "var(--line)";
+      grow(a4a, p(lt, t.iss)); grow(a4b, p(lt, t.iss));
+      show(issues, p(lt, t.iss + 0.3));
+      pl.forEach((e, i) => show(e, p(lt, t.later + 0.8 + i * 0.65)));
+      plArrows.forEach((a, i) => grow(a, p(lt, t.later + 1.2 + i * 0.65)));
+      show(plLabel, p(lt, t.built));
+    };
+  });
+
+  // 03 Sample data
+  SCENES.push((root) => {
+    const S = 3;
+    const head = place(el(root, "abs", `<div class="h2">No real data. Synthetic packets with an answer key.</div>`), 80, 130);
+    const gen = place(el(root, "abs chip", "python -m onboarding.generator  # seed 7"), 80, 225);
+    const practices = [
+      ["p01", "Maple Grove Internal Medicine", "Internal medicine", 6],
+      ["p02", "Riverbend Internal Medicine", "Internal medicine", 5],
+      ["p03", "Harborview Heart Clinic", "Cardiology", 7],
+      ["p04", "Cedar Ridge Pulmonology", "Pulmonology", 8],
+      ["p05", "Lakeside QuickCare", "Urgent care", 4],
+      ["p06", "Summit Multispecialty Group", "Multispecialty", 0],
+    ];
+    const cards = practices.map(([id, name, spec, n], i) => {
+      const c = place(el(root, "box data", `<div class="mono" style="font-size:20px;color:var(--data)">${id}</div>
+        <div style="font-size:24px;margin-top:4px;white-space:nowrap">${esc(name)}</div>
+        <div class="muted" style="font-size:21px;margin-top:2px">${spec}</div>`), 1000 + (i % 2) * 430, 310 + Math.floor(i / 2) * 175, 400, 150);
+      c.count = place(el(c, "abs", n === 0 ? "0 · clean" : `${n} planted`, {
+        fontSize: "19px", fontWeight: 600, padding: "3px 10px", borderRadius: "6px",
+        background: n === 0 ? "rgba(63,185,80,0.18)" : "rgba(240,180,41,0.16)", color: n === 0 ? "var(--config)" : "var(--issue)",
+      }), 270, 14);
+      return c;
+    });
+    const total = place(el(root, "abs", `<span style="font-family:var(--display);font-size:44px;color:var(--issue)">30</span>
+      <span class="muted" style="font-size:24px"> planted defects in total</span>`), 1000, 845);
+    const dir = place(el(root, "box"), 80, 310, 860);
+    el(dir, "mono muted", "data/practices/p03/", { fontSize: "22px", marginBottom: "14px" });
+    const files = [
+      ["hours.txt", "hours, timezone, phones, holidays"],
+      ["providers.csv", "provider roster"],
+      ["call_script.md", "what the agent says"],
+      ["faq.md", "answers to common questions"],
+      ["protocols.md", "red-flag symptoms and escalation"],
+      ["defects.json", "ground truth: the planted mistakes"],
+    ].map(([f, d], i) => {
+      const r = el(dir, "", `<span class="mono" style="display:inline-block;width:250px;color:${i === 5 ? "var(--issue)" : "var(--data)"}">${f}</span><span style="font-size:24px">${d}</span>`,
+        { padding: "9px 12px", borderRadius: "8px", fontSize: "24px" });
+      return r;
+    });
+    const test = place(el(root, "abs", `<span class="chip">test_regenerating_matches_committed_data</span>
+      <span class="mark" style="color:var(--config);font-size:30px;margin-left:12px">✓ passes</span>`), 80, 860);
+    const mark = test.querySelector(".mark");
+    const sub = place(el(root, "abs muted", "regenerates all six packets and fails if the committed files drifted", { fontSize: "22px" }), 80, 920);
+
+    const specT = [W(S, "internal medicine"), W(S, "internal medicine") + 0.4, W(S, "cardiology"), W(S, "pulmonology"), W(S, "urgent care"), W(S, "multispecialty")];
+    const t = { real: W(S, "no real"), gen: W(S, "seeded generator"), each: W(S, "Each packet"), def: W(S, "defects file"),
+      thirty: W(S, "Thirty in total"), clean: W(S, "one practice"), test: W(S, "A test regenerates"), fails: W(S, "fails if") };
+    return (lt) => {
+      show(head, p(lt, t.real - 0.2));
+      show(gen, p(lt, t.gen));
+      cards.forEach((c, i) => { show(c, p(lt, specT[i] - 0.1)); show(c.count, p(lt, i === 5 ? t.clean : t.thirty), 6); });
+      cards[5].style.borderColor = p(lt, t.clean) > 0.5 ? "var(--config)" : "var(--data)";
+      show(total, p(lt, t.thirty));
+      show(dir, p(lt, t.each));
+      files.forEach((f, i) => {
+        show(f, p(lt, t.each + 0.2 + i * 0.12, 0.4), 6);
+        f.style.background = i === 5 ? `rgba(240,180,41,${0.16 * p(lt, t.def)})` : "transparent";
+      });
+      show(test, p(lt, t.test)); show(mark, p(lt, t.fails), 0, -8); show(sub, p(lt, t.test + 0.3));
+    };
+  });
+
+  // 04 Compile trace
+  SCENES.push((root) => {
+    const S = 4;
+    const head = place(el(root, "abs", `<span class="chip" style="color:var(--data)">p03</span>
+      <span style="font-family:var(--display);font-size:40px;margin-left:12px">Harborview Heart Clinic</span>
+      <span class="muted" style="font-size:26px;margin-left:12px">cardiology packet</span>`), 80, 120);
+    // trace stations
+    const Y = 230;
+    const bracket = place(el(root, "abs", `<div class="label">compile_packet</div>`), 560, Y - 8, 760, 210);
+    bracket.style.borderTop = "2px solid var(--line)"; bracket.style.paddingTop = "6px";
+    const st = [["load_packet", 80], ["DAY_LINE_RE", 620], ["parse_time", 1000]].map(([n, x]) =>
+      place(el(root, "box", `<div class="fn" style="font-size:25px">${n}</div>`), x, Y + 40, n === "load_packet" ? 300 : 300, 74));
+    const sx = [80, 620, 1000];
+    const station0Note = place(el(root, "abs mono muted", "5 files → lists of lines", { fontSize: "19px" }), 84, Y + 230);
+    const token = place(el(root, "abs", `<div class="mono" style="font-size:19px;color:var(--muted)">hours.txt:12</div>
+      <div class="mono" style="font-size:24px;color:var(--data);white-space:nowrap">Friday: 8:00 AM - 3:00 PM</div>`), 0, Y + 140);
+    token.style.background = "#0f1b2b"; token.style.border = "2px solid var(--data)"; token.style.borderRadius = "10px"; token.style.padding = "8px 14px";
+    const result = place(el(root, "box config", `<div class="mono" style="font-size:24px;line-height:1.45">DayHours(day=<span class="tok-str">"friday"</span>,
+  open=<span class="tok-str">"08:00"</span>, close=<span class="tok-str">"15:00"</span>,
+  <span class="src">source=<span class="tok-str">"hours.txt:12"</span></span>)</div>`), 1350, Y + 20, 490);
+    result.querySelector("div").style.whiteSpace = "pre";
+    const src = result.querySelector(".src");
+    const conv = place(el(root, "abs mono", `"8:00 AM" → "08:00"<br>"3:00 PM" → "15:00"`, { fontSize: "21px", color: "var(--config)" }), 1004, Y + 230);
+    const code = codePanel(root, "onboarding/compiler.py", 83, 93, 80, 550, 1760, 22);
+    const schema = codePanel(root, "onboarding/schema.py", 27, 35, 80, 550, 1760, 24);
+
+    const t = { name: W(S, "Harborview"), load: W(S, "Load packet"), comp: W(S, "compile packet"), line: W(S, "Line twelve"),
+      pat: W(S, "pattern match"), parse: W(S, "parse time"), result: W(S, "the result"), source: W(S, "the source hours"),
+      pyd: W(S, "requires a source") - 0.6, any: W(S, "checks its format") };
+    return (lt) => {
+      show(head, p(lt, t.name - 0.3));
+      show(st[0], p(lt, t.load)); show(station0Note, p(lt, t.load + 0.5));
+      show(bracket, p(lt, t.comp)); show(st[1], p(lt, t.comp + 0.3)); show(st[2], p(lt, t.comp + 0.5));
+      // token travels: appears under load_packet, moves to DAY_LINE_RE, then parse_time, then becomes the result
+      const tx = lerp(lerp(sx[0], sx[1], p(lt, t.pat, 0.8)), sx[2], p(lt, t.parse, 0.8));
+      token.style.left = tx + "px";
+      token.style.opacity = p(lt, t.line) * (1 - p(lt, t.result, 0.5));
+      show(conv, p(lt, t.parse + 0.8) * (1 - p(lt, t.pyd, 0.5)));
+      show(result, p(lt, t.result), 0, -30);
+      src.style.background = `rgba(63,185,80,${0.25 * p(lt, t.source)})`;
+      src.style.outline = p(lt, t.source) > 0.5 ? "2px solid var(--config)" : "none";
+      // code panels
+      const swap = p(lt, t.pyd, 0.6);
+      show(code, p(lt, t.pat) * (1 - swap));
+      code.highlight(lt, [{ lines: [84], at: t.pat, until: t.parse }, { lines: [90, 91, 92], at: t.parse, until: t.source },
+        { lines: [92], at: t.source }]);
+      show(schema, swap);
+      schema.highlight(lt, [{ lines: [27, 35], at: t.any }]);
+    };
+  });
+
+  // 05 Validate trace
+  SCENES.push((root) => {
+    const S = 5;
+    const head = place(el(root, "abs", `<span class="fn" style="font-size:34px">run_rules</span><span class="mono muted" style="font-size:26px">(config, packet)</span>`), 80, 120);
+    const ruleNames = ["missing_timezone", "hours_conflict", "missing_after_hours", "red_flag_no_escalation",
+      "missing_red_flag", "invalid_phone", "unknown_provider", "duplicate_visit_type", "holiday_free_text"];
+    const grid = place(el(root, "abs"), 80, 220, 1760);
+    const ruleEls = ruleNames.map((r, i) => place(el(grid, "abs chip", "rule_" + r, { fontSize: "24px", padding: "12px 18px" }),
+      (i % 3) * 590, Math.floor(i / 3) * 90));
+    const code = codePanel(root, "onboarding/validator.py", 88, 101, 80, 200, 1760, 22);
+    const card = place(el(root, "box issue"), 80, 760, 1760);
+    card.innerHTML = `<div><span class="mono" style="font-size:26px">hours_conflict · friday</span> <span class="sev high" style="margin-left:14px">high</span></div>
+      <div class="mono" style="font-size:22px;margin-top:14px;line-height:1.6">
+        <span style="color:var(--muted);display:inline-block;width:260px">hours.txt:12</span><span style="color:var(--data)">Friday: 8:00 AM - 3:00 PM</span><br>
+        <span style="color:var(--muted);display:inline-block;width:260px">call_script.md:9</span><span style="color:var(--data)">Our Friday hours are 8 AM to 5 PM.</span></div>`;
+    const list = place(el(root, "abs"), 80, 220, 1760);
+    const items = [
+      ["high", "Hours conflict", "friday · hours.txt:12 vs call_script.md:9"],
+      ["high", "Required red-flag rule missing", "chest pain · cardiology"],
+      ["high", "Invalid phone number", "(555) 555-01 · call_script.md:35"],
+      ["medium", "Provider not on roster", "Whitcombe · call_script.md:26"],
+      ["medium", "Duplicate visit types", "Follow Up Visit ≈ Follow-up Visit"],
+      ["medium", "FAQ contradicts call script", "new_patients · semantic check"],
+      ["low", "Holiday closures written as free text", "hours.txt:17"],
+    ].map(([sev, title, detail], i) => place(el(list, "abs", `<span class="sev ${sev}" style="width:110px;text-align:center">${sev}</span>
+      <span style="font-size:28px;margin-left:20px">${title}</span><span class="mono muted" style="font-size:21px;margin-left:20px">${esc(detail)}</span>`),
+      0, i * 82, 1400));
+    const badge = place(el(root, "abs", `<div style="font-family:var(--display);font-size:72px;color:var(--issue)">7 / 7</div>
+      <div class="muted" style="font-size:24px">planted defects found</div>`), 1560, 380);
+
+    const t = { rr: W(S, "run rules"), take: W(S, "Take the hours"), scan: W(S, "It scans"), phr: W(S, "phrases like"),
+      nine: W(S, "Line nine"), off: W(S, "official hours"), raise: W(S, "So it raises"), cites: W(S, "cites both"),
+      seven: W(S, "For this practice"), match: W(S, "matching its") };
+    return (lt) => {
+      const out = 1 - p(lt, t.seven - 0.3, 0.6);
+      show(head, p(lt, 0.2));
+      const gOut = 1 - p(lt, t.take + 1.0, 0.6);
+      show(grid, p(lt, t.rr) * gOut);
+      ruleEls.forEach((e, i) => {
+        show(e, p(lt, t.rr + i * 0.08, 0.4), 6);
+        const k = i === 1 ? p(lt, t.take, 0.4) : 0;
+        e.style.borderColor = k > 0.5 ? "var(--issue)" : "var(--line)";
+        e.style.color = k > 0.5 ? "var(--issue)" : "var(--ink)";
+      });
+      show(code, p(lt, t.take + 1.2) * out);
+      code.highlight(lt, [{ lines: [91], at: t.scan, until: t.phr }, { lines: [92, 93], at: t.phr, until: t.nine },
+        { lines: [99, 100, 101], at: t.nine }]);
+      show(card, p(lt, t.raise) * out);
+      show(list, p(lt, t.seven));
+      items.forEach((e, i) => show(e, p(lt, t.seven + 0.2 + i * 0.25, 0.4), 0, -16));
+      show(badge, p(lt, t.match));
+    };
+  });
+
+  // 06 Semantic check
+  SCENES.push((root) => {
+    const S = 6;
+    const R1 = 200, R2 = 420, NODE_H = 80;
+    const lab1 = place(el(root, "abs label", "model configured", { color: "var(--model)" }), 80, R1 - 34);
+    const lab2 = place(el(root, "abs label", "default · no key, no network"), 80, R2 - 34);
+    const n1 = [["LLM_MODEL=&lt;model-name&gt;", 80, 380], ["llm_check()", 560, 300], ["LLMResult.model_validate", 960, 400]].map(([h, x, w]) =>
+      place(el(root, "box model", `<div class="fn" style="font-size:24px">${h}</div>`), x, R1, w, NODE_H));
+    const n2 = [["mock_check()", 560, 300], ["stance() keyword patterns", 960, 400]].map(([h, x, w]) =>
+      place(el(root, "box", `<div class="fn" style="font-size:24px">${h}</div>`), x, R2, w, NODE_H));
+    const a11 = arrow(root, 470, R1 + 40, 78, "var(--model)"), a12 = arrow(root, 870, R1 + 40, 78, "var(--model)");
+    const a21 = arrow(root, 870, R2 + 40, 78);
+    const issue = place(el(root, "box issue", `<div class="label" style="color:var(--issue)">same shape</div><div class="fn" style="margin-top:6px">Issue</div>
+      <div class="mono muted" style="font-size:19px;margin-top:6px">faq_script_contradiction</div>
+      <div class="mono muted" style="font-size:19px;margin-top:6px">severity · evidence</div>
+      <div class="mono muted" style="font-size:19px;margin-top:6px">faq.md:N + call_script.md:N</div>`), 1500, 240, 340, 220);
+    const ai1 = arrow(root, 1368, 262, 118, "var(--model)");
+    const ai2 = arrow(root, 1368, 440, 118);
+    const stamp = place(el(root, "abs", "✕ unknown id / bad JSON", { color: "var(--high)", border: "2px solid var(--high)", borderRadius: "8px",
+      padding: "4px 12px", fontFamily: "var(--mono)", fontSize: "20px", background: "var(--bg)" }), 1000, R1 + 92);
+    const fb = place(el(root, "varrow", null, { color: "var(--high)", background: "var(--high)" }), 1160, R1 + 136, null, R2 - R1 - 140);
+    const fbLabel = place(el(root, "abs mono", "fallback to mock", { color: "var(--high)", fontSize: "20px" }), 1180, R1 + 158);
+    const code = codePanel(root, "onboarding/semantic.py", 138, 149, 80, 540, 1760, 22);
+
+    const t = { two: W(S, "two back ends"), same: W(S, "same output"), cfg: W(S, "If an"), ask: W(S, "asks the"),
+      val: W(S, "is validated"), cited: W(S, "every cited"), fails: W(S, "If anything"), back: W(S, "falls back"),
+      def: W(S, "runs whenever") };
+    return (lt) => {
+      show(lab1, p(lt, t.two)); show(lab2, p(lt, t.two + 0.3));
+      show(n2[0], p(lt, t.two + 0.3)); show(n2[1], p(lt, t.two + 0.5)); grow(a21, p(lt, t.two + 0.5));
+      grow(ai2, p(lt, t.same));
+      show(issue, p(lt, t.same + 0.2));
+      show(n1[0], p(lt, t.cfg)); grow(a11, p(lt, t.ask - 0.3)); show(n1[1], p(lt, t.ask));
+      grow(a12, p(lt, t.val - 0.3)); show(n1[2], p(lt, t.val));
+      grow(ai1, p(lt, t.val + 0.5));
+      show(stamp, p(lt, t.cited, 0.4), 0);
+      growV(fb, p(lt, t.back, 0.6)); show(fbLabel, p(lt, t.back + 0.3));
+      const mockOn = p(lt, t.back + 0.4);
+      n2[0].style.borderColor = mockOn > 0.5 ? "var(--ink)" : "var(--line)";
+      show(code, p(lt, t.fails));
+      code.highlight(lt, [{ lines: [143, 144, 145, 146, 147, 148, 149], at: t.back, until: t.def },
+        { lines: [140, 141, 142], at: t.def }]);
+    };
+  });
+
+  // 07 Run it & limits
+  SCENES.push((root) => {
+    const S = 7;
+    const term = place(el(root, "code"), 80, 140, 900);
+    el(term, "path", "terminal · repo root");
+    const tl = ["pip install -r requirements.txt", "python -m onboarding.generator", "pytest"].map((c) =>
+      el(term, "mono", `<span style="color:var(--config)">$</span> ${c}`, { fontSize: "25px", padding: "6px 24px" }));
+    const passed = el(term, "mono", "39 passed", { fontSize: "25px", padding: "6px 24px 18px", color: "var(--config)" });
+    const testsNote = place(el(root, "abs muted", "one test per rule · golden config for the clean practice (p06)", { fontSize: "22px" }), 80, 450);
+    const stat = place(el(root, "box issue", `<div style="font-family:var(--display);font-size:64px">30 / 30 <span style="font-size:32px">found</span></div>
+      <div style="font-size:28px;margin-top:4px">0 false alarms</div>`), 1040, 140, 800, 190);
+    const caveat = place(el(root, "abs mono", "synthetic data · mock mode · no eval script yet", { fontSize: "21px", color: "var(--issue)" }), 1044, 350);
+    const caveat2 = place(el(root, "abs muted", "synthetic defects are easier than real ones", { fontSize: "23px" }), 1044, 392);
+    const limHead = place(el(root, "abs label", "honest limits"), 80, 540);
+    const lims = [
+      ["The packet format is a guess", "PRD.md · risks"],
+      ["Red-flag lists are placeholders — need physician review", "onboarding/taxonomy.py:43"],
+      ["Escalation fixes flagged to always need a person", "always_human=True · taxonomy.py:20"],
+    ].map(([a, b], i) => place(el(root, "abs", `<span style="color:var(--issue);font-size:30px;margin-right:16px">▲</span>
+      <span style="font-size:29px">${a}</span><span class="mono muted" style="font-size:20px;margin-left:18px">${b}</span>`), 80, 590 + i * 70));
+    const roadHead = place(el(root, "abs label", "next"), 80, 850);
+    const road = ["Repair", "Review UI", "Smoke test", "Eval"].map((r, i) =>
+      place(el(root, "box planned", `<div style="font-size:27px;text-align:center">${r}</div>`), 80 + i * 330, 890, 270, 76));
+    const roadA = [0, 1, 2].map((i) => arrow(root, 80 + i * 330 + 276, 928, 46, "#3d4552"));
+
+    const t = { inst: W(S, "install the"), gen: W(S, "run the generator"), pyt: W(S, "pie-test"), n39: W(S, "thirty-nine"),
+      mock: W(S, "In mock"), all: W(S, "find all"), but: W(S, "But there's"), easier: W(S, "synthetic defects are"),
+      other: W(S, "Other limits"), fmt: W(S, "packet format"), red: W(S, "red-flag"), esc: W(S, "escalation fixes"),
+      next: W(S, "Next come"), rv: W(S, "repair review"), smoke: W(S, "the smoke"), ev: W(S, "the ee-val") };
+    return (lt) => {
+      show(term, p(lt, 0.1));
+      show(tl[0], p(lt, t.inst, 0.4), 4); show(tl[1], p(lt, t.gen, 0.4), 4); show(tl[2], p(lt, t.pyt, 0.4), 4);
+      show(passed, p(lt, t.n39, 0.4), 4); show(testsNote, p(lt, t.n39 + 1.0));
+      show(stat, p(lt, t.all)); show(caveat, p(lt, t.but)); show(caveat2, p(lt, t.easier));
+      show(limHead, p(lt, t.other));
+      [t.fmt, t.red, t.esc].forEach((tt, i) => show(lims[i], p(lt, tt - 0.2), 0, -16));
+      show(roadHead, p(lt, t.next));
+      [t.rv, t.rv + 0.5, t.smoke, t.ev].forEach((tt, i) => show(road[i], p(lt, tt - 0.1)));
+      roadA.forEach((a, i) => grow(a, p(lt, [t.rv + 0.3, t.smoke - 0.2, t.ev - 0.2][i])));
+    };
+  });
+
+  // 08 Recap
+  SCENES.push((root) => {
+    const S = 8;
+    const head = place(el(root, "abs", `<div class="h2">Recap</div>`), 80, 130);
+    const items = [
+      ["var(--config)", "Deterministic compile, <span class='mono'>file:line</span> on every value"],
+      ["var(--issue)", "9 rules + 1 semantic check → issues with evidence"],
+      ["var(--model)", "A model is optional, validated, never required"],
+      ["var(--data)", "Synthetic data with its own answer key"],
+    ].map(([c, txt], i) => place(el(root, "abs", `<span style="display:inline-block;width:14px;height:44px;background:${c};border-radius:4px;vertical-align:middle;margin-right:28px"></span>
+      <span style="font-size:42px;vertical-align:middle">${txt}</span>`), 80, 280 + i * 120));
+    const foot = place(el(root, "abs muted", "Independent prototype built from public information and synthetic data. Not affiliated with Asha Health.",
+      { fontSize: "24px" }), 80, 940);
+    const t = [W(S, "The compiler"), W(S, "Nine rules"), W(S, "A model"), W(S, "And the sample")];
+    const tf = W(S, "so the checker");
+    return (lt) => {
+      show(head, p(lt, 0.2));
+      items.forEach((e, i) => show(e, p(lt, t[i] - 0.2), 0, -20));
+      show(foot, p(lt, tf));
+    };
+  });
+
+  // ---------------------------------------------------------------- runtime
+  let built = [], current = -1;
+
+  function renderAt(t) {
+    const scenes = TIMING.scenes;
+    let k = scenes.findIndex((s) => t < s.start + s.duration);
+    if (k < 0) k = scenes.length - 1;
+    const s = scenes[k], lt = t - s.start;
+    if (k !== current) {
+      built.forEach((b, i) => (b.root.style.display = i === k ? "block" : "none"));
+      current = k;
+    }
+    chapterEl.innerHTML = `<b>${esc(s.chapter.split(" / ")[0])}</b> / ${esc(s.chapter.split(" / ")[1])}`;
+    // scene fades: in over 0.4 s (except the first scene), out over the last 0.3 s of padding
+    const fin = k === 0 ? 1 : ease(lt / 0.4);
+    const fout = k === scenes.length - 1 ? 1 : ease((s.duration - lt) / 0.3);
+    built[k].root.style.opacity = Math.min(fin, fout);
+    built[k].update(lt);
+  }
+
+  async function init() {
+    TIMING = await (await fetch("timing.json", { cache: "no-store" })).json();
+    const files = ["onboarding/compiler.py", "onboarding/schema.py", "onboarding/validator.py", "onboarding/semantic.py"];
+    for (const f of files) SOURCES[f] = (await (await fetch("../../" + f, { cache: "no-store" })).text()).replace(/\r/g, "").split("\n");
+    await document.fonts.ready;
+    built = SCENES.map((make) => {
+      const root = el(stage, "");
+      root.style.display = "none";
+      return { root, update: make(root) };
+    });
+    // put a section wrapper on each scene root
+    built.forEach((b) => (b.root.style.position = "absolute", b.root.style.inset = "0"));
+    window.renderAt = renderAt;
+    window.TOTAL = TIMING.total;
+    renderAt(0);
+    window.READY = true;
+  }
+
+  // preview controls (not used by the renderer)
+  const params = new URLSearchParams(location.search);
+  if (params.has("render")) document.body.classList.add("render");
+  let playing = false, t0 = 0, startT = 0;
+  const scrub = document.getElementById("scrub"), clock = document.getElementById("clock"), play = document.getElementById("play");
+  const audio = new Audio();
+  function setT(t) { renderAt(t); scrub.value = t / TIMING.total; clock.textContent = t.toFixed(2) + " s"; }
+  scrub.addEventListener("input", () => { playing = false; audio.pause(); play.textContent = "Play"; setT(scrub.value * TIMING.total); });
+  play.addEventListener("click", () => {
+    playing = !playing; play.textContent = playing ? "Pause" : "Play";
+    if (playing) {
+      startT = scrub.value * TIMING.total; t0 = performance.now();
+      audio.src = "out/narration.wav"; audio.currentTime = startT; audio.play().catch(() => {});
+      const tick = () => { if (!playing) return; const t = startT + (performance.now() - t0) / 1000;
+        if (t >= TIMING.total) { playing = false; play.textContent = "Play"; return; } setT(t); requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    } else audio.pause();
+  });
+
+  init();
+})();
+</script>
+</body>
+</html>

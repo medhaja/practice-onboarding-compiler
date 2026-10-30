@@ -1,0 +1,12 @@
+{
+  "name": "kt-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "kt-video": "node render.mjs",
+    "preview": "node render.mjs --preview"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}

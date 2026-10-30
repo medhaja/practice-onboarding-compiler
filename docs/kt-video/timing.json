@@ -1,0 +1,3225 @@
+{
+ "fps": 30,
+ "padding": 0.6,
+ "sample_rate": 24000,
+ "total": 234.5,
+ "scenes": [
+  {
+   "scene": 1,
+   "title": "The onboarding bottleneck",
+   "chapter": "01 / The problem",
+   "narration": "From the outside, Ahsha's bottleneck looks like going live, not selling. Public posts mention contracted revenue piling up, and more demand than the team can onboard. My guess is that every new practice needs someone to turn its scripts, hours, provider lists and protocols into agent settings by hand. This prototype tests that guess. It compiles a practice's intake packet into an agent konfig, checks it, and leaves a person only the exceptions.",
+   "audio": "scene_01.wav",
+   "audio_seconds": 29.5,
+   "sentences": [
+    {
+     "text": "From the outside, Ahsha's bottleneck looks like going live, not selling.",
+     "start": 0.0,
+     "end": 4.85
+    },
+    {
+     "text": "Public posts mention contracted revenue piling up, and more demand than the team can onboard.",
+     "start": 4.85,
+     "end": 10.875
+    },
+    {
+     "text": "My guess is that every new practice needs someone to turn its scripts, hours, provider lists and protocols into agent settings by hand.",
+     "start": 10.875,
+     "end": 19.6
+    },
+    {
+     "text": "This prototype tests that guess.",
+     "start": 19.6,
+     "end": 21.9
+    },
+    {
+     "text": "It compiles a practice's intake packet into an agent konfig, checks it, and leaves a person only the exceptions.",
+     "start": 21.9,
+     "end": 29.5
+    }
+   ],
+   "words": [
+    {
+     "word": "From",
+     "start": 0.275,
+     "end": 0.412
+    },
+    {
+     "word": "the",
+     "start": 0.412,
+     "end": 0.525
+    },
+    {
+     "word": "outside",
+     "start": 0.525,
+     "end": 1.3
+    },
+    {
+     "word": "Ahsha's",
+     "start": 1.438,
+     "end": 1.825
+    },
+    {
+     "word": "bottleneck",
+     "start": 1.825,
+     "end": 2.375
+    },
+    {
+     "word": "looks",
+     "start": 2.375,
+     "end": 2.587
+    },
+    {
+     "word": "like",
+     "start": 2.587,
+     "end": 2.75
+    },
+    {
+     "word": "going",
+     "start": 2.75,
+     "end": 3.05
+    },
+    {
+     "word": "live",
+     "start": 3.05,
+     "end": 3.575
+    },
+    {
+     "word": "not",
+     "start": 3.675,
+     "end": 3.938
+    },
+    {
+     "word": "selling",
+     "start": 3.938,
+     "end": 4.6
+    },
+    {
+     "word": "Public",
+     "start": 5.1,
+     "end": 5.475
+    },
+    {
+     "word": "posts",
+     "start": 5.475,
+     "end": 5.912
+    },
+    {
+     "word": "mention",
+     "start": 5.912,
+     "end": 6.35
+    },
+    {
+     "word": "contracted",
+     "start": 6.35,
+     "end": 6.938
+    },
+    {
+     "word": "revenue",
+     "start": 6.938,
+     "end": 7.362
+    },
+    {
+     "word": "piling",
+     "start": 7.362,
+     "end": 7.75
+    },
+    {
+     "word": "up",
+     "start": 7.75,
+     "end": 8.225
+    },
+    {
+     "word": "and",
+     "start": 8.325,
+     "end": 8.45
+    },
+    {
+     "word": "more",
+     "start": 8.45,
+     "end": 8.675
+    },
+    {
+     "word": "demand",
+     "start": 8.675,
+     "end": 9.037
+    },
+    {
+     "word": "than",
+     "start": 9.037,
+     "end": 9.137
+    },
+    {
+     "word": "the",
+     "start": 9.137,
+     "end": 9.238
+    },
+    {
+     "word": "team",
+     "start": 9.238,
+     "end": 9.6
+    },
+    {
+     "word": "can",
+     "start": 9.6,
+     "end": 9.812
+    },
+    {
+     "word": "onboard",
+     "start": 9.812,
+     "end": 10.625
+    },
+    {
+     "word": "My",
+     "start": 11.15,
+     "end": 11.3
+    },
+    {
+     "word": "guess",
+     "start": 11.3,
+     "end": 11.625
+    },
+    {
+     "word": "is",
+     "start": 11.625,
+     "end": 11.775
+    },
+    {
+     "word": "that",
+     "start": 11.775,
+     "end": 11.988
+    },
+    {
+     "word": "every",
+     "start": 11.988,
+     "end": 12.325
+    },
+    {
+     "word": "new",
+     "start": 12.325,
+     "end": 12.5
+    },
+    {
+     "word": "practice",
+     "start": 12.5,
+     "end": 13.0
+    },
+    {
+     "word": "needs",
+     "start": 13.0,
+     "end": 13.25
+    },
+    {
+     "word": "someone",
+     "start": 13.25,
+     "end": 13.525
+    },
+    {
+     "word": "to",
+     "start": 13.525,
+     "end": 13.65
+    },
+    {
+     "word": "turn",
+     "start": 13.65,
+     "end": 13.887
+    },
+    {
+     "word": "its",
+     "start": 13.887,
+     "end": 14.025
+    },
+    {
+     "word": "scripts",
+     "start": 14.025,
+     "end": 14.8
+    },
+    {
+     "word": "hours",
+     "start": 14.938,
+     "end": 15.65
+    },
+    {
+     "word": "provider",
+     "start": 15.75,
+     "end": 16.25
+    },
+    {
+     "word": "lists",
+     "start": 16.25,
+     "end": 16.625
+    },
+    {
+     "word": "and",
+     "start": 16.625,
+     "end": 16.75
+    },
+    {
+     "word": "protocols",
+     "start": 16.75,
+     "end": 17.45
+    },
+    {
+     "word": "into",
+     "start": 17.45,
+     "end": 17.712
+    },
+    {
+     "word": "agent",
+     "start": 17.712,
+     "end": 18.075
+    },
+    {
+     "word": "settings",
+     "start": 18.075,
+     "end": 18.5
+    },
+    {
+     "word": "by",
+     "start": 18.5,
+     "end": 18.675
+    },
+    {
+     "word": "hand",
+     "start": 18.675,
+     "end": 19.325
+    },
+    {
+     "word": "This",
+     "start": 19.875,
+     "end": 20.05
+    },
+    {
+     "word": "prototype",
+     "start": 20.05,
+     "end": 20.575
+    },
+    {
+     "word": "tests",
+     "start": 20.575,
+     "end": 20.85
+    },
+    {
+     "word": "that",
+     "start": 20.85,
+     "end": 21.05
+    },
+    {
+     "word": "guess",
+     "start": 21.05,
+     "end": 21.65
+    },
+    {
+     "word": "It",
+     "start": 22.15,
+     "end": 22.275
+    },
+    {
+     "word": "compiles",
+     "start": 22.275,
+     "end": 22.763
+    },
+    {
+     "word": "a",
+     "start": 22.763,
+     "end": 22.825
+    },
+    {
+     "word": "practice's",
+     "start": 22.825,
+     "end": 23.45
+    },
+    {
+     "word": "intake",
+     "start": 23.45,
+     "end": 23.938
+    },
+    {
+     "word": "packet",
+     "start": 23.938,
+     "end": 24.313
+    },
+    {
+     "word": "into",
+     "start": 24.313,
+     "end": 24.538
+    },
+    {
+     "word": "an",
+     "start": 24.538,
+     "end": 24.663
+    },
+    {
+     "word": "agent",
+     "start": 24.663,
+     "end": 25.0
+    },
+    {
+     "word": "konfig",
+     "start": 25.0,
+     "end": 25.8
+    },
+    {
+     "word": "checks",
+     "start": 25.938,
+     "end": 26.288
+    },
+    {
+     "word": "it",
+     "start": 26.288,
+     "end": 26.7
+    },
+    {
+     "word": "and",
+     "start": 26.812,
+     "end": 26.95
+    },
+    {
+     "word": "leaves",
+     "start": 26.95,
+     "end": 27.213
+    },
+    {
+     "word": "a",
+     "start": 27.213,
+     "end": 27.275
+    },
+    {
+     "word": "person",
+     "start": 27.275,
+     "end": 27.788
+    },
+    {
+     "word": "only",
+     "start": 27.788,
+     "end": 28.125
+    },
+    {
+     "word": "the",
+     "start": 28.125,
+     "end": 28.275
+    },
+    {
+     "word": "exceptions",
+     "start": 28.275,
+     "end": 29.25
+    }
+   ],
+   "duration": 30.1,
+   "start": 0.0
+  },
+  {
+   "scene": 2,
+   "title": "Architecture",
+   "chapter": "02 / Architecture",
+   "narration": "Plain code handles anything that must be exact and repeatable. The compiler parses five packet files into a typed konfig. The validator runs nine deterministic rules. A semantic check looks for an F-A-Q answer that contradicts the call script. That is the only place a language model is allowed. Everything ends up as a list of issues. The later stages, repair, review, smoke test and export, are designed in the P-R-D but not built yet.",
+   "audio": "scene_02.wav",
+   "audio_seconds": 30.45,
+   "sentences": [
+    {
+     "text": "Plain code handles anything that must be exact and repeatable.",
+     "start": 0.0,
+     "end": 4.4
+    },
+    {
+     "text": "The compiler parses five packet files into a typed konfig.",
+     "start": 4.4,
+     "end": 8.55
+    },
+    {
+     "text": "The validator runs nine deterministic rules.",
+     "start": 8.55,
+     "end": 12.0
+    },
+    {
+     "text": "A semantic check looks for an F-A-Q answer that contradicts the call script.",
+     "start": 12.0,
+     "end": 16.975
+    },
+    {
+     "text": "That is the only place a language model is allowed.",
+     "start": 16.975,
+     "end": 20.55
+    },
+    {
+     "text": "Everything ends up as a list of issues.",
+     "start": 20.55,
+     "end": 23.45
+    },
+    {
+     "text": "The later stages, repair, review, smoke test and export, are designed in the P-R-D but not built yet.",
+     "start": 23.45,
+     "end": 30.45
+    }
+   ],
+   "words": [
+    {
+     "word": "Plain",
+     "start": 0.25,
+     "end": 0.55
+    },
+    {
+     "word": "code",
+     "start": 0.55,
+     "end": 0.85
+    },
+    {
+     "word": "handles",
+     "start": 0.85,
+     "end": 1.312
+    },
+    {
+     "word": "anything",
+     "start": 1.312,
+     "end": 2.0
+    },
+    {
+     "word": "that",
+     "start": 2.0,
+     "end": 2.15
+    },
+    {
+     "word": "must",
+     "start": 2.15,
+     "end": 2.4
+    },
+    {
+     "word": "be",
+     "start": 2.4,
+     "end": 2.55
+    },
+    {
+     "word": "exact",
+     "start": 2.55,
+     "end": 3.2
+    },
+    {
+     "word": "and",
+     "start": 3.2,
+     "end": 3.337
+    },
+    {
+     "word": "repeatable",
+     "start": 3.337,
+     "end": 4.15
+    },
+    {
+     "word": "The",
+     "start": 4.65,
+     "end": 4.725
+    },
+    {
+     "word": "compiler",
+     "start": 4.725,
+     "end": 5.225
+    },
+    {
+     "word": "parses",
+     "start": 5.225,
+     "end": 5.738
+    },
+    {
+     "word": "five",
+     "start": 5.738,
+     "end": 6.1
+    },
+    {
+     "word": "packet",
+     "start": 6.1,
+     "end": 6.513
+    },
+    {
+     "word": "files",
+     "start": 6.513,
+     "end": 6.913
+    },
+    {
+     "word": "into",
+     "start": 6.913,
+     "end": 7.113
+    },
+    {
+     "word": "a",
+     "start": 7.113,
+     "end": 7.175
+    },
+    {
+     "word": "typed",
+     "start": 7.175,
+     "end": 7.525
+    },
+    {
+     "word": "konfig",
+     "start": 7.525,
+     "end": 8.3
+    },
+    {
+     "word": "The",
+     "start": 8.825,
+     "end": 8.9
+    },
+    {
+     "word": "validator",
+     "start": 8.9,
+     "end": 9.6
+    },
+    {
+     "word": "runs",
+     "start": 9.6,
+     "end": 9.95
+    },
+    {
+     "word": "nine",
+     "start": 9.95,
+     "end": 10.3
+    },
+    {
+     "word": "deterministic",
+     "start": 10.3,
+     "end": 11.075
+    },
+    {
+     "word": "rules",
+     "start": 11.075,
+     "end": 11.75
+    },
+    {
+     "word": "A",
+     "start": 12.275,
+     "end": 12.363
+    },
+    {
+     "word": "semantic",
+     "start": 12.363,
+     "end": 12.912
+    },
+    {
+     "word": "check",
+     "start": 12.912,
+     "end": 13.25
+    },
+    {
+     "word": "looks",
+     "start": 13.25,
+     "end": 13.5
+    },
+    {
+     "word": "for",
+     "start": 13.5,
+     "end": 13.613
+    },
+    {
+     "word": "an",
+     "start": 13.613,
+     "end": 13.738
+    },
+    {
+     "word": "F-A-Q",
+     "start": 13.738,
+     "end": 14.325
+    },
+    {
+     "word": "answer",
+     "start": 14.325,
+     "end": 15.025
+    },
+    {
+     "word": "that",
+     "start": 15.025,
+     "end": 15.2
+    },
+    {
+     "word": "contradicts",
+     "start": 15.2,
+     "end": 15.762
+    },
+    {
+     "word": "the",
+     "start": 15.762,
+     "end": 15.85
+    },
+    {
+     "word": "call",
+     "start": 15.85,
+     "end": 16.1
+    },
+    {
+     "word": "script",
+     "start": 16.1,
+     "end": 16.725
+    },
+    {
+     "word": "That",
+     "start": 17.25,
+     "end": 17.45
+    },
+    {
+     "word": "is",
+     "start": 17.45,
+     "end": 17.562
+    },
+    {
+     "word": "the",
+     "start": 17.562,
+     "end": 17.688
+    },
+    {
+     "word": "only",
+     "start": 17.688,
+     "end": 18.0
+    },
+    {
+     "word": "place",
+     "start": 18.0,
+     "end": 18.6
+    },
+    {
+     "word": "a",
+     "start": 18.6,
+     "end": 18.725
+    },
+    {
+     "word": "language",
+     "start": 18.725,
+     "end": 19.125
+    },
+    {
+     "word": "model",
+     "start": 19.125,
+     "end": 19.5
+    },
+    {
+     "word": "is",
+     "start": 19.5,
+     "end": 19.625
+    },
+    {
+     "word": "allowed",
+     "start": 19.625,
+     "end": 20.3
+    },
+    {
+     "word": "Everything",
+     "start": 20.825,
+     "end": 21.312
+    },
+    {
+     "word": "ends",
+     "start": 21.312,
+     "end": 21.6
+    },
+    {
+     "word": "up",
+     "start": 21.6,
+     "end": 21.963
+    },
+    {
+     "word": "as",
+     "start": 21.963,
+     "end": 22.088
+    },
+    {
+     "word": "a",
+     "start": 22.088,
+     "end": 22.15
+    },
+    {
+     "word": "list",
+     "start": 22.15,
+     "end": 22.363
+    },
+    {
+     "word": "of",
+     "start": 22.363,
+     "end": 22.45
+    },
+    {
+     "word": "issues",
+     "start": 22.45,
+     "end": 23.2
+    },
+    {
+     "word": "The",
+     "start": 23.7,
+     "end": 23.8
+    },
+    {
+     "word": "later",
+     "start": 23.8,
+     "end": 24.1
+    },
+    {
+     "word": "stages",
+     "start": 24.1,
+     "end": 24.8
+    },
+    {
+     "word": "repair",
+     "start": 24.9,
+     "end": 25.425
+    },
+    {
+     "word": "review",
+     "start": 25.5,
+     "end": 26.025
+    },
+    {
+     "word": "smoke",
+     "start": 26.137,
+     "end": 26.45
+    },
+    {
+     "word": "test",
+     "start": 26.45,
+     "end": 26.8
+    },
+    {
+     "word": "and",
+     "start": 26.8,
+     "end": 26.925
+    },
+    {
+     "word": "export",
+     "start": 26.925,
+     "end": 27.675
+    },
+    {
+     "word": "are",
+     "start": 27.775,
+     "end": 27.875
+    },
+    {
+     "word": "designed",
+     "start": 27.875,
+     "end": 28.288
+    },
+    {
+     "word": "in",
+     "start": 28.288,
+     "end": 28.362
+    },
+    {
+     "word": "the",
+     "start": 28.362,
+     "end": 28.45
+    },
+    {
+     "word": "P-R-D",
+     "start": 28.45,
+     "end": 29.05
+    },
+    {
+     "word": "but",
+     "start": 29.05,
+     "end": 29.2
+    },
+    {
+     "word": "not",
+     "start": 29.2,
+     "end": 29.425
+    },
+    {
+     "word": "built",
+     "start": 29.425,
+     "end": 29.675
+    },
+    {
+     "word": "yet",
+     "start": 29.675,
+     "end": 30.2
+    }
+   ],
+   "duration": 31.05,
+   "start": 30.1
+  },
+  {
+   "scene": 3,
+   "title": "Synthetic packets with an answer key",
+   "chapter": "03 / Sample data",
+   "narration": "There's no real practice data anywhere. A seeded generator writes six fake practices: internal medicine, cardiology, pulmonology, urgent care and a multispecialty group. Each packet ships a defects file, the answer key for the mistakes planted in it. Thirty in total, and one practice is deliberately clean, to catch false alarms. A test regenerates everything and fails if the committed data has drifted.",
+   "audio": "scene_03.wav",
+   "audio_seconds": 27.625,
+   "sentences": [
+    {
+     "text": "There's no real practice data anywhere.",
+     "start": 0.0,
+     "end": 2.85
+    },
+    {
+     "text": "A seeded generator writes six fake practices:",
+     "start": 2.85,
+     "end": 6.125
+    },
+    {
+     "text": "internal medicine, cardiology, pulmonology, urgent care and a multispecialty group.",
+     "start": 6.125,
+     "end": 12.15
+    },
+    {
+     "text": "Each packet ships a defects file, the answer key for the mistakes planted in it.",
+     "start": 12.15,
+     "end": 17.125
+    },
+    {
+     "text": "Thirty in total, and one practice is deliberately clean, to catch false alarms.",
+     "start": 17.125,
+     "end": 22.525
+    },
+    {
+     "text": "A test regenerates everything and fails if the committed data has drifted.",
+     "start": 22.525,
+     "end": 27.625
+    }
+   ],
+   "words": [
+    {
+     "word": "There's",
+     "start": 0.275,
+     "end": 0.5
+    },
+    {
+     "word": "no",
+     "start": 0.5,
+     "end": 0.762
+    },
+    {
+     "word": "real",
+     "start": 0.762,
+     "end": 1.087
+    },
+    {
+     "word": "practice",
+     "start": 1.087,
+     "end": 1.55
+    },
+    {
+     "word": "data",
+     "start": 1.55,
+     "end": 1.825
+    },
+    {
+     "word": "anywhere",
+     "start": 1.825,
+     "end": 2.575
+    },
+    {
+     "word": "A",
+     "start": 3.125,
+     "end": 3.212
+    },
+    {
+     "word": "seeded",
+     "start": 3.212,
+     "end": 3.55
+    },
+    {
+     "word": "generator",
+     "start": 3.55,
+     "end": 4.175
+    },
+    {
+     "word": "writes",
+     "start": 4.175,
+     "end": 4.438
+    },
+    {
+     "word": "six",
+     "start": 4.438,
+     "end": 4.7
+    },
+    {
+     "word": "fake",
+     "start": 4.7,
+     "end": 4.925
+    },
+    {
+     "word": "practices",
+     "start": 4.925,
+     "end": 5.875
+    },
+    {
+     "word": "internal",
+     "start": 6.4,
+     "end": 6.825
+    },
+    {
+     "word": "medicine",
+     "start": 6.825,
+     "end": 7.475
+    },
+    {
+     "word": "cardiology",
+     "start": 7.575,
+     "end": 8.375
+    },
+    {
+     "word": "pulmonology",
+     "start": 8.45,
+     "end": 9.3
+    },
+    {
+     "word": "urgent",
+     "start": 9.4,
+     "end": 9.787
+    },
+    {
+     "word": "care",
+     "start": 9.787,
+     "end": 10.238
+    },
+    {
+     "word": "and",
+     "start": 10.238,
+     "end": 10.363
+    },
+    {
+     "word": "a",
+     "start": 10.363,
+     "end": 10.425
+    },
+    {
+     "word": "multispecialty",
+     "start": 10.425,
+     "end": 11.3
+    },
+    {
+     "word": "group",
+     "start": 11.3,
+     "end": 11.9
+    },
+    {
+     "word": "Each",
+     "start": 12.425,
+     "end": 12.662
+    },
+    {
+     "word": "packet",
+     "start": 12.662,
+     "end": 13.088
+    },
+    {
+     "word": "ships",
+     "start": 13.088,
+     "end": 13.312
+    },
+    {
+     "word": "a",
+     "start": 13.312,
+     "end": 13.375
+    },
+    {
+     "word": "defects",
+     "start": 13.375,
+     "end": 13.825
+    },
+    {
+     "word": "file",
+     "start": 13.825,
+     "end": 14.425
+    },
+    {
+     "word": "the",
+     "start": 14.525,
+     "end": 14.688
+    },
+    {
+     "word": "answer",
+     "start": 14.688,
+     "end": 15.075
+    },
+    {
+     "word": "key",
+     "start": 15.075,
+     "end": 15.35
+    },
+    {
+     "word": "for",
+     "start": 15.35,
+     "end": 15.463
+    },
+    {
+     "word": "the",
+     "start": 15.463,
+     "end": 15.538
+    },
+    {
+     "word": "mistakes",
+     "start": 15.538,
+     "end": 16.0
+    },
+    {
+     "word": "planted",
+     "start": 16.0,
+     "end": 16.363
+    },
+    {
+     "word": "in",
+     "start": 16.363,
+     "end": 16.45
+    },
+    {
+     "word": "it",
+     "start": 16.45,
+     "end": 16.875
+    },
+    {
+     "word": "Thirty",
+     "start": 17.425,
+     "end": 17.75
+    },
+    {
+     "word": "in",
+     "start": 17.75,
+     "end": 17.9
+    },
+    {
+     "word": "total",
+     "start": 17.9,
+     "end": 18.425
+    },
+    {
+     "word": "and",
+     "start": 18.525,
+     "end": 18.65
+    },
+    {
+     "word": "one",
+     "start": 18.65,
+     "end": 18.875
+    },
+    {
+     "word": "practice",
+     "start": 18.875,
+     "end": 19.375
+    },
+    {
+     "word": "is",
+     "start": 19.375,
+     "end": 19.525
+    },
+    {
+     "word": "deliberately",
+     "start": 19.525,
+     "end": 20.087
+    },
+    {
+     "word": "clean",
+     "start": 20.087,
+     "end": 20.7
+    },
+    {
+     "word": "to",
+     "start": 20.8,
+     "end": 20.925
+    },
+    {
+     "word": "catch",
+     "start": 20.925,
+     "end": 21.225
+    },
+    {
+     "word": "false",
+     "start": 21.225,
+     "end": 21.5
+    },
+    {
+     "word": "alarms",
+     "start": 21.5,
+     "end": 22.275
+    },
+    {
+     "word": "A",
+     "start": 22.8,
+     "end": 22.887
+    },
+    {
+     "word": "test",
+     "start": 22.887,
+     "end": 23.337
+    },
+    {
+     "word": "regenerates",
+     "start": 23.337,
+     "end": 24.012
+    },
+    {
+     "word": "everything",
+     "start": 24.012,
+     "end": 24.575
+    },
+    {
+     "word": "and",
+     "start": 24.575,
+     "end": 24.712
+    },
+    {
+     "word": "fails",
+     "start": 24.712,
+     "end": 25.5
+    },
+    {
+     "word": "if",
+     "start": 25.5,
+     "end": 25.662
+    },
+    {
+     "word": "the",
+     "start": 25.662,
+     "end": 25.75
+    },
+    {
+     "word": "committed",
+     "start": 25.75,
+     "end": 26.175
+    },
+    {
+     "word": "data",
+     "start": 26.175,
+     "end": 26.475
+    },
+    {
+     "word": "has",
+     "start": 26.475,
+     "end": 26.65
+    },
+    {
+     "word": "drifted",
+     "start": 26.65,
+     "end": 27.35
+    }
+   ],
+   "duration": 28.225,
+   "start": 61.15
+  },
+  {
+   "scene": 4,
+   "title": "Trace: compiling practice three",
+   "chapter": "04 / Compile",
+   "narration": "Let's follow one practice, Harborview Heart Clinic, a cardiology packet. Load packet reads the five files as lines, and compile packet walks them. Line twelve of the hours file says Friday, eight to three. A pattern match finds the day, parse time converts the times to twenty-four hour form, and the result is a day-hours object with the source hours dot T-X-T, colon twelve. Pie-dantic requires a source on every item, and checks its format.",
+   "audio": "scene_04.wav",
+   "audio_seconds": 29.7,
+   "sentences": [
+    {
+     "text": "Let's follow one practice, Harborview Heart Clinic, a cardiology packet.",
+     "start": 0.0,
+     "end": 4.875
+    },
+    {
+     "text": "Load packet reads the five files as lines, and compile packet walks them.",
+     "start": 4.875,
+     "end": 9.925
+    },
+    {
+     "text": "Line twelve of the hours file says Friday, eight to three.",
+     "start": 9.925,
+     "end": 13.7
+    },
+    {
+     "text": "A pattern match finds the day, parse time converts the times to twenty-four hour form, and the result is a day-hours object with the source hours dot T-X-T, colon twelve.",
+     "start": 13.7,
+     "end": 25.275
+    },
+    {
+     "text": "Pie-dantic requires a source on every item, and checks its format.",
+     "start": 25.275,
+     "end": 29.7
+    }
+   ],
+   "words": [
+    {
+     "word": "Let's",
+     "start": 0.3,
+     "end": 0.55
+    },
+    {
+     "word": "follow",
+     "start": 0.55,
+     "end": 0.85
+    },
+    {
+     "word": "one",
+     "start": 0.85,
+     "end": 1.075
+    },
+    {
+     "word": "practice",
+     "start": 1.075,
+     "end": 1.825
+    },
+    {
+     "word": "Harborview",
+     "start": 1.925,
+     "end": 2.45
+    },
+    {
+     "word": "Heart",
+     "start": 2.45,
+     "end": 2.7
+    },
+    {
+     "word": "Clinic",
+     "start": 2.7,
+     "end": 3.1
+    },
+    {
+     "word": "a",
+     "start": 3.175,
+     "end": 3.25
+    },
+    {
+     "word": "cardiology",
+     "start": 3.25,
+     "end": 3.95
+    },
+    {
+     "word": "packet",
+     "start": 3.95,
+     "end": 4.625
+    },
+    {
+     "word": "Load",
+     "start": 5.2,
+     "end": 5.475
+    },
+    {
+     "word": "packet",
+     "start": 5.475,
+     "end": 5.875
+    },
+    {
+     "word": "reads",
+     "start": 5.875,
+     "end": 6.162
+    },
+    {
+     "word": "the",
+     "start": 6.162,
+     "end": 6.263
+    },
+    {
+     "word": "five",
+     "start": 6.263,
+     "end": 6.625
+    },
+    {
+     "word": "files",
+     "start": 6.625,
+     "end": 6.963
+    },
+    {
+     "word": "as",
+     "start": 6.963,
+     "end": 7.1
+    },
+    {
+     "word": "lines",
+     "start": 7.1,
+     "end": 7.775
+    },
+    {
+     "word": "and",
+     "start": 7.875,
+     "end": 8.0
+    },
+    {
+     "word": "compile",
+     "start": 8.0,
+     "end": 8.475
+    },
+    {
+     "word": "packet",
+     "start": 8.475,
+     "end": 8.85
+    },
+    {
+     "word": "walks",
+     "start": 8.85,
+     "end": 9.175
+    },
+    {
+     "word": "them",
+     "start": 9.175,
+     "end": 9.675
+    },
+    {
+     "word": "Line",
+     "start": 10.225,
+     "end": 10.475
+    },
+    {
+     "word": "twelve",
+     "start": 10.475,
+     "end": 10.763
+    },
+    {
+     "word": "of",
+     "start": 10.763,
+     "end": 10.838
+    },
+    {
+     "word": "the",
+     "start": 10.838,
+     "end": 10.95
+    },
+    {
+     "word": "hours",
+     "start": 10.95,
+     "end": 11.275
+    },
+    {
+     "word": "file",
+     "start": 11.275,
+     "end": 11.575
+    },
+    {
+     "word": "says",
+     "start": 11.575,
+     "end": 11.8
+    },
+    {
+     "word": "Friday",
+     "start": 11.8,
+     "end": 12.375
+    },
+    {
+     "word": "eight",
+     "start": 12.5,
+     "end": 12.7
+    },
+    {
+     "word": "to",
+     "start": 12.7,
+     "end": 12.838
+    },
+    {
+     "word": "three",
+     "start": 12.838,
+     "end": 13.45
+    },
+    {
+     "word": "A",
+     "start": 13.95,
+     "end": 14.038
+    },
+    {
+     "word": "pattern",
+     "start": 14.038,
+     "end": 14.45
+    },
+    {
+     "word": "match",
+     "start": 14.45,
+     "end": 14.813
+    },
+    {
+     "word": "finds",
+     "start": 14.813,
+     "end": 15.138
+    },
+    {
+     "word": "the",
+     "start": 15.138,
+     "end": 15.225
+    },
+    {
+     "word": "day",
+     "start": 15.225,
+     "end": 15.7
+    },
+    {
+     "word": "parse",
+     "start": 15.838,
+     "end": 16.175
+    },
+    {
+     "word": "time",
+     "start": 16.175,
+     "end": 16.562
+    },
+    {
+     "word": "converts",
+     "start": 16.562,
+     "end": 17.062
+    },
+    {
+     "word": "the",
+     "start": 17.062,
+     "end": 17.15
+    },
+    {
+     "word": "times",
+     "start": 17.15,
+     "end": 17.55
+    },
+    {
+     "word": "to",
+     "start": 17.55,
+     "end": 17.675
+    },
+    {
+     "word": "twenty-four",
+     "start": 17.675,
+     "end": 18.238
+    },
+    {
+     "word": "hour",
+     "start": 18.238,
+     "end": 18.562
+    },
+    {
+     "word": "form",
+     "start": 18.562,
+     "end": 19.3
+    },
+    {
+     "word": "and",
+     "start": 19.4,
+     "end": 19.513
+    },
+    {
+     "word": "the",
+     "start": 19.513,
+     "end": 19.6
+    },
+    {
+     "word": "result",
+     "start": 19.6,
+     "end": 20.113
+    },
+    {
+     "word": "is",
+     "start": 20.113,
+     "end": 20.238
+    },
+    {
+     "word": "a",
+     "start": 20.238,
+     "end": 20.325
+    },
+    {
+     "word": "day-hours",
+     "start": 20.325,
+     "end": 20.913
+    },
+    {
+     "word": "object",
+     "start": 20.913,
+     "end": 21.4
+    },
+    {
+     "word": "with",
+     "start": 21.4,
+     "end": 21.538
+    },
+    {
+     "word": "the",
+     "start": 21.538,
+     "end": 21.663
+    },
+    {
+     "word": "source",
+     "start": 21.663,
+     "end": 22.038
+    },
+    {
+     "word": "hours",
+     "start": 22.038,
+     "end": 22.462
+    },
+    {
+     "word": "dot",
+     "start": 22.462,
+     "end": 22.788
+    },
+    {
+     "word": "T-X-T",
+     "start": 22.788,
+     "end": 23.7
+    },
+    {
+     "word": "colon",
+     "start": 23.863,
+     "end": 24.3
+    },
+    {
+     "word": "twelve",
+     "start": 24.3,
+     "end": 25.0
+    },
+    {
+     "word": "Pie-dantic",
+     "start": 25.55,
+     "end": 26.15
+    },
+    {
+     "word": "requires",
+     "start": 26.15,
+     "end": 26.612
+    },
+    {
+     "word": "a",
+     "start": 26.612,
+     "end": 26.688
+    },
+    {
+     "word": "source",
+     "start": 26.688,
+     "end": 27.037
+    },
+    {
+     "word": "on",
+     "start": 27.037,
+     "end": 27.188
+    },
+    {
+     "word": "every",
+     "start": 27.188,
+     "end": 27.5
+    },
+    {
+     "word": "item",
+     "start": 27.5,
+     "end": 28.05
+    },
+    {
+     "word": "and",
+     "start": 28.15,
+     "end": 28.287
+    },
+    {
+     "word": "checks",
+     "start": 28.287,
+     "end": 28.587
+    },
+    {
+     "word": "its",
+     "start": 28.587,
+     "end": 28.75
+    },
+    {
+     "word": "format",
+     "start": 28.75,
+     "end": 29.45
+    }
+   ],
+   "duration": 30.3,
+   "start": 89.375
+  },
+  {
+   "scene": 5,
+   "title": "Trace: checking practice three",
+   "chapter": "05 / Validate",
+   "narration": "Now the compiled konfig goes to run rules. Take the hours conflict rule. It scans every line the agent might say, script lines and F-A-Q answers, for phrases like \"our Friday hours are\". Line nine of the script says eight to five. The official hours say eight to three. So it raises a high-severity issue, and cites both lines as evidence. For this practice the checks raise seven issues, matching its seven planted defects.",
+   "audio": "scene_05.wav",
+   "audio_seconds": 28.85,
+   "sentences": [
+    {
+     "text": "Now the compiled konfig goes to run rules.",
+     "start": 0.0,
+     "end": 3.075
+    },
+    {
+     "text": "Take the hours conflict rule.",
+     "start": 3.075,
+     "end": 5.425
+    },
+    {
+     "text": "It scans every line the agent might say, script lines and F-A-Q answers, for phrases like \"our Friday hours are\".",
+     "start": 5.425,
+     "end": 13.425
+    },
+    {
+     "text": "Line nine of the script says eight to five.",
+     "start": 13.425,
+     "end": 16.15
+    },
+    {
+     "text": "The official hours say eight to three.",
+     "start": 16.15,
+     "end": 18.65
+    },
+    {
+     "text": "So it raises a high-severity issue, and cites both lines as evidence.",
+     "start": 18.65,
+     "end": 23.425
+    },
+    {
+     "text": "For this practice the checks raise seven issues, matching its seven planted defects.",
+     "start": 23.425,
+     "end": 28.85
+    }
+   ],
+   "words": [
+    {
+     "word": "Now",
+     "start": 0.3,
+     "end": 0.487
+    },
+    {
+     "word": "the",
+     "start": 0.487,
+     "end": 0.575
+    },
+    {
+     "word": "compiled",
+     "start": 0.575,
+     "end": 0.975
+    },
+    {
+     "word": "konfig",
+     "start": 0.975,
+     "end": 1.525
+    },
+    {
+     "word": "goes",
+     "start": 1.525,
+     "end": 1.75
+    },
+    {
+     "word": "to",
+     "start": 1.75,
+     "end": 1.875
+    },
+    {
+     "word": "run",
+     "start": 1.875,
+     "end": 2.125
+    },
+    {
+     "word": "rules",
+     "start": 2.125,
+     "end": 2.825
+    },
+    {
+     "word": "Take",
+     "start": 3.35,
+     "end": 3.562
+    },
+    {
+     "word": "the",
+     "start": 3.562,
+     "end": 3.713
+    },
+    {
+     "word": "hours",
+     "start": 3.713,
+     "end": 4.088
+    },
+    {
+     "word": "conflict",
+     "start": 4.088,
+     "end": 4.6
+    },
+    {
+     "word": "rule",
+     "start": 4.6,
+     "end": 5.175
+    },
+    {
+     "word": "It",
+     "start": 5.675,
+     "end": 5.85
+    },
+    {
+     "word": "scans",
+     "start": 5.85,
+     "end": 6.313
+    },
+    {
+     "word": "every",
+     "start": 6.313,
+     "end": 6.625
+    },
+    {
+     "word": "line",
+     "start": 6.625,
+     "end": 6.913
+    },
+    {
+     "word": "the",
+     "start": 6.913,
+     "end": 7.038
+    },
+    {
+     "word": "agent",
+     "start": 7.038,
+     "end": 7.363
+    },
+    {
+     "word": "might",
+     "start": 7.363,
+     "end": 7.588
+    },
+    {
+     "word": "say",
+     "start": 7.588,
+     "end": 8.125
+    },
+    {
+     "word": "script",
+     "start": 8.288,
+     "end": 8.65
+    },
+    {
+     "word": "lines",
+     "start": 8.65,
+     "end": 9.125
+    },
+    {
+     "word": "and",
+     "start": 9.125,
+     "end": 9.25
+    },
+    {
+     "word": "F-A-Q",
+     "start": 9.25,
+     "end": 9.75
+    },
+    {
+     "word": "answers",
+     "start": 9.75,
+     "end": 10.525
+    },
+    {
+     "word": "for",
+     "start": 10.625,
+     "end": 10.788
+    },
+    {
+     "word": "phrases",
+     "start": 10.788,
+     "end": 11.35
+    },
+    {
+     "word": "like",
+     "start": 11.35,
+     "end": 11.6
+    },
+    {
+     "word": "our",
+     "start": 11.65,
+     "end": 11.788
+    },
+    {
+     "word": "Friday",
+     "start": 11.788,
+     "end": 12.213
+    },
+    {
+     "word": "hours",
+     "start": 12.213,
+     "end": 12.638
+    },
+    {
+     "word": "are",
+     "start": 12.638,
+     "end": 13.15
+    },
+    {
+     "word": "Line",
+     "start": 13.75,
+     "end": 14.025
+    },
+    {
+     "word": "nine",
+     "start": 14.025,
+     "end": 14.263
+    },
+    {
+     "word": "of",
+     "start": 14.263,
+     "end": 14.338
+    },
+    {
+     "word": "the",
+     "start": 14.338,
+     "end": 14.425
+    },
+    {
+     "word": "script",
+     "start": 14.425,
+     "end": 14.775
+    },
+    {
+     "word": "says",
+     "start": 14.775,
+     "end": 14.963
+    },
+    {
+     "word": "eight",
+     "start": 14.963,
+     "end": 15.15
+    },
+    {
+     "word": "to",
+     "start": 15.15,
+     "end": 15.275
+    },
+    {
+     "word": "five",
+     "start": 15.275,
+     "end": 15.9
+    },
+    {
+     "word": "The",
+     "start": 16.425,
+     "end": 16.525
+    },
+    {
+     "word": "official",
+     "start": 16.525,
+     "end": 16.925
+    },
+    {
+     "word": "hours",
+     "start": 16.925,
+     "end": 17.263
+    },
+    {
+     "word": "say",
+     "start": 17.263,
+     "end": 17.5
+    },
+    {
+     "word": "eight",
+     "start": 17.5,
+     "end": 17.675
+    },
+    {
+     "word": "to",
+     "start": 17.675,
+     "end": 17.813
+    },
+    {
+     "word": "three",
+     "start": 17.813,
+     "end": 18.4
+    },
+    {
+     "word": "So",
+     "start": 18.925,
+     "end": 19.063
+    },
+    {
+     "word": "it",
+     "start": 19.063,
+     "end": 19.15
+    },
+    {
+     "word": "raises",
+     "start": 19.15,
+     "end": 19.575
+    },
+    {
+     "word": "a",
+     "start": 19.575,
+     "end": 19.65
+    },
+    {
+     "word": "high-severity",
+     "start": 19.65,
+     "end": 20.35
+    },
+    {
+     "word": "issue",
+     "start": 20.35,
+     "end": 20.975
+    },
+    {
+     "word": "and",
+     "start": 21.1,
+     "end": 21.225
+    },
+    {
+     "word": "cites",
+     "start": 21.225,
+     "end": 21.525
+    },
+    {
+     "word": "both",
+     "start": 21.525,
+     "end": 21.825
+    },
+    {
+     "word": "lines",
+     "start": 21.825,
+     "end": 22.225
+    },
+    {
+     "word": "as",
+     "start": 22.225,
+     "end": 22.375
+    },
+    {
+     "word": "evidence",
+     "start": 22.375,
+     "end": 23.175
+    },
+    {
+     "word": "For",
+     "start": 23.7,
+     "end": 23.813
+    },
+    {
+     "word": "this",
+     "start": 23.813,
+     "end": 24.0
+    },
+    {
+     "word": "practice",
+     "start": 24.0,
+     "end": 24.575
+    },
+    {
+     "word": "the",
+     "start": 24.575,
+     "end": 24.713
+    },
+    {
+     "word": "checks",
+     "start": 24.713,
+     "end": 25.05
+    },
+    {
+     "word": "raise",
+     "start": 25.05,
+     "end": 25.363
+    },
+    {
+     "word": "seven",
+     "start": 25.363,
+     "end": 25.7
+    },
+    {
+     "word": "issues",
+     "start": 25.7,
+     "end": 26.425
+    },
+    {
+     "word": "matching",
+     "start": 26.525,
+     "end": 26.913
+    },
+    {
+     "word": "its",
+     "start": 26.913,
+     "end": 27.088
+    },
+    {
+     "word": "seven",
+     "start": 27.088,
+     "end": 27.45
+    },
+    {
+     "word": "planted",
+     "start": 27.45,
+     "end": 27.825
+    },
+    {
+     "word": "defects",
+     "start": 27.825,
+     "end": 28.6
+    }
+   ],
+   "duration": 29.45,
+   "start": 119.675
+  },
+  {
+   "scene": 6,
+   "title": "The semantic check and its fallback",
+   "chapter": "06 / Semantic check",
+   "narration": "The contradiction check has two back ends with the same output. If an L-L-M model is configured and Lite L-L-M is installed, it asks the model for contradictions as Jason. That reply is validated, and every cited line must exist. If anything fails, it falls back to a keyword mock. The mock runs whenever no model is set, so nothing needs a key or a network.",
+   "audio": "scene_06.wav",
+   "audio_seconds": 25.025,
+   "sentences": [
+    {
+     "text": "The contradiction check has two back ends with the same output.",
+     "start": 0.0,
+     "end": 3.95
+    },
+    {
+     "text": "If an L-L-M model is configured and Lite L-L-M is installed, it asks the model for contradictions as Jason.",
+     "start": 3.95,
+     "end": 11.825
+    },
+    {
+     "text": "That reply is validated, and every cited line must exist.",
+     "start": 11.825,
+     "end": 16.35
+    },
+    {
+     "text": "If anything fails, it falls back to a keyword mock.",
+     "start": 16.35,
+     "end": 19.875
+    },
+    {
+     "text": "The mock runs whenever no model is set, so nothing needs a key or a network.",
+     "start": 19.875,
+     "end": 25.025
+    }
+   ],
+   "words": [
+    {
+     "word": "The",
+     "start": 0.25,
+     "end": 0.325
+    },
+    {
+     "word": "contradiction",
+     "start": 0.325,
+     "end": 0.963
+    },
+    {
+     "word": "check",
+     "start": 0.963,
+     "end": 1.275
+    },
+    {
+     "word": "has",
+     "start": 1.275,
+     "end": 1.488
+    },
+    {
+     "word": "two",
+     "start": 1.488,
+     "end": 1.7
+    },
+    {
+     "word": "back",
+     "start": 1.7,
+     "end": 1.975
+    },
+    {
+     "word": "ends",
+     "start": 1.975,
+     "end": 2.513
+    },
+    {
+     "word": "with",
+     "start": 2.513,
+     "end": 2.638
+    },
+    {
+     "word": "the",
+     "start": 2.638,
+     "end": 2.737
+    },
+    {
+     "word": "same",
+     "start": 2.737,
+     "end": 3.0
+    },
+    {
+     "word": "output",
+     "start": 3.0,
+     "end": 3.7
+    },
+    {
+     "word": "If",
+     "start": 4.2,
+     "end": 4.338
+    },
+    {
+     "word": "an",
+     "start": 4.338,
+     "end": 4.487
+    },
+    {
+     "word": "L-L-M",
+     "start": 4.487,
+     "end": 5.05
+    },
+    {
+     "word": "model",
+     "start": 5.05,
+     "end": 5.4
+    },
+    {
+     "word": "is",
+     "start": 5.4,
+     "end": 5.55
+    },
+    {
+     "word": "configured",
+     "start": 5.55,
+     "end": 6.425
+    },
+    {
+     "word": "and",
+     "start": 6.425,
+     "end": 6.613
+    },
+    {
+     "word": "Lite",
+     "start": 6.613,
+     "end": 6.963
+    },
+    {
+     "word": "L-L-M",
+     "start": 6.963,
+     "end": 7.575
+    },
+    {
+     "word": "is",
+     "start": 7.575,
+     "end": 7.7
+    },
+    {
+     "word": "installed",
+     "start": 7.7,
+     "end": 8.625
+    },
+    {
+     "word": "it",
+     "start": 8.762,
+     "end": 8.9
+    },
+    {
+     "word": "asks",
+     "start": 8.9,
+     "end": 9.25
+    },
+    {
+     "word": "the",
+     "start": 9.25,
+     "end": 9.35
+    },
+    {
+     "word": "model",
+     "start": 9.35,
+     "end": 9.725
+    },
+    {
+     "word": "for",
+     "start": 9.725,
+     "end": 9.85
+    },
+    {
+     "word": "contradictions",
+     "start": 9.85,
+     "end": 10.637
+    },
+    {
+     "word": "as",
+     "start": 10.637,
+     "end": 10.8
+    },
+    {
+     "word": "Jason",
+     "start": 10.8,
+     "end": 11.575
+    },
+    {
+     "word": "That",
+     "start": 12.1,
+     "end": 12.325
+    },
+    {
+     "word": "reply",
+     "start": 12.325,
+     "end": 12.825
+    },
+    {
+     "word": "is",
+     "start": 12.825,
+     "end": 12.975
+    },
+    {
+     "word": "validated",
+     "start": 12.975,
+     "end": 13.825
+    },
+    {
+     "word": "and",
+     "start": 13.925,
+     "end": 14.087
+    },
+    {
+     "word": "every",
+     "start": 14.087,
+     "end": 14.412
+    },
+    {
+     "word": "cited",
+     "start": 14.412,
+     "end": 14.8
+    },
+    {
+     "word": "line",
+     "start": 14.8,
+     "end": 15.15
+    },
+    {
+     "word": "must",
+     "start": 15.15,
+     "end": 15.362
+    },
+    {
+     "word": "exist",
+     "start": 15.362,
+     "end": 16.1
+    },
+    {
+     "word": "If",
+     "start": 16.6,
+     "end": 16.775
+    },
+    {
+     "word": "anything",
+     "start": 16.775,
+     "end": 17.163
+    },
+    {
+     "word": "fails",
+     "start": 17.163,
+     "end": 17.75
+    },
+    {
+     "word": "it",
+     "start": 17.85,
+     "end": 17.95
+    },
+    {
+     "word": "falls",
+     "start": 17.95,
+     "end": 18.225
+    },
+    {
+     "word": "back",
+     "start": 18.225,
+     "end": 18.5
+    },
+    {
+     "word": "to",
+     "start": 18.5,
+     "end": 18.588
+    },
+    {
+     "word": "a",
+     "start": 18.588,
+     "end": 18.65
+    },
+    {
+     "word": "keyword",
+     "start": 18.65,
+     "end": 19.05
+    },
+    {
+     "word": "mock",
+     "start": 19.05,
+     "end": 19.625
+    },
+    {
+     "word": "The",
+     "start": 20.125,
+     "end": 20.225
+    },
+    {
+     "word": "mock",
+     "start": 20.225,
+     "end": 20.55
+    },
+    {
+     "word": "runs",
+     "start": 20.55,
+     "end": 20.925
+    },
+    {
+     "word": "whenever",
+     "start": 20.925,
+     "end": 21.275
+    },
+    {
+     "word": "no",
+     "start": 21.275,
+     "end": 21.45
+    },
+    {
+     "word": "model",
+     "start": 21.45,
+     "end": 21.775
+    },
+    {
+     "word": "is",
+     "start": 21.775,
+     "end": 21.913
+    },
+    {
+     "word": "set",
+     "start": 21.913,
+     "end": 22.45
+    },
+    {
+     "word": "so",
+     "start": 22.55,
+     "end": 22.7
+    },
+    {
+     "word": "nothing",
+     "start": 22.7,
+     "end": 23.05
+    },
+    {
+     "word": "needs",
+     "start": 23.05,
+     "end": 23.288
+    },
+    {
+     "word": "a",
+     "start": 23.288,
+     "end": 23.387
+    },
+    {
+     "word": "key",
+     "start": 23.387,
+     "end": 23.85
+    },
+    {
+     "word": "or",
+     "start": 23.85,
+     "end": 23.988
+    },
+    {
+     "word": "a",
+     "start": 23.988,
+     "end": 24.05
+    },
+    {
+     "word": "network",
+     "start": 24.05,
+     "end": 24.775
+    }
+   ],
+   "duration": 25.625,
+   "start": 149.125
+  },
+  {
+   "scene": 7,
+   "title": "Running it, gotchas and next steps",
+   "chapter": "07 / Run it & limits",
+   "narration": "To run it today, install the requirements, run the generator, and run pie-test. The thirty-nine tests include one per rule, and a golden konfig for the clean practice. In mock mode, on this synthetic data, the checks find all thirty planted defects with no false alarms. But there's no ee-val script yet, and synthetic defects are easier than real ones. Other limits: the packet format is a guess, the red-flag lists need a physician's review, and escalation fixes are flagged to always need a person. Next come repair, review, the smoke test and the ee-val.",
+   "audio": "scene_07.wav",
+   "audio_seconds": 37.275,
+   "sentences": [
+    {
+     "text": "To run it today, install the requirements, run the generator, and run pie-test.",
+     "start": 0.0,
+     "end": 5.35
+    },
+    {
+     "text": "The thirty-nine tests include one per rule, and a golden konfig for the clean practice.",
+     "start": 5.35,
+     "end": 11.075
+    },
+    {
+     "text": "In mock mode, on this synthetic data, the checks find all thirty planted defects with no false alarms.",
+     "start": 11.075,
+     "end": 17.875
+    },
+    {
+     "text": "But there's no ee-val script yet, and synthetic defects are easier than real ones.",
+     "start": 17.875,
+     "end": 23.225
+    },
+    {
+     "text": "Other limits:",
+     "start": 23.225,
+     "end": 24.75
+    },
+    {
+     "text": "the packet format is a guess, the red-flag lists need a physician's review, and escalation fixes are flagged to always need a person.",
+     "start": 24.75,
+     "end": 33.475
+    },
+    {
+     "text": "Next come repair, review, the smoke test and the ee-val.",
+     "start": 33.475,
+     "end": 37.275
+    }
+   ],
+   "words": [
+    {
+     "word": "To",
+     "start": 0.275,
+     "end": 0.4
+    },
+    {
+     "word": "run",
+     "start": 0.4,
+     "end": 0.613
+    },
+    {
+     "word": "it",
+     "start": 0.613,
+     "end": 0.725
+    },
+    {
+     "word": "today",
+     "start": 0.725,
+     "end": 1.15
+    },
+    {
+     "word": "install",
+     "start": 1.25,
+     "end": 1.663
+    },
+    {
+     "word": "the",
+     "start": 1.663,
+     "end": 1.738
+    },
+    {
+     "word": "requirements",
+     "start": 1.738,
+     "end": 2.7
+    },
+    {
+     "word": "run",
+     "start": 2.837,
+     "end": 3.087
+    },
+    {
+     "word": "the",
+     "start": 3.087,
+     "end": 3.175
+    },
+    {
+     "word": "generator",
+     "start": 3.175,
+     "end": 3.75
+    },
+    {
+     "word": "and",
+     "start": 3.825,
+     "end": 3.95
+    },
+    {
+     "word": "run",
+     "start": 3.95,
+     "end": 4.2
+    },
+    {
+     "word": "pie-test",
+     "start": 4.2,
+     "end": 5.1
+    },
+    {
+     "word": "The",
+     "start": 5.6,
+     "end": 5.712
+    },
+    {
+     "word": "thirty-nine",
+     "start": 5.712,
+     "end": 6.262
+    },
+    {
+     "word": "tests",
+     "start": 6.262,
+     "end": 6.775
+    },
+    {
+     "word": "include",
+     "start": 6.775,
+     "end": 7.175
+    },
+    {
+     "word": "one",
+     "start": 7.175,
+     "end": 7.4
+    },
+    {
+     "word": "per",
+     "start": 7.4,
+     "end": 7.612
+    },
+    {
+     "word": "rule",
+     "start": 7.612,
+     "end": 8.25
+    },
+    {
+     "word": "and",
+     "start": 8.35,
+     "end": 8.462
+    },
+    {
+     "word": "a",
+     "start": 8.462,
+     "end": 8.537
+    },
+    {
+     "word": "golden",
+     "start": 8.537,
+     "end": 8.975
+    },
+    {
+     "word": "konfig",
+     "start": 8.975,
+     "end": 9.475
+    },
+    {
+     "word": "for",
+     "start": 9.475,
+     "end": 9.587
+    },
+    {
+     "word": "the",
+     "start": 9.587,
+     "end": 9.675
+    },
+    {
+     "word": "clean",
+     "start": 9.675,
+     "end": 10.0
+    },
+    {
+     "word": "practice",
+     "start": 10.0,
+     "end": 10.825
+    },
+    {
+     "word": "In",
+     "start": 11.375,
+     "end": 11.475
+    },
+    {
+     "word": "mock",
+     "start": 11.475,
+     "end": 11.725
+    },
+    {
+     "word": "mode",
+     "start": 11.725,
+     "end": 12.125
+    },
+    {
+     "word": "on",
+     "start": 12.2,
+     "end": 12.337
+    },
+    {
+     "word": "this",
+     "start": 12.337,
+     "end": 12.475
+    },
+    {
+     "word": "synthetic",
+     "start": 12.475,
+     "end": 12.975
+    },
+    {
+     "word": "data",
+     "start": 12.975,
+     "end": 13.55
+    },
+    {
+     "word": "the",
+     "start": 13.675,
+     "end": 13.812
+    },
+    {
+     "word": "checks",
+     "start": 13.812,
+     "end": 14.175
+    },
+    {
+     "word": "find",
+     "start": 14.175,
+     "end": 14.487
+    },
+    {
+     "word": "all",
+     "start": 14.487,
+     "end": 14.825
+    },
+    {
+     "word": "thirty",
+     "start": 14.825,
+     "end": 15.175
+    },
+    {
+     "word": "planted",
+     "start": 15.175,
+     "end": 15.55
+    },
+    {
+     "word": "defects",
+     "start": 15.55,
+     "end": 16.075
+    },
+    {
+     "word": "with",
+     "start": 16.075,
+     "end": 16.262
+    },
+    {
+     "word": "no",
+     "start": 16.262,
+     "end": 16.538
+    },
+    {
+     "word": "false",
+     "start": 16.538,
+     "end": 16.85
+    },
+    {
+     "word": "alarms",
+     "start": 16.85,
+     "end": 17.625
+    },
+    {
+     "word": "But",
+     "start": 18.125,
+     "end": 18.238
+    },
+    {
+     "word": "there's",
+     "start": 18.238,
+     "end": 18.45
+    },
+    {
+     "word": "no",
+     "start": 18.45,
+     "end": 18.762
+    },
+    {
+     "word": "ee-val",
+     "start": 18.762,
+     "end": 19.212
+    },
+    {
+     "word": "script",
+     "start": 19.212,
+     "end": 19.575
+    },
+    {
+     "word": "yet",
+     "start": 19.575,
+     "end": 20.1
+    },
+    {
+     "word": "and",
+     "start": 20.2,
+     "end": 20.325
+    },
+    {
+     "word": "synthetic",
+     "start": 20.325,
+     "end": 20.875
+    },
+    {
+     "word": "defects",
+     "start": 20.875,
+     "end": 21.35
+    },
+    {
+     "word": "are",
+     "start": 21.35,
+     "end": 21.512
+    },
+    {
+     "word": "easier",
+     "start": 21.512,
+     "end": 21.975
+    },
+    {
+     "word": "than",
+     "start": 21.975,
+     "end": 22.15
+    },
+    {
+     "word": "real",
+     "start": 22.15,
+     "end": 22.4
+    },
+    {
+     "word": "ones",
+     "start": 22.4,
+     "end": 22.975
+    },
+    {
+     "word": "Other",
+     "start": 23.575,
+     "end": 23.8
+    },
+    {
+     "word": "limits",
+     "start": 23.8,
+     "end": 24.475
+    },
+    {
+     "word": "the",
+     "start": 25.0,
+     "end": 25.075
+    },
+    {
+     "word": "packet",
+     "start": 25.075,
+     "end": 25.475
+    },
+    {
+     "word": "format",
+     "start": 25.475,
+     "end": 25.962
+    },
+    {
+     "word": "is",
+     "start": 25.962,
+     "end": 26.087
+    },
+    {
+     "word": "a",
+     "start": 26.087,
+     "end": 26.15
+    },
+    {
+     "word": "guess",
+     "start": 26.15,
+     "end": 26.875
+    },
+    {
+     "word": "the",
+     "start": 27.0,
+     "end": 27.125
+    },
+    {
+     "word": "red-flag",
+     "start": 27.125,
+     "end": 27.725
+    },
+    {
+     "word": "lists",
+     "start": 27.725,
+     "end": 28.05
+    },
+    {
+     "word": "need",
+     "start": 28.05,
+     "end": 28.238
+    },
+    {
+     "word": "a",
+     "start": 28.238,
+     "end": 28.3
+    },
+    {
+     "word": "physician's",
+     "start": 28.3,
+     "end": 28.875
+    },
+    {
+     "word": "review",
+     "start": 28.875,
+     "end": 29.55
+    },
+    {
+     "word": "and",
+     "start": 29.675,
+     "end": 29.8
+    },
+    {
+     "word": "escalation",
+     "start": 29.8,
+     "end": 30.475
+    },
+    {
+     "word": "fixes",
+     "start": 30.475,
+     "end": 31.012
+    },
+    {
+     "word": "are",
+     "start": 31.012,
+     "end": 31.2
+    },
+    {
+     "word": "flagged",
+     "start": 31.2,
+     "end": 31.65
+    },
+    {
+     "word": "to",
+     "start": 31.65,
+     "end": 31.788
+    },
+    {
+     "word": "always",
+     "start": 31.788,
+     "end": 32.2
+    },
+    {
+     "word": "need",
+     "start": 32.2,
+     "end": 32.388
+    },
+    {
+     "word": "a",
+     "start": 32.388,
+     "end": 32.45
+    },
+    {
+     "word": "person",
+     "start": 32.45,
+     "end": 33.225
+    },
+    {
+     "word": "Next",
+     "start": 33.775,
+     "end": 34.038
+    },
+    {
+     "word": "come",
+     "start": 34.038,
+     "end": 34.163
+    },
+    {
+     "word": "repair",
+     "start": 34.163,
+     "end": 34.575
+    },
+    {
+     "word": "review",
+     "start": 34.625,
+     "end": 35.175
+    },
+    {
+     "word": "the",
+     "start": 35.3,
+     "end": 35.4
+    },
+    {
+     "word": "smoke",
+     "start": 35.4,
+     "end": 35.7
+    },
+    {
+     "word": "test",
+     "start": 35.7,
+     "end": 36.075
+    },
+    {
+     "word": "and",
+     "start": 36.075,
+     "end": 36.188
+    },
+    {
+     "word": "the",
+     "start": 36.188,
+     "end": 36.275
+    },
+    {
+     "word": "ee-val",
+     "start": 36.275,
+     "end": 37.025
+    }
+   ],
+   "duration": 37.875,
+   "start": 174.75
+  },
+  {
+   "scene": 8,
+   "title": "Recap",
+   "chapter": "08 / Recap",
+   "narration": "So, to recap. The compiler is deterministic, and every value points back to a file and a line. Nine rules and one semantic check turn mistakes into issues with evidence. A model is optional, validated, and never required. And the sample data carries its own answer key, so the checker can be scored.",
+   "audio": "scene_08.wav",
+   "audio_seconds": 21.275,
+   "sentences": [
+    {
+     "text": "So, to recap.",
+     "start": 0.0,
+     "end": 1.675
+    },
+    {
+     "text": "The compiler is deterministic, and every value points back to a file and a line.",
+     "start": 1.675,
+     "end": 7.25
+    },
+    {
+     "text": "Nine rules and one semantic check turn mistakes into issues with evidence.",
+     "start": 7.25,
+     "end": 12.55
+    },
+    {
+     "text": "A model is optional, validated, and never required.",
+     "start": 12.55,
+     "end": 16.4
+    },
+    {
+     "text": "And the sample data carries its own answer key, so the checker can be scored.",
+     "start": 16.4,
+     "end": 21.275
+    }
+   ],
+   "words": [
+    {
+     "word": "So",
+     "start": 0.35,
+     "end": 0.5
+    },
+    {
+     "word": "to",
+     "start": 0.55,
+     "end": 0.688
+    },
+    {
+     "word": "recap",
+     "start": 0.688,
+     "end": 1.4
+    },
+    {
+     "word": "The",
+     "start": 1.925,
+     "end": 2.0
+    },
+    {
+     "word": "compiler",
+     "start": 2.0,
+     "end": 2.625
+    },
+    {
+     "word": "is",
+     "start": 2.625,
+     "end": 2.775
+    },
+    {
+     "word": "deterministic",
+     "start": 2.775,
+     "end": 3.975
+    },
+    {
+     "word": "and",
+     "start": 4.075,
+     "end": 4.237
+    },
+    {
+     "word": "every",
+     "start": 4.237,
+     "end": 4.55
+    },
+    {
+     "word": "value",
+     "start": 4.55,
+     "end": 4.95
+    },
+    {
+     "word": "points",
+     "start": 4.95,
+     "end": 5.275
+    },
+    {
+     "word": "back",
+     "start": 5.275,
+     "end": 5.55
+    },
+    {
+     "word": "to",
+     "start": 5.55,
+     "end": 5.638
+    },
+    {
+     "word": "a",
+     "start": 5.638,
+     "end": 5.737
+    },
+    {
+     "word": "file",
+     "start": 5.737,
+     "end": 6.175
+    },
+    {
+     "word": "and",
+     "start": 6.175,
+     "end": 6.287
+    },
+    {
+     "word": "a",
+     "start": 6.287,
+     "end": 6.35
+    },
+    {
+     "word": "line",
+     "start": 6.35,
+     "end": 7.0
+    },
+    {
+     "word": "Nine",
+     "start": 7.575,
+     "end": 7.85
+    },
+    {
+     "word": "rules",
+     "start": 7.85,
+     "end": 8.338
+    },
+    {
+     "word": "and",
+     "start": 8.338,
+     "end": 8.488
+    },
+    {
+     "word": "one",
+     "start": 8.488,
+     "end": 8.75
+    },
+    {
+     "word": "semantic",
+     "start": 8.75,
+     "end": 9.287
+    },
+    {
+     "word": "check",
+     "start": 9.287,
+     "end": 9.55
+    },
+    {
+     "word": "turn",
+     "start": 9.55,
+     "end": 10.175
+    },
+    {
+     "word": "mistakes",
+     "start": 10.175,
+     "end": 10.637
+    },
+    {
+     "word": "into",
+     "start": 10.637,
+     "end": 10.887
+    },
+    {
+     "word": "issues",
+     "start": 10.887,
+     "end": 11.338
+    },
+    {
+     "word": "with",
+     "start": 11.338,
+     "end": 11.5
+    },
+    {
+     "word": "evidence",
+     "start": 11.5,
+     "end": 12.3
+    },
+    {
+     "word": "A",
+     "start": 12.825,
+     "end": 12.9
+    },
+    {
+     "word": "model",
+     "start": 12.9,
+     "end": 13.275
+    },
+    {
+     "word": "is",
+     "start": 13.275,
+     "end": 13.438
+    },
+    {
+     "word": "optional",
+     "start": 13.438,
+     "end": 13.975
+    },
+    {
+     "word": "validated",
+     "start": 14.05,
+     "end": 14.825
+    },
+    {
+     "word": "and",
+     "start": 14.925,
+     "end": 15.05
+    },
+    {
+     "word": "never",
+     "start": 15.05,
+     "end": 15.3
+    },
+    {
+     "word": "required",
+     "start": 15.3,
+     "end": 16.15
+    },
+    {
+     "word": "And",
+     "start": 16.675,
+     "end": 16.788
+    },
+    {
+     "word": "the",
+     "start": 16.788,
+     "end": 16.888
+    },
+    {
+     "word": "sample",
+     "start": 16.888,
+     "end": 17.3
+    },
+    {
+     "word": "data",
+     "start": 17.3,
+     "end": 17.6
+    },
+    {
+     "word": "carries",
+     "start": 17.6,
+     "end": 17.988
+    },
+    {
+     "word": "its",
+     "start": 17.988,
+     "end": 18.163
+    },
+    {
+     "word": "own",
+     "start": 18.163,
+     "end": 18.45
+    },
+    {
+     "word": "answer",
+     "start": 18.45,
+     "end": 18.825
+    },
+    {
+     "word": "key",
+     "start": 18.825,
+     "end": 19.3
+    },
+    {
+     "word": "so",
+     "start": 19.425,
+     "end": 19.563
+    },
+    {
+     "word": "the",
+     "start": 19.563,
+     "end": 19.663
+    },
+    {
+     "word": "checker",
+     "start": 19.663,
+     "end": 20.025
+    },
+    {
+     "word": "can",
+     "start": 20.025,
+     "end": 20.138
+    },
+    {
+     "word": "be",
+     "start": 20.138,
+     "end": 20.288
+    },
+    {
+     "word": "scored",
+     "start": 20.288,
+     "end": 21.0
+    }
+   ],
+   "duration": 21.875,
+   "start": 212.625
+  }
+ ]
+}
