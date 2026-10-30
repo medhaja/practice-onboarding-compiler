@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Onboarding Compiler</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%230f766e'/%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --ink: #1b2330; --muted: #5d6878; --line: #e3e7ed;
+    --accent: #0f766e; --accent-soft: #e6f4f2;
+    --high: #b42318; --high-soft: #fdecea; --med: #b54708; --med-soft: #fef4e6; --low: #475467; --low-soft: #eef1f5;
+    --ok: #067647; --ok-soft: #e7f6ee; --hl: #fff4c2;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--bg); }
+  header { background: var(--panel); border-bottom: 1px solid var(--line); padding: 14px 28px; display: flex; align-items: center; gap: 16px; }
+  header h1 { font-size: 17px; margin: 0; letter-spacing: -0.01em; cursor: pointer; }
+  header .tag { color: var(--muted); font-size: 13px; }
+  header .spacer { flex: 1; }
+  main { max-width: 1280px; margin: 0 auto; padding: 24px 28px 60px; }
+  h2 { font-size: 22px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+  .pill.high { background: var(--high-soft); color: var(--high); }
+  .pill.medium { background: var(--med-soft); color: var(--med); }
+  .pill.low { background: var(--low-soft); color: var(--low); }
+  .pill.ready, .pill.accepted, .pill.edited, .pill.auto, .pill.pass { background: var(--ok-soft); color: var(--ok); }
+  .pill.draft, .pill.rejected { background: var(--low-soft); color: var(--low); }
+  .pill.needs-review, .pill.open, .pill.fail { background: var(--med-soft); color: var(--med); }
+  .pill.fail { background: var(--high-soft); color: var(--high); }
+  .src { font-family: var(--mono); font-size: 12px; color: var(--accent); background: var(--accent-soft); padding: 1px 6px; border-radius: 4px; cursor: pointer; white-space: nowrap; border: 0; }
+  .src.review { color: var(--ok); background: var(--ok-soft); cursor: default; }
+  button { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); padding: 6px 14px; color: var(--ink); }
+  button:hover { border-color: #c5ccd6; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.primary:hover { background: #0b5f58; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+
+  /* Practices */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+  .practice { padding: 18px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+  .practice:hover { border-color: var(--accent); box-shadow: 0 2px 10px rgba(15,118,110,.08); }
+  .practice h3 { margin: 0 0 2px; font-size: 16px; }
+  .practice .spec { color: var(--muted); font-size: 13px; text-transform: capitalize; margin-bottom: 14px; }
+  .practice .row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
+  .big { font-size: 26px; font-weight: 650; color: var(--ink); line-height: 1.1; }
+
+  /* Practice view */
+  .crumb { color: var(--muted); font-size: 13px; cursor: pointer; margin-bottom: 8px; display: inline-block; }
+  .crumb:hover { color: var(--accent); }
+  .titlebar { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+  .titlebar .spacer { flex: 1; }
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+  .tab { padding: 9px 16px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; color: var(--muted); font-weight: 550; }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab .n { font-size: 12px; background: var(--med-soft); color: var(--med); border-radius: 999px; padding: 0 7px; margin-left: 6px; }
+
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 18px; align-items: start; }
+  .files { position: sticky; top: 16px; overflow: hidden; }
+  .filetabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); background: #fafbfc; }
+  .filetab { border: 0; border-radius: 0; background: none; font-family: var(--mono); font-size: 12px; padding: 9px 12px; color: var(--muted); border-bottom: 2px solid transparent; }
+  .filetab.active { color: var(--ink); border-bottom-color: var(--accent); background: var(--panel); }
+  .code { font-family: var(--mono); font-size: 12.5px; max-height: 70vh; overflow: auto; padding: 8px 0; }
+  .ln { display: flex; padding: 0 12px; white-space: pre-wrap; word-break: break-word; }
+  .ln .no { color: #a0a9b6; width: 34px; flex: none; text-align: right; padding-right: 12px; user-select: none; }
+  .ln.hl { background: var(--hl); box-shadow: inset 3px 0 0 #e0b100; }
+  .ln.flag .no { color: var(--med); font-weight: 700; }
+
+  .config { padding: 6px 0; }
+  .group { padding: 10px 18px 4px; font-size: 12px; font-weight: 650; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .field { display: grid; grid-template-columns: 170px minmax(0, 1fr) auto; gap: 12px; padding: 7px 18px; align-items: baseline; cursor: pointer; border-left: 3px solid transparent; }
+  .field:hover { background: #f8fafb; }
+  .field.selected { background: var(--accent-soft); }
+  .field.flagged { border-left-color: var(--med); }
+  .field.flagged.high { border-left-color: var(--high); }
+  .field .k { color: var(--muted); font-size: 13px; overflow: hidden; text-overflow: ellipsis; }
+  .field .v { font-size: 14px; }
+  .legend { display: flex; gap: 16px; font-size: 12.5px; color: var(--muted); margin: -6px 0 14px; flex-wrap: wrap; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+
+  /* Exceptions */
+  .counter { display: flex; gap: 28px; padding: 18px 22px; margin-bottom: 18px; align-items: center; flex-wrap: wrap; }
+  .counter .label { font-size: 13px; color: var(--muted); }
+  .counter .headline { font-size: 18px; font-weight: 600; flex: 1; min-width: 260px; }
+  .issue { padding: 18px 20px; margin-bottom: 12px; }
+  .issue.done { opacity: .78; }
+  .issue .top { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
+  .issue h4 { margin: 0; font-size: 15.5px; }
+  .issue .msg { margin: 0 0 12px; color: #344054; }
+  .ev { font-family: var(--mono); font-size: 12.5px; background: #fafbfc; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+  .ev div { display: flex; gap: 10px; padding: 3px 0; align-items: baseline; }
+  .fix { margin-top: 12px; display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: end; }
+  .fix .label { font-size: 12px; font-weight: 650; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .fix .value { font-size: 15px; font-weight: 600; margin: 2px 0; }
+  .fix .value.empty { color: var(--muted); font-weight: 500; font-style: italic; }
+  .fix .why { font-size: 13px; color: var(--muted); }
+  .conf { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .bar { width: 70px; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .bar span { display: block; height: 100%; background: var(--accent); }
+  .actions { display: flex; gap: 8px; }
+  .editrow { display: flex; gap: 8px; margin-top: 10px; }
+  .editrow input { flex: 1; font: inherit; padding: 6px 10px; border: 1px solid #c5ccd6; border-radius: 8px; }
+  .err { color: var(--high); font-size: 13px; margin-top: 8px; }
+  details.auto { margin-top: 26px; }
+  details.auto summary { cursor: pointer; color: var(--muted); font-weight: 550; margin-bottom: 10px; }
+  .autorow { display: flex; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); align-items: baseline; font-size: 14px; }
+  .autorow:last-child { border-bottom: 0; }
+  .empty-state { padding: 34px; text-align: center; color: var(--muted); }
+
+  /* Smoke */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 650; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td .reply { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .exportbar { display: flex; align-items: center; gap: 16px; padding: 16px 20px; margin-top: 18px; }
+  .exportbar .msg { flex: 1; color: var(--muted); }
+  .exportbar .msg.blocked { color: var(--high); }
+  footer { text-align: center; color: var(--muted); font-size: 12.5px; padding: 0 20px 30px; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } .files { position: static; } .field { grid-template-columns: 120px 1fr; } .field .src { grid-column: 2; justify-self: start; } }
+</style>
+</head>
+<body>
+<header>
+  <h1 onclick="go('#/')">Practice Onboarding Compiler</h1>
+  <span class="tag">intake packet → checked agent config → human review of exceptions only</span>
+  <span class="spacer"></span>
+  <span class="tag" id="checker"></span>
+</header>
+<main id="app"></main>
+<footer>Independent prototype built from public information and synthetic data. Not affiliated with Asha Health.</footer>
+
+<script>
+const app = document.getElementById("app");
+let current = null;            // practice detail payload
+let ui = { tab: "config", file: "hours.txt", line: null, key: null, editing: null };
+
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cls = s => s.replace(/\s+/g, "-");
+const go = hash => { location.hash = hash; };
+
+async function api(path, opts) {
+  const res = await fetch(path, opts);
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(body.detail || res.statusText);
+  return body;
+}
+
+window.addEventListener("hashchange", render);
+render();
+
+async function render() {
+  const m = location.hash.match(/^#\/p\/(\w+)(?:\/(\w+))?/);
+  if (!m) return renderPractices();
+  if (!current || current.id !== m[1]) {
+    current = await api(`/api/practices/${m[1]}`);
+    ui = { tab: "config", file: "hours.txt", line: null, key: null, editing: null };
+  }
+  ui.tab = m[2] || "config";
+  renderPractice();
+}
+
+// ---------------------------------------------------------------- 1. Practices
+async function renderPractices() {
+  current = null;
+  const list = await api("/api/practices");
+  app.innerHTML = `
+    <h2>Practices</h2>
+    <p class="sub">Six synthetic practice packets. Each one is compiled, checked and repaired automatically; only the exceptions wait for a person.</p>
+    <div class="grid">${list.map(p => `
+      <div class="card practice" onclick="go('#/p/${p.id}')">
+        <h3>${esc(p.name)}</h3>
+        <div class="spec">${esc(p.specialty)} · ${p.id}</div>
+        <div class="row">
+          <div><div class="big">${p.counts.open}</div>open exception${p.counts.open === 1 ? "" : "s"}</div>
+          <div style="text-align:right">
+            <span class="pill ${cls(p.status)}">${p.status}</span>
+            <div style="margin-top:6px">${p.counts.auto_approved}/${p.counts.total_fields} fields auto-approved</div>
+            <div style="color:${p.counts.blocking ? "var(--high)" : "var(--ok)"}">${p.counts.blocking ? `${p.counts.blocking} blocking export` : "export allowed"}</div>
+          </div>
+        </div>
+      </div>`).join("")}
+    </div>`;
+}
+
+// ---------------------------------------------------------------- practice shell
+function renderPractice() {
+  const p = current, c = p.counts;
+  document.getElementById("checker").textContent = `Semantic checker: ${p.checker}`;
+  const tabs = [["config", "Packet → Config"], ["exceptions", "Exceptions", c.open], ["smoke", "Smoke test & export"]];
+  app.innerHTML = `
+    <span class="crumb" onclick="go('#/')">← All practices</span>
+    <div class="titlebar">
+      <div><h2>${esc(p.name)}</h2><p class="sub" style="margin:0;text-transform:capitalize">${esc(p.specialty)} · ${p.id}</p></div>
+      <span class="spacer"></span>
+      <span class="pill ${cls(p.status)}" style="margin-top:6px">${p.status}</span>
+    </div>
+    <div class="tabs">${tabs.map(([id, label, n]) =>
+      `<button class="tab ${ui.tab === id ? "active" : ""}" onclick="go('#/p/${p.id}/${id}')">${label}${n ? `<span class="n">${n}</span>` : ""}</button>`).join("")}
+    </div>
+    <div id="view"></div>`;
+  ({ config: renderConfig, exceptions: renderExceptions, smoke: renderSmoke })[ui.tab]();
+}
+
+// ---------------------------------------------------------------- 2. Packet -> Config
+function openTargets() {
+  const map = {};
+  for (const i of current.issues) if (i.status === "open")
+    for (const t of (i.targets.length ? i.targets : [])) map[t] = map[t] === "high" ? "high" : i.severity;
+  return map;
+}
+
+function flaggedLines() {
+  const set = new Set();
+  for (const i of current.issues) if (i.status === "open") for (const e of i.evidence) set.add(e.source);
+  return set;
+}
+
+function renderConfig() {
+  const flags = openTargets(), lines = flaggedLines();
+  let group = "";
+  const rows = current.rows.map((r, idx) => {
+    const head = r.group !== group ? `<div class="group">${esc(group = r.group)}</div>` : "";
+    const sev = flags[r.key] || flags[r.key.split(":")[0]];
+    const chip = r.source === "review" ? `<span class="src review" title="Changed by a repair">repaired</span>`
+               : r.source ? `<span class="src">${esc(r.source)}</span>` : "";
+    return `${head}<div class="field ${sev ? "flagged " + sev : ""} ${ui.key === idx ? "selected" : ""}" onclick="pick(${idx})">
+      <div class="k" title="${esc(r.label)}">${esc(r.label)}</div><div class="v">${esc(r.value)}</div>${chip}</div>`;
+  }).join("");
+  const file = current.files[ui.file] || [];
+  document.getElementById("view").innerHTML = `
+    <div class="legend">
+      <span>Click any config field to see the source line it came from.</span>
+      <span><i style="background:var(--high)"></i>open high-severity exception</span>
+      <span><i style="background:var(--med)"></i>open exception</span>
+      <span><i style="background:var(--ok-soft);border:1px solid var(--ok)"></i>changed by a repair</span>
+    </div>
+    <div class="split">
+      <div class="card files">
+        <div class="filetabs">${Object.keys(current.files).map(f =>
+          `<button class="filetab ${f === ui.file ? "active" : ""}" onclick="showFile('${f}')">${f}</button>`).join("")}</div>
+        <div class="code" id="code">${file.map((l, i) => {
+          const ref = `${ui.file}:${i + 1}`;
+          return `<div class="ln ${ui.line === ref ? "hl" : ""} ${lines.has(ref) ? "flag" : ""}" id="L${i + 1}"><span class="no">${i + 1}</span><span>${esc(l) || " "}</span></div>`;
+        }).join("")}</div>
+      </div>
+      <div class="card config">${rows}</div>
+    </div>`;
+  if (ui.line) document.getElementById("L" + ui.line.split(":")[1])?.scrollIntoView({ block: "center" });
+}
+
+function pick(idx) {
+  const r = current.rows[idx];
+  ui.key = idx;
+  if (r.source && r.source !== "review") { ui.file = r.source.split(":")[0]; ui.line = r.source; }
+  renderConfig();
+}
+function showFile(f) { ui.file = f; ui.line = null; renderConfig(); }
+function jump(source) {
+  ui.file = source.split(":")[0]; ui.line = source.includes(":") ? source : null; ui.key = null;
+  go(`#/p/${current.id}/config`);
+}
+
+// ---------------------------------------------------------------- 3. Exceptions
+function renderExceptions() {
+  const c = current.counts;
+  const human = current.issues.filter(i => i.repair.route === "human");
+  const auto = current.issues.filter(i => i.repair.route === "auto");
+  const headline = `${c.auto_approved} fields auto-approved, ${c.open} need${c.open === 1 ? "s" : ""} you`;
+  document.getElementById("view").innerHTML = `
+    <div class="card counter">
+      <div class="headline">${headline}</div>
+      <div><div class="label">Auto-repaired</div><div class="big">${c.auto_repaired}</div></div>
+      <div><div class="label">Blocking export</div><div class="big" style="color:${c.blocking ? "var(--high)" : "var(--ok)"}">${c.blocking}</div></div>
+      <button onclick="resetReview()">Reset review</button>
+    </div>
+    ${human.length ? human.map(issueCard).join("") : `<div class="card empty-state">No exceptions. Every field was approved automatically.</div>`}
+    ${auto.length ? `<details class="auto"><summary>Repairs applied automatically (${auto.length})</summary><div class="card">${auto.map(i => `
+      <div class="autorow"><span class="pill ${i.severity}">${i.severity}</span><div style="flex:1"><b>${esc(i.title)}</b> · ${esc(i.message)}<div class="why" style="color:var(--muted);font-size:13px">${esc(i.repair.rationale)}</div></div>
+      <div style="text-align:right"><div><b>${esc(i.repair.value)}</b></div>${conf(i.repair.confidence)}</div></div>`).join("")}</div></details>` : ""}`;
+  const input = document.getElementById("edit-input");
+  if (input) { input.focus(); input.select(); }
+}
+
+function conf(x) {
+  return `<span class="conf">confidence <span class="bar"><span style="width:${Math.round(x * 100)}%"></span></span>${Math.round(x * 100)}%</span>`;
+}
+
+function issueCard(i) {
+  const done = i.status !== "open";
+  const r = i.repair;
+  const proposed = r.value ? esc(r.value) : (i.type === "unknown_provider" ? "Remove the mention" : "No value could be inferred");
+  const emptyCls = r.value ? "" : "empty";
+  const decision = done ? `<span class="pill ${i.status}">${i.status}${i.status === "edited" ? ": " + esc(i.applied_value) : ""}</span>` : "";
+  const canAccept = r.value || i.type === "unknown_provider";
+  return `<div class="card issue ${done ? "done" : ""}">
+    <div class="top"><span class="pill ${i.severity}">${i.severity}</span><h4>${esc(i.title)}</h4>
+      ${i.detector !== "rules" ? `<span class="tag" style="font-size:12px;color:var(--muted)">semantic check (${esc(i.detector)})</span>` : ""}
+      <span style="flex:1"></span>${decision}</div>
+    <p class="msg">${esc(i.message)}</p>
+    <div class="ev">${i.evidence.map(e => `<div><button class="src" onclick="jump('${esc(e.source)}')">${esc(e.source)}</button><span>${esc(e.text)}</span></div>`).join("")}</div>
+    <div class="fix">
+      <div>
+        <div class="label">Proposed fix ${r.citations.length ? `· from ${r.citations.map(s => `<button class="src" onclick="jump('${esc(s)}')">${esc(s)}</button>`).join(" ")}` : ""}</div>
+        <div class="value ${emptyCls}">${proposed}</div>
+        <div class="why">${esc(r.rationale)}</div>
+        <div style="margin-top:4px">${conf(r.confidence)}</div>
+      </div>
+      <div class="actions">${done ? `<button onclick="decide('${i.id}','reject')" ${i.status === "rejected" ? "disabled" : ""}>Reject</button>` : `
+        <button class="primary" onclick="decide('${i.id}','accept')" ${canAccept ? "" : "disabled title='Nothing to accept; edit instead'"}>Accept</button>
+        <button onclick="startEdit('${i.id}')">Edit</button>
+        <button onclick="decide('${i.id}','reject')">Reject</button>`}
+      </div>
+    </div>
+    ${ui.editing === i.id ? `<div class="editrow"><input id="edit-input" value="${esc(r.value)}" placeholder="${esc(editHint(i))}"
+        onkeydown="if(event.key==='Enter')saveEdit('${i.id}');if(event.key==='Escape')startEdit(null)">
+        <button class="primary" onclick="saveEdit('${i.id}')">Apply</button><button onclick="startEdit(null)">Cancel</button></div>` : ""}
+    ${i.error ? `<div class="err">${esc(i.error)}</div>` : ""}
+  </div>`;
+}
+
+function editHint(i) {
+  return ({ invalid_phone: "(555) 555-0123", missing_timezone: "America/Chicago", hours_conflict: "09:00-12:00 or closed",
+    red_flag_no_escalation: "emergency or urgent", missing_red_flag: "emergency or urgent",
+    missing_after_hours: "Calls forward to the on-call line at (555) 555-0199.",
+    holiday_free_text: "2026-11-26, 2026-12-25", unknown_provider: "Replacement sentence, or leave empty to remove" })[i.type] || "";
+}
+
+function startEdit(id) { ui.editing = id; renderExceptions(); }
+async function saveEdit(id) { await decide(id, "edit", document.getElementById("edit-input").value); }
+
+async function decide(id, action, value = "") {
+  try {
+    current = await api(`/api/practices/${current.id}/issues/${encodeURIComponent(id)}`, {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action, value }) });
+    ui.editing = null;
+    renderPractice();
+  } catch (e) { alert(e.message); }
+}
+
+async function resetReview() {
+  current = await api(`/api/practices/${current.id}/reset`, { method: "POST" });
+  renderPractice();
+}
+
+// ---------------------------------------------------------------- 4. Smoke test & export
+async function renderSmoke() {
+  const view = document.getElementById("view");
+  view.innerHTML = `<div class="card empty-state">Running scripted messages…</div>`;
+  const s = await api(`/api/practices/${current.id}/smoke`);
+  const c = current.counts;
+  const blocked = !current.can_export;
+  const blockers = current.issues.filter(i => i.status === "open" && i.severity === "high").map(i => i.title.toLowerCase());
+  view.innerHTML = `
+    <p class="sub">Ten scripted patient messages run against the approved config (automatic repairs plus your review decisions).
+      <b>${s.passed}/${s.total} passed.</b></p>
+    <div class="card"><table>
+      <thead><tr><th>Message</th><th>Expected</th><th>Actual</th><th></th></tr></thead>
+      <tbody>${s.results.map(r => `<tr>
+        <td>${esc(r.message)}<div class="reply">Agent: ${esc(r.reply)}</div></td>
+        <td>${esc(r.expected_intent)}${r.expected_escalation ? ` · <b>${esc(r.expected_escalation)}</b>` : ""}</td>
+        <td>${esc(r.actual_intent)}${r.actual_escalation ? ` · <b>${esc(r.actual_escalation)}</b>` : ""}</td>
+        <td><span class="pill ${r.passed ? "pass" : "fail"}">${r.passed ? "pass" : "fail"}</span></td></tr>`).join("")}</tbody>
+    </table></div>
+    <div class="card exportbar">
+      <div class="msg ${blocked ? "blocked" : ""}">${blocked
+        ? `Export is blocked by ${blockers.length} open high-severity issue${blockers.length === 1 ? "" : "s"}: ${esc(blockers.join(", "))}. Resolve ${blockers.length === 1 ? "it" : "them"} on the Exceptions tab.`
+        : c.open ? `Ready to export. ${c.open} lower-severity exception${c.open === 1 ? " is" : "s are"} still open.` : "Every exception is resolved. Ready to export."}</div>
+      <button class="primary" ${blocked ? "disabled" : ""} onclick="location.href='/api/practices/${current.id}/export'">Export config</button>
+    </div>`;
+}
+</script>
+</body>
+</html>
