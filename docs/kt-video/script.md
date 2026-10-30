@@ -237,6 +237,21 @@ the sample data carries its own answer key, so the checker can be scored.
 
 ---
 
+## Scene 9 — Thank you  (chapter "09 / Thank you", hold 3)
+
+**Narration**
+
+Thank you for watching.
+
+**On screen**
+- Centered end card: "Thank you" (large), fading in at the start of the scene.
+- At "watching": below it, "Made by Medhaja H L" in the muted body color.
+
+**Sources**
+- No factual claims.
+
+---
+
 ## Totals
 
 | Scene | Words |
@@ -249,6 +264,7 @@ the sample data carries its own answer key, so the checker can be scored.
 | 6 | 66 |
 | 7 | 95 |
 | 8 | 53 |
-| **Total** | **574** |
+| 9 | 4 |
+| **Total** | **578** |
 
-Measured from the generated audio (timing.json): about 3 minutes 53 seconds including 0.6 s padding per scene.
+Measured from the generated audio (timing.json); see the total there.

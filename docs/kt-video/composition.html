@@ -595,6 +595,19 @@
     };
   });
 
+  // 09 Thank you
+  SCENES.push((root) => {
+    const S = 9;
+    const card = place(el(root, "abs", `<h1 style="font-size:120px">Thank you</h1>`), 0, 400, 1920);
+    const by = place(el(root, "abs muted", "Made by Medhaja H L", { fontSize: "40px" }), 0, 570, 1920);
+    card.style.textAlign = by.style.textAlign = "center";
+    const tw = W(S, "watching");
+    return (lt) => {
+      show(card, p(lt, 0.1, 0.8));
+      show(by, p(lt, tw, 0.8));
+    };
+  });
+
   // ---------------------------------------------------------------- runtime
   let built = [], current = -1;
 

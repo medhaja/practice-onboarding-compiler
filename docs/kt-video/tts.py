@@ -2,7 +2,7 @@
 
 Reads the **Narration** block of each scene in script.md and writes:
   audio/scene_XX.wav   one 24 kHz WAV per scene
-  timing.json          scene durations (audio + padding) with sentence and word timestamps
+  timing.json          scene durations (audio + padding + optional hold) with sentence and word timestamps
   captions.srt         sentence-level captions built from the same timestamps
 
 Usage: .venv/Scripts/python.exe tts.py [--scenes 3,5] [--all]
@@ -38,8 +38,9 @@ def read_scenes() -> list[dict]:
         title = header.split("—", 1)[1].split("(")[0].strip()
         chapter = re.search(r'chapter "([^"]+)"', header).group(1)
         narration = re.search(r"\*\*Narration\*\*\s*\n(.*?)\n\s*\*\*On screen", block, re.S).group(1)
+        hold = re.search(r"hold ([\d.]+)", header)  # optional extra seconds, e.g. for an end card
         scenes.append({"scene": number, "title": title, "chapter": chapter,
-                       "narration": " ".join(narration.split())})
+                       "narration": " ".join(narration.split()), "hold": float(hold.group(1)) if hold else 0.0})
     return scenes
 
 
@@ -116,7 +117,7 @@ def main() -> None:
             print(f"scene {scene['scene']}: {entry['audio_seconds']:.2f}s")
         else:
             entry = {**old[scene["scene"]], **scene}
-        entry["duration"] = round(entry["audio_seconds"] + PADDING, 3)
+        entry["duration"] = round(entry["audio_seconds"] + PADDING + entry["hold"], 3)
         scenes_out.append(entry)
 
     t = 0.0
