@@ -95,6 +95,17 @@ Call script lines:
 """
 
 
+def load_env_file(path: str = ".env") -> None:
+    """Read KEY=value lines from a local .env into the environment; variables already set win."""
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            key, sep, value = line.strip().partition("=")
+            if sep and key and not key.startswith("#") and value.strip():
+                os.environ.setdefault(key.strip(), value.strip().strip('"'))
+
+
 def llm_model() -> Optional[str]:
     model = os.getenv("LLM_MODEL", "").strip()
     if not model:

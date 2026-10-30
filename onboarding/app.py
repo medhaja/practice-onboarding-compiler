@@ -21,7 +21,7 @@ from .pipeline import Analysis, analyze
 from .review import ReviewState, ReviewStore, build_state
 from .router import load_smoke_tests, run_smoke
 from .schema import AgentConfig
-from .semantic import llm_model
+from .semantic import llm_model, load_env_file
 
 STATIC = Path(__file__).resolve().parent / "static"
 
@@ -169,8 +169,9 @@ def _free_port(preferred: int, tries: int = 20) -> int:
 def main() -> None:
     import uvicorn
 
-    port = int(os.environ["PORT"]) if os.getenv("PORT") else _free_port(8000)
-    print(f"Practice Onboarding Compiler running at http://127.0.0.1:{port}  (Ctrl+C to stop)")
+    load_env_file()
+    port =int(os.environ["PORT"]) if os.getenv("PORT") else _free_port(8000)
+    print(f"Practice Onboarding Compiler running at http://127.0.0.1:{port}  (Ctrl+C to stop)", flush=True)
     uvicorn.run(app, host="127.0.0.1", port=port, log_level="warning")
 
 
