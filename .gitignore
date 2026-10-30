@@ -26,3 +26,7 @@ Thumbs.db
 docs/kt-video/.venv/
 docs/kt-video/audio/
 docs/kt-video/out/
+
+# Local review state and exports
+var/
+exports/
