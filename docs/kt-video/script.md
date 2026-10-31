@@ -1,10 +1,8 @@
 # KT video script: practice-onboarding-compiler
 
-Decisions applied (from the outline's open questions, defaulted because no answer was given):
-- The video covers the core as it exists today. "How to run" shows the generator and the test suite; the review
-  UI, repairer, smoke test and eval are presented as next steps, drawn dashed.
-- `onboarding/semantic.py` (not yet committed) is covered as the newest piece.
-- The 30-of-30 result is mentioned, labelled as measured on synthetic data with no eval script yet.
+Scope: the video covers the repo as it is now: compiler, rules, semantic check, repairer, review state, smoke-test
+router, gated export, the review UI (`make demo`) and the evaluation script (`make eval`). Scenes 1 and 3-5 are
+unchanged from the first version; scenes 2 and 6 were updated, and scenes 7-10 are new.
 
 Pronunciation respellings used in the narration: "F-A-Q" (FAQ), "Jason" (JSON), "Lite L-L-M" (LiteLLM),
 "pie-test" (pytest), "pie-dantic" (Pydantic), "L-L-M" (LLM),
@@ -41,9 +39,8 @@ compiles a practice's intake packet into an agent konfig, checks it, and leaves 
 
 Plain code handles anything that must be exact and repeatable. The compiler parses five packet files into a
 typed konfig. The validator runs nine deterministic rules. A semantic check looks for an F-A-Q
-answer that contradicts the call script. That is the only place a language model is allowed. Everything ends up as
-a list of issues. The later stages, repair, review, smoke test and export, are designed in the P-R-D but not built
-yet.
+answer that contradicts the call script. That is the only place a language model is allowed. Each issue then gets
+a proposed fix. After that come review, a smoke test, and a gated export.
 
 **On screen**
 - Boxes appear left to right: `packet files` → `compile_packet` → `AgentConfig` → `run_rules` + `semantic_check` → `Issue[]`.
@@ -51,7 +48,8 @@ yet.
 - At "five packet files": five file chips stack inside the packet box (hours.txt, providers.csv, call_script.md, faq.md, protocols.md).
 - At "nine deterministic rules": the run_rules box shows a "9" badge.
 - At "only place a language model is allowed": the semantic_check box gets a violet "optional model" tag.
-- At "designed ... but not built yet": dashed grey boxes appear to the right: Repair → Review → Smoke test → Export, label "planned".
+- At "Each issue then gets": the `list[Issue]` box appears.
+- At "After that come": a second row appears below, solid boxes: `propose` (repairer) → `build_state` (review, SQLite) → `run_smoke` → `export`, labelled "then".
 
 **Sources**
 - Plain code vs model split: PRD.md:86
@@ -59,7 +57,8 @@ yet.
 - compile_packet returns AgentConfig: onboarding/compiler.py:76, 170
 - Nine rules: onboarding/validator.py:215-217
 - Semantic check, FAQ vs script: onboarding/semantic.py:1-8
-- Planned stages: PRD.md:81-83, 119-124 (no corresponding modules in onboarding/)
+- Each issue gets a proposed fix: onboarding/pipeline.py:22-27; onboarding/repairer.py:176-177
+- Review, smoke test, gated export: onboarding/review.py:1-9, 104-126; onboarding/router.py:217-224; onboarding/app.py:145-153
 
 ---
 
@@ -160,84 +159,150 @@ needs a key or a network.
   Right lane "no key" (grey): `mock_check` → keyword stance patterns.
 - Both lanes converge on the same amber Issue card.
 - At "every cited line must exist": a red "unknown id" stamp on the left lane redirects its arrow into `mock_check`.
-- Then code focus: `onboarding/semantic.py` lines 138–149; highlight 140–142 at "the default", 145–149 at "falls back".
+- Then code focus: `onboarding/semantic.py` lines 148–159; highlight 153–159 at "falls back", 150–152 at "runs whenever".
 
 **Sources**
 - Two backends, same Issue shape: onboarding/semantic.py:1-8
-- Model only when LLM_MODEL set and litellm importable: onboarding/semantic.py:99-108
-- JSON validated, unknown ids rejected: onboarding/semantic.py:120-129
-- Fallback on validation or call failure: onboarding/semantic.py:143-149
-- Mock runs whenever no model is set (LLM_MODEL unset or litellm missing): onboarding/semantic.py:99-108, 140-142
+- Model only when LLM_MODEL set and litellm importable: onboarding/semantic.py:109-118
+- JSON validated, unknown ids rejected: onboarding/semantic.py:130-139
+- Fallback on validation or call failure: onboarding/semantic.py:153-159
+- Mock runs whenever no model is set (LLM_MODEL unset or litellm missing): onboarding/semantic.py:109-118, 150-152
 - litellm is an optional dependency: requirements-llm.txt:1-2
 
 ---
 
-## Scene 7 — Running it, gotchas and next steps  (chapter "07 / Run it & limits")
+## Scene 7 — Repair with confidence gating  (chapter "07 / Repair")
 
 **Narration**
 
-To run it today, install the requirements, run the generator, and run pie-test. The thirty-nine tests include one
-per rule, and a golden konfig for the clean practice. In mock mode, on this synthetic data, the checks find all
-thirty planted defects with no false alarms. But there's no ee-val script yet, and synthetic defects are easier
-than real ones. Other limits: the packet format is a guess, the red-flag lists need a physician's review, and
-escalation fixes are flagged to always need a person. Next come repair, review, the smoke test and the ee-val.
+Next, the repairer proposes a fix for every issue, with a confidence score and the lines it was drawn from. A fix
+is applied automatically only when confidence is at least zero point eight, and never for escalation. For
+Harborview, the Friday hours and the duplicate visit type are fixed automatically. The missing chest-pain rule
+scores exactly zero point eight, but it's escalation, so it waits for a person, along with four others.
 
 **On screen**
-- Terminal card (monospace):
-  ```
-  pip install -r requirements.txt
-  python -m onboarding.generator
-  pytest
-  → 39 passed
-  ```
-- At "all thirty planted defects": a stat chip "30 / 30 found · 0 false alarms" with a small label "synthetic data · mock mode · no eval script yet".
-- At "A few honest limits": three gotcha rows with amber markers:
-  - Packet format is a guess
-  - Red-flag lists are placeholders — need physician review (`taxonomy.py:43`)
-  - Escalation fixes flagged to always need a person (`always_human`)
-- At "Next comes": dashed roadmap boxes: Repair → Review UI → Smoke test → Eval.
+- Code focus: `onboarding/repairer.py` lines 18–25; highlight 18 and 23 at "at least zero point eight", 23 again at "never for escalation".
+- At "For Harborview": a table of p03's seven issues, each with a confidence bar and a route chip:
+  hours conflict 0.90 auto · duplicate visit type 0.90 auto · chest-pain rule 0.80 person (escalation) ·
+  FAQ contradiction 0.60 person · holidays 0.60 person · unknown provider 0.30 person · invalid phone 0.20 person.
+- At "fixed automatically": the two auto rows turn green. At "it's escalation": the chest-pain row gets an "escalation" tag;
+  at "four others": a "5 need a person" badge.
 
 **Sources**
-- Generator command: onboarding/generator.py:8, 477-488
-- Requirements file: requirements.txt
-- 39 tests pass: `pytest -q` output, 39 passed
-- One test per rule: tests/test_rules.py:1
-- Golden config for clean practice: tests/test_compiler.py:34-36; tests/golden/p06_agent_config.json
-- 30/30, 0 false positives: ad-hoc run of run_rules + semantic_check(mode="mock") vs defects.json for p01–p06 (no eval script in repo)
-- Synthetic defects easier: PRD.md:111
-- Packet format is a guess: PRD.md:107
-- Red-flag placeholders: onboarding/taxonomy.py:43; PRD.md:108
-- Escalation repairs flagged always_human (a flag only; no repair step consumes it yet): onboarding/taxonomy.py:20-21, 29-32
-- Remaining build steps: PRD.md:119-124
+- Proposal with confidence and cited source lines: onboarding/repairer.py:1-5, 28-30
+- Auto only at confidence >= 0.8 and never escalation: onboarding/repairer.py:18, 22-25; onboarding/taxonomy.py:29-32
+- p03 confidences: hours 0.9 (repairer.py:93-97), duplicate of the same length 0.9 (repairer.py:100-108), chest pain 0.8
+  (repairer.py:140-146), FAQ 0.6 (repairer.py:149-153), holidays with a partial day 0.6 (repairer.py:80-90), unknown provider
+  0.3 (repairer.py:156-159), phone with 3 candidate numbers 0.2 (repairer.py:57-66)
+- p03 result (2 auto, 5 to a person): build_state(analyze("p03"), {}) run on the current code; README.md:26 ("54 fields auto-approved, 5 need you")
 
 ---
 
-## Scene 8 — Recap  (chapter "08 / Recap")
+## Scene 8 — Review, smoke test and gated export  (chapter "08 / Review & export")
+
+**Narration**
+
+Reviewer decisions, accept, edit or reject, are stored in SQLite, and replayed on top of the compiled konfig. Then a
+smoke test sends ten scripted patient messages through a keyword router that reads only that konfig. Harborview
+passes nine. The chest-pain message finds no rule, so nothing escalates. And export stays blocked while any
+high-severity issue is open. Here, that's the chest-pain rule and a broken phone number.
+
+**On screen**
+- Top row: chips `accept` `edit` `reject` → `decisions` table card (`var/review.sqlite`) → `build_state` → green "approved config" card.
+- At "smoke test": a table of five of the ten p03 messages with expected vs actual route; all pass except
+  "I'm having chest pain and it won't go away." expected `red_flag · emergency`, actual `unknown · none` (red). Counter "9 / 10 passed".
+- At "export stays blocked": a disabled "Export config" button and the API response
+  `409 · Export is blocked by 2 open high-severity issue(s): invalid phone number, required red-flag rule missing.`
+
+**Sources**
+- Decisions in SQLite, accept/edit/reject: onboarding/review.py:25-47
+- Replayed on the compiled config (auto repairs and decisions applied in order): onboarding/review.py:104-126
+- Ten scripted messages per practice: tests/test_generator.py:31; data/practices/p03/smoke_tests.json
+- Keyword router reads only the config: onboarding/router.py:1-4, 166-183
+- p03 smoke result 9/10, chest pain routes to "unknown": run_smoke(build_state(analyze("p03"), {}).approved, …) on the current code
+- Export blocked while a high-severity issue is open: onboarding/review.py:79-85; onboarding/app.py:145-150; tests/test_api.py:36-37
+- p03 blocking issues = invalid phone + missing chest-pain rule (both high): onboarding/taxonomy.py:32-33; build_state run as above
+
+---
+
+## Scene 9 — Run the demo  (chapter "09 / Run the demo")
+
+**Narration**
+
+To try it, run make demo, and open localhost, port eight thousand. It needs no keys, no Node, and no network.
+There are four screens. Practices, with status and open exceptions. Packet to konfig, where clicking a field
+highlights its source line. Exceptions, with evidence, the proposed fix, and its confidence. And the smoke test,
+with the export button.
+
+**On screen**
+- Terminal card: `$ make demo` then `Practice Onboarding Compiler running at http://127.0.0.1:8000`.
+- At "four screens": the four screen names listed on the left; the matching screenshot from `docs/screenshots/` shows large
+  on the right and switches as each screen is named (1-practices, 2-packet-to-config, 3-exceptions, 4-smoke-test).
+
+**Sources**
+- make demo: Makefile (demo target); README.md:3-6
+- Port 8000 (next free port if taken): onboarding/app.py:161-185; README.md:6
+- No keys, no Node, no network: README.md:6
+- Four screens and what they show: README.md:22-27; onboarding/static/index.html:174, 230, 252, 272, 312-315, 372
+
+---
+
+## Scene 10 — Evaluation and limits  (chapter "10 / Eval & limits")
+
+**Narration**
+
+Make ee-val scores everything against the answer key. In mock mode, the checks find all thirty planted defects,
+with no false alarms. All twenty-four scored fixes match the known answer, and ninety-five percent of fields need
+no review. Before review, fifty-seven of sixty smoke tests pass. The three failures are escalation fixes it won't
+apply alone. These numbers are optimistic, because the defects and the checks were written together. Other
+limits: the packet format is a guess, the red-flag lists need a physician's review, and the router matches
+keywords; it isn't a live agent.
+
+**On screen**
+- Terminal card with the real `make eval` output lines, each highlighted as it's spoken: precision 1.00 (30 true, 0 false
+  alarms) · recall 1.00 · repair accuracy 100% (24/24) · fields auto-approved 95% (330/346) · smoke tests, auto repairs only 57/60.
+- At "optimistic": an amber note "synthetic defects · defects and checks written together".
+- At "Other limits": three rows: packet format is a guess · red-flag lists need physician review (`taxonomy.py:43`) ·
+  router is keywords, not a live agent (`router.py:1-4`).
+
+**Sources**
+- make eval and what it scores: onboarding/eval.py:1-4, 50-86; Makefile (eval target)
+- Numbers: `python -m onboarding.eval` output on the current code (also README.md:57-66)
+- Repair accuracy counts only defects with a known fix (24 of 30): onboarding/eval.py:60-63
+- The three smoke failures are escalation defects (p02 stroke, p03 chest pain, p04 coughing up blood): smoke run on the current code; README.md:68
+- Optimistic, defects and checks written together: README.md:68; PRD.md:111
+- Packet format is a guess: README.md:91; PRD.md:107
+- Red-flag placeholders: onboarding/taxonomy.py:43; README.md:93
+- Router is keyword based, not a live agent: onboarding/router.py:1-4; README.md:94
+
+---
+
+## Scene 11 — Recap  (chapter "11 / Recap")
 
 **Narration**
 
 So, to recap. The compiler is deterministic, and every value points back to a file and a line. Nine rules and one
-semantic check turn mistakes into issues with evidence. A model is optional, validated, and never required. And
-the sample data carries its own answer key, so the checker can be scored.
+semantic check turn mistakes into issues with evidence. Confident fixes apply themselves; escalation always waits
+for a person. And the answer key lets make ee-val score all of it.
 
 **On screen**
 - Four takeaways appear one per sentence:
   1. Deterministic compile, `file:line` on every value
   2. 9 rules + 1 semantic check → issues with evidence
-  3. Model optional, validated, never required
-  4. Synthetic data with an answer key
+  3. Confident fixes auto-apply; escalation waits for a person
+  4. An answer key, so `make eval` can score it all
 - Footer: "Independent prototype built from public information and synthetic data. Not affiliated with Asha Health."
 
 **Sources**
 - Deterministic compiler: onboarding/compiler.py:3-5
 - Provenance on every item: onboarding/schema.py:3-5
-- Nine rules: onboarding/validator.py:215-217; semantic check: onboarding/semantic.py:138
-- Optional model with fallback: onboarding/semantic.py:99-108, 138-149
-- Answer key: onboarding/generator.py:4-5
+- Nine rules: onboarding/validator.py:215-217; semantic check: onboarding/semantic.py:148
+- Gating: onboarding/repairer.py:18-25
+- Answer key and eval: onboarding/generator.py:4-5; onboarding/eval.py:1-4
 
 ---
 
-## Scene 9 — Thank you  (chapter "09 / Thank you", hold 3)
+## Scene 12 — Thank you  (chapter "12 / Thank you", hold 3)
 
 **Narration**
 
@@ -257,14 +322,17 @@ Thank you for watching.
 | Scene | Words |
 |---|---|
 | 1 | 73 |
-| 2 | 75 |
+| 2 | 67 |
 | 3 | 63 |
 | 4 | 75 |
 | 5 | 74 |
 | 6 | 66 |
-| 7 | 95 |
-| 8 | 53 |
-| 9 | 4 |
-| **Total** | **578** |
+| 7 | 73 |
+| 8 | 68 |
+| 9 | 59 |
+| 10 | 94 |
+| 11 | 51 |
+| 12 | 4 |
+| **Total** | **767** |
 
 Measured from the generated audio (timing.json); see the total there.

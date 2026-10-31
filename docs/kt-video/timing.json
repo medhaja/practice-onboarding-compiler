@@ -2,7 +2,8 @@
  "fps": 30,
  "padding": 0.6,
  "sample_rate": 24000,
- "total": 239.925,
+ "total": 322.466667,
+ "total_frames": 9674,
  "scenes": [
   {
    "scene": 1,
@@ -407,15 +408,16 @@
    ],
    "duration": 30.1,
    "start": 0.0,
-   "hold": 0.0
+   "hold": 0.0,
+   "frames": 903
   },
   {
    "scene": 2,
    "title": "Architecture",
    "chapter": "02 / Architecture",
-   "narration": "Plain code handles anything that must be exact and repeatable. The compiler parses five packet files into a typed konfig. The validator runs nine deterministic rules. A semantic check looks for an F-A-Q answer that contradicts the call script. That is the only place a language model is allowed. Everything ends up as a list of issues. The later stages, repair, review, smoke test and export, are designed in the P-R-D but not built yet.",
-   "audio": "scene_02.wav",
-   "audio_seconds": 30.45,
+   "narration": "Plain code handles anything that must be exact and repeatable. The compiler parses five packet files into a typed konfig. The validator runs nine deterministic rules. A semantic check looks for an F-A-Q answer that contradicts the call script. That is the only place a language model is allowed. Each issue then gets a proposed fix. After that come review, a smoke test, and a gated export.",
+   "hold": 0.0,
+   "audio_seconds": 27.25,
    "sentences": [
     {
      "text": "Plain code handles anything that must be exact and repeatable.",
@@ -443,14 +445,14 @@
      "end": 20.55
     },
     {
-     "text": "Everything ends up as a list of issues.",
+     "text": "Each issue then gets a proposed fix.",
      "start": 20.55,
-     "end": 23.45
+     "end": 23.2
     },
     {
-     "text": "The later stages, repair, review, smoke test and export, are designed in the P-R-D but not built yet.",
-     "start": 23.45,
-     "end": 30.45
+     "text": "After that come review, a smoke test, and a gated export.",
+     "start": 23.2,
+     "end": 27.25
     }
    ],
    "words": [
@@ -700,139 +702,100 @@
      "end": 20.3
     },
     {
-     "word": "Everything",
+     "word": "Each",
      "start": 20.825,
-     "end": 21.312
+     "end": 21.025
     },
     {
-     "word": "ends",
-     "start": 21.312,
-     "end": 21.6
+     "word": "issue",
+     "start": 21.025,
+     "end": 21.3
     },
     {
-     "word": "up",
-     "start": 21.6,
-     "end": 21.963
+     "word": "then",
+     "start": 21.3,
+     "end": 21.575
     },
     {
-     "word": "as",
-     "start": 21.963,
-     "end": 22.088
+     "word": "gets",
+     "start": 21.575,
+     "end": 21.788
     },
     {
      "word": "a",
-     "start": 22.088,
-     "end": 22.15
+     "start": 21.788,
+     "end": 21.85
     },
     {
-     "word": "list",
-     "start": 22.15,
-     "end": 22.363
+     "word": "proposed",
+     "start": 21.85,
+     "end": 22.325
     },
     {
-     "word": "of",
-     "start": 22.363,
-     "end": 22.45
+     "word": "fix",
+     "start": 22.325,
+     "end": 22.95
     },
     {
-     "word": "issues",
-     "start": 22.45,
-     "end": 23.2
+     "word": "After",
+     "start": 23.5,
+     "end": 23.762
     },
     {
-     "word": "The",
-     "start": 23.7,
-     "end": 23.8
+     "word": "that",
+     "start": 23.762,
+     "end": 23.975
     },
     {
-     "word": "later",
-     "start": 23.8,
-     "end": 24.1
-    },
-    {
-     "word": "stages",
-     "start": 24.1,
-     "end": 24.8
-    },
-    {
-     "word": "repair",
-     "start": 24.9,
-     "end": 25.425
+     "word": "come",
+     "start": 23.975,
+     "end": 24.15
     },
     {
      "word": "review",
-     "start": 25.5,
-     "end": 26.025
+     "start": 24.15,
+     "end": 24.65
+    },
+    {
+     "word": "a",
+     "start": 24.75,
+     "end": 24.863
     },
     {
      "word": "smoke",
-     "start": 26.137,
-     "end": 26.45
+     "start": 24.863,
+     "end": 25.175
     },
     {
      "word": "test",
-     "start": 26.45,
-     "end": 26.8
+     "start": 25.175,
+     "end": 25.6
     },
     {
      "word": "and",
-     "start": 26.8,
-     "end": 26.925
+     "start": 25.675,
+     "end": 25.787
+    },
+    {
+     "word": "a",
+     "start": 25.787,
+     "end": 25.863
+    },
+    {
+     "word": "gated",
+     "start": 25.863,
+     "end": 26.225
     },
     {
      "word": "export",
-     "start": 26.925,
-     "end": 27.675
-    },
-    {
-     "word": "are",
-     "start": 27.775,
-     "end": 27.875
-    },
-    {
-     "word": "designed",
-     "start": 27.875,
-     "end": 28.288
-    },
-    {
-     "word": "in",
-     "start": 28.288,
-     "end": 28.362
-    },
-    {
-     "word": "the",
-     "start": 28.362,
-     "end": 28.45
-    },
-    {
-     "word": "P-R-D",
-     "start": 28.45,
-     "end": 29.05
-    },
-    {
-     "word": "but",
-     "start": 29.05,
-     "end": 29.2
-    },
-    {
-     "word": "not",
-     "start": 29.2,
-     "end": 29.425
-    },
-    {
-     "word": "built",
-     "start": 29.425,
-     "end": 29.675
-    },
-    {
-     "word": "yet",
-     "start": 29.675,
-     "end": 30.2
+     "start": 26.225,
+     "end": 27.0
     }
    ],
-   "duration": 31.05,
-   "start": 30.1,
-   "hold": 0.0
+   "audio": "scene_02.wav",
+   "frames": 836,
+   "duration": 27.866667,
+   "start": 30.1
   },
   {
    "scene": 3,
@@ -1190,9 +1153,10 @@
      "end": 27.35
     }
    ],
-   "duration": 28.225,
-   "start": 61.15,
-   "hold": 0.0
+   "duration": 28.233333,
+   "start": 57.966667,
+   "hold": 0.0,
+   "frames": 847
   },
   {
    "scene": 4,
@@ -1606,8 +1570,9 @@
     }
    ],
    "duration": 30.3,
-   "start": 89.375,
-   "hold": 0.0
+   "start": 86.2,
+   "hold": 0.0,
+   "frames": 909
   },
   {
    "scene": 5,
@@ -2025,9 +1990,10 @@
      "end": 28.6
     }
    ],
-   "duration": 29.45,
-   "start": 119.675,
-   "hold": 0.0
+   "duration": 29.466667,
+   "start": 116.5,
+   "hold": 0.0,
+   "frames": 884
   },
   {
    "scene": 6,
@@ -2395,542 +2361,1677 @@
      "end": 24.775
     }
    ],
-   "duration": 25.625,
-   "start": 149.125,
-   "hold": 0.0
+   "duration": 25.633333,
+   "start": 145.966667,
+   "hold": 0.0,
+   "frames": 769
   },
   {
    "scene": 7,
-   "title": "Running it, gotchas and next steps",
-   "chapter": "07 / Run it & limits",
-   "narration": "To run it today, install the requirements, run the generator, and run pie-test. The thirty-nine tests include one per rule, and a golden konfig for the clean practice. In mock mode, on this synthetic data, the checks find all thirty planted defects with no false alarms. But there's no ee-val script yet, and synthetic defects are easier than real ones. Other limits: the packet format is a guess, the red-flag lists need a physician's review, and escalation fixes are flagged to always need a person. Next come repair, review, the smoke test and the ee-val.",
-   "audio": "scene_07.wav",
-   "audio_seconds": 37.275,
+   "title": "Repair with confidence gating",
+   "chapter": "07 / Repair",
+   "narration": "Next, the repairer proposes a fix for every issue, with a confidence score and the lines it was drawn from. A fix is applied automatically only when confidence is at least zero point eight, and never for escalation. For Harborview, the Friday hours and the duplicate visit type are fixed automatically. The missing chest-pain rule scores exactly zero point eight, but it's escalation, so it waits for a person, along with four others.",
+   "hold": 0.0,
+   "audio_seconds": 28.45,
    "sentences": [
     {
-     "text": "To run it today, install the requirements, run the generator, and run pie-test.",
+     "text": "Next, the repairer proposes a fix for every issue, with a confidence score and the lines it was drawn from.",
      "start": 0.0,
-     "end": 5.35
+     "end": 7.1
     },
     {
-     "text": "The thirty-nine tests include one per rule, and a golden konfig for the clean practice.",
-     "start": 5.35,
-     "end": 11.075
+     "text": "A fix is applied automatically only when confidence is at least zero point eight, and never for escalation.",
+     "start": 7.1,
+     "end": 14.375
     },
     {
-     "text": "In mock mode, on this synthetic data, the checks find all thirty planted defects with no false alarms.",
-     "start": 11.075,
-     "end": 17.875
+     "text": "For Harborview, the Friday hours and the duplicate visit type are fixed automatically.",
+     "start": 14.375,
+     "end": 20.125
     },
     {
-     "text": "But there's no ee-val script yet, and synthetic defects are easier than real ones.",
-     "start": 17.875,
-     "end": 23.225
+     "text": "The missing chest-pain rule scores exactly zero point eight, but it's escalation, so it waits for a person, along with four others.",
+     "start": 20.125,
+     "end": 28.45
+    }
+   ],
+   "words": [
+    {
+     "word": "Next",
+     "start": 0.325,
+     "end": 0.75
     },
     {
-     "text": "Other limits:",
-     "start": 23.225,
-     "end": 24.75
+     "word": "the",
+     "start": 0.8,
+     "end": 0.9
     },
     {
-     "text": "the packet format is a guess, the red-flag lists need a physician's review, and escalation fixes are flagged to always need a person.",
-     "start": 24.75,
-     "end": 33.475
+     "word": "repairer",
+     "start": 0.9,
+     "end": 1.375
     },
     {
-     "text": "Next come repair, review, the smoke test and the ee-val.",
-     "start": 33.475,
-     "end": 37.275
+     "word": "proposes",
+     "start": 1.375,
+     "end": 1.9
+    },
+    {
+     "word": "a",
+     "start": 1.9,
+     "end": 2.013
+    },
+    {
+     "word": "fix",
+     "start": 2.013,
+     "end": 2.35
+    },
+    {
+     "word": "for",
+     "start": 2.35,
+     "end": 2.513
+    },
+    {
+     "word": "every",
+     "start": 2.513,
+     "end": 2.85
+    },
+    {
+     "word": "issue",
+     "start": 2.85,
+     "end": 3.525
+    },
+    {
+     "word": "with",
+     "start": 3.65,
+     "end": 3.788
+    },
+    {
+     "word": "a",
+     "start": 3.788,
+     "end": 3.85
+    },
+    {
+     "word": "confidence",
+     "start": 3.85,
+     "end": 4.425
+    },
+    {
+     "word": "score",
+     "start": 4.425,
+     "end": 5.1
+    },
+    {
+     "word": "and",
+     "start": 5.1,
+     "end": 5.237
+    },
+    {
+     "word": "the",
+     "start": 5.237,
+     "end": 5.362
+    },
+    {
+     "word": "lines",
+     "start": 5.362,
+     "end": 5.737
+    },
+    {
+     "word": "it",
+     "start": 5.737,
+     "end": 5.812
+    },
+    {
+     "word": "was",
+     "start": 5.812,
+     "end": 5.975
+    },
+    {
+     "word": "drawn",
+     "start": 5.975,
+     "end": 6.3
+    },
+    {
+     "word": "from",
+     "start": 6.3,
+     "end": 6.85
+    },
+    {
+     "word": "A",
+     "start": 7.375,
+     "end": 7.475
+    },
+    {
+     "word": "fix",
+     "start": 7.475,
+     "end": 7.85
+    },
+    {
+     "word": "is",
+     "start": 7.85,
+     "end": 7.975
+    },
+    {
+     "word": "applied",
+     "start": 7.975,
+     "end": 8.487
+    },
+    {
+     "word": "automatically",
+     "start": 8.487,
+     "end": 9.587
+    },
+    {
+     "word": "only",
+     "start": 9.587,
+     "end": 9.938
+    },
+    {
+     "word": "when",
+     "start": 9.938,
+     "end": 10.113
+    },
+    {
+     "word": "confidence",
+     "start": 10.113,
+     "end": 10.775
+    },
+    {
+     "word": "is",
+     "start": 10.775,
+     "end": 10.9
+    },
+    {
+     "word": "at",
+     "start": 10.9,
+     "end": 11.0
+    },
+    {
+     "word": "least",
+     "start": 11.0,
+     "end": 11.262
+    },
+    {
+     "word": "zero",
+     "start": 11.262,
+     "end": 11.6
+    },
+    {
+     "word": "point",
+     "start": 11.6,
+     "end": 11.875
+    },
+    {
+     "word": "eight",
+     "start": 11.875,
+     "end": 12.4
+    },
+    {
+     "word": "and",
+     "start": 12.5,
+     "end": 12.637
+    },
+    {
+     "word": "never",
+     "start": 12.637,
+     "end": 12.975
+    },
+    {
+     "word": "for",
+     "start": 12.975,
+     "end": 13.1
+    },
+    {
+     "word": "escalation",
+     "start": 13.1,
+     "end": 14.125
+    },
+    {
+     "word": "For",
+     "start": 14.65,
+     "end": 14.775
+    },
+    {
+     "word": "Harborview",
+     "start": 14.775,
+     "end": 15.55
+    },
+    {
+     "word": "the",
+     "start": 15.675,
+     "end": 15.812
+    },
+    {
+     "word": "Friday",
+     "start": 15.812,
+     "end": 16.262
+    },
+    {
+     "word": "hours",
+     "start": 16.262,
+     "end": 16.75
+    },
+    {
+     "word": "and",
+     "start": 16.75,
+     "end": 16.863
+    },
+    {
+     "word": "the",
+     "start": 16.863,
+     "end": 16.962
+    },
+    {
+     "word": "duplicate",
+     "start": 16.962,
+     "end": 17.45
+    },
+    {
+     "word": "visit",
+     "start": 17.45,
+     "end": 17.75
+    },
+    {
+     "word": "type",
+     "start": 17.75,
+     "end": 18.275
+    },
+    {
+     "word": "are",
+     "start": 18.275,
+     "end": 18.462
+    },
+    {
+     "word": "fixed",
+     "start": 18.462,
+     "end": 18.812
+    },
+    {
+     "word": "automatically",
+     "start": 18.812,
+     "end": 19.9
+    },
+    {
+     "word": "The",
+     "start": 20.4,
+     "end": 20.5
+    },
+    {
+     "word": "missing",
+     "start": 20.5,
+     "end": 20.863
+    },
+    {
+     "word": "chest-pain",
+     "start": 20.863,
+     "end": 21.4
+    },
+    {
+     "word": "rule",
+     "start": 21.4,
+     "end": 21.7
+    },
+    {
+     "word": "scores",
+     "start": 21.7,
+     "end": 22.075
+    },
+    {
+     "word": "exactly",
+     "start": 22.075,
+     "end": 22.663
+    },
+    {
+     "word": "zero",
+     "start": 22.663,
+     "end": 23.025
+    },
+    {
+     "word": "point",
+     "start": 23.025,
+     "end": 23.3
+    },
+    {
+     "word": "eight",
+     "start": 23.3,
+     "end": 23.925
+    },
+    {
+     "word": "but",
+     "start": 24.025,
+     "end": 24.163
+    },
+    {
+     "word": "it's",
+     "start": 24.163,
+     "end": 24.262
+    },
+    {
+     "word": "escalation",
+     "start": 24.262,
+     "end": 25.2
+    },
+    {
+     "word": "so",
+     "start": 25.3,
+     "end": 25.438
+    },
+    {
+     "word": "it",
+     "start": 25.438,
+     "end": 25.525
+    },
+    {
+     "word": "waits",
+     "start": 25.525,
+     "end": 25.775
+    },
+    {
+     "word": "for",
+     "start": 25.775,
+     "end": 25.887
+    },
+    {
+     "word": "a",
+     "start": 25.887,
+     "end": 25.95
+    },
+    {
+     "word": "person",
+     "start": 25.95,
+     "end": 26.6
+    },
+    {
+     "word": "along",
+     "start": 26.738,
+     "end": 27.062
+    },
+    {
+     "word": "with",
+     "start": 27.062,
+     "end": 27.238
+    },
+    {
+     "word": "four",
+     "start": 27.238,
+     "end": 27.5
+    },
+    {
+     "word": "others",
+     "start": 27.5,
+     "end": 28.2
+    }
+   ],
+   "audio": "scene_07.wav",
+   "frames": 872,
+   "duration": 29.066667,
+   "start": 171.6
+  },
+  {
+   "scene": 8,
+   "title": "Review, smoke test and gated export",
+   "chapter": "08 / Review & export",
+   "narration": "Reviewer decisions, accept, edit or reject, are stored in SQLite, and replayed on top of the compiled konfig. Then a smoke test sends ten scripted patient messages through a keyword router that reads only that konfig. Harborview passes nine. The chest-pain message finds no rule, so nothing escalates. And export stays blocked while any high-severity issue is open. Here, that's the chest-pain rule and a broken phone number.",
+   "hold": 0.0,
+   "audio_seconds": 29.425,
+   "sentences": [
+    {
+     "text": "Reviewer decisions, accept, edit or reject, are stored in SQLite, and replayed on top of the compiled konfig.",
+     "start": 0.0,
+     "end": 7.875
+    },
+    {
+     "text": "Then a smoke test sends ten scripted patient messages through a keyword router that reads only that konfig.",
+     "start": 7.875,
+     "end": 15.075
+    },
+    {
+     "text": "Harborview passes nine.",
+     "start": 15.075,
+     "end": 17.1
+    },
+    {
+     "text": "The chest-pain message finds no rule, so nothing escalates.",
+     "start": 17.1,
+     "end": 21.1
+    },
+    {
+     "text": "And export stays blocked while any high-severity issue is open.",
+     "start": 21.1,
+     "end": 25.525
+    },
+    {
+     "text": "Here, that's the chest-pain rule and a broken phone number.",
+     "start": 25.525,
+     "end": 29.425
+    }
+   ],
+   "words": [
+    {
+     "word": "Reviewer",
+     "start": 0.275,
+     "end": 0.675
+    },
+    {
+     "word": "decisions",
+     "start": 0.675,
+     "end": 1.35
+    },
+    {
+     "word": "accept",
+     "start": 1.425,
+     "end": 1.95
+    },
+    {
+     "word": "edit",
+     "start": 2.062,
+     "end": 2.425
+    },
+    {
+     "word": "or",
+     "start": 2.425,
+     "end": 2.55
+    },
+    {
+     "word": "reject",
+     "start": 2.55,
+     "end": 3.275
+    },
+    {
+     "word": "are",
+     "start": 3.375,
+     "end": 3.538
+    },
+    {
+     "word": "stored",
+     "start": 3.538,
+     "end": 3.875
+    },
+    {
+     "word": "in",
+     "start": 3.875,
+     "end": 4.013
+    },
+    {
+     "word": "SQLite",
+     "start": 4.013,
+     "end": 4.95
+    },
+    {
+     "word": "and",
+     "start": 5.05,
+     "end": 5.175
+    },
+    {
+     "word": "replayed",
+     "start": 5.175,
+     "end": 5.638
+    },
+    {
+     "word": "on",
+     "start": 5.638,
+     "end": 5.787
+    },
+    {
+     "word": "top",
+     "start": 5.787,
+     "end": 6.112
+    },
+    {
+     "word": "of",
+     "start": 6.112,
+     "end": 6.188
+    },
+    {
+     "word": "the",
+     "start": 6.188,
+     "end": 6.275
+    },
+    {
+     "word": "compiled",
+     "start": 6.275,
+     "end": 6.8
+    },
+    {
+     "word": "konfig",
+     "start": 6.8,
+     "end": 7.6
+    },
+    {
+     "word": "Then",
+     "start": 8.15,
+     "end": 8.35
+    },
+    {
+     "word": "a",
+     "start": 8.35,
+     "end": 8.463
+    },
+    {
+     "word": "smoke",
+     "start": 8.463,
+     "end": 8.775
+    },
+    {
+     "word": "test",
+     "start": 8.775,
+     "end": 9.262
+    },
+    {
+     "word": "sends",
+     "start": 9.262,
+     "end": 9.637
+    },
+    {
+     "word": "ten",
+     "start": 9.637,
+     "end": 9.988
+    },
+    {
+     "word": "scripted",
+     "start": 9.988,
+     "end": 10.45
+    },
+    {
+     "word": "patient",
+     "start": 10.45,
+     "end": 10.812
+    },
+    {
+     "word": "messages",
+     "start": 10.812,
+     "end": 11.675
+    },
+    {
+     "word": "through",
+     "start": 11.675,
+     "end": 11.887
+    },
+    {
+     "word": "a",
+     "start": 11.887,
+     "end": 11.988
+    },
+    {
+     "word": "keyword",
+     "start": 11.988,
+     "end": 12.4
+    },
+    {
+     "word": "router",
+     "start": 12.4,
+     "end": 12.912
+    },
+    {
+     "word": "that",
+     "start": 12.912,
+     "end": 13.1
+    },
+    {
+     "word": "reads",
+     "start": 13.1,
+     "end": 13.463
+    },
+    {
+     "word": "only",
+     "start": 13.463,
+     "end": 13.775
+    },
+    {
+     "word": "that",
+     "start": 13.775,
+     "end": 14.0
+    },
+    {
+     "word": "konfig",
+     "start": 14.0,
+     "end": 14.8
+    },
+    {
+     "word": "Harborview",
+     "start": 15.35,
+     "end": 15.85
+    },
+    {
+     "word": "passes",
+     "start": 15.85,
+     "end": 16.25
+    },
+    {
+     "word": "nine",
+     "start": 16.25,
+     "end": 16.85
+    },
+    {
+     "word": "The",
+     "start": 17.35,
+     "end": 17.462
+    },
+    {
+     "word": "chest-pain",
+     "start": 17.462,
+     "end": 17.975
+    },
+    {
+     "word": "message",
+     "start": 17.975,
+     "end": 18.375
+    },
+    {
+     "word": "finds",
+     "start": 18.375,
+     "end": 18.7
+    },
+    {
+     "word": "no",
+     "start": 18.7,
+     "end": 18.9
+    },
+    {
+     "word": "rule",
+     "start": 18.9,
+     "end": 19.375
+    },
+    {
+     "word": "so",
+     "start": 19.475,
+     "end": 19.65
+    },
+    {
+     "word": "nothing",
+     "start": 19.65,
+     "end": 20.0
+    },
+    {
+     "word": "escalates",
+     "start": 20.0,
+     "end": 20.85
+    },
+    {
+     "word": "And",
+     "start": 21.375,
+     "end": 21.562
+    },
+    {
+     "word": "export",
+     "start": 21.562,
+     "end": 22.1
+    },
+    {
+     "word": "stays",
+     "start": 22.1,
+     "end": 22.475
+    },
+    {
+     "word": "blocked",
+     "start": 22.475,
+     "end": 23.087
+    },
+    {
+     "word": "while",
+     "start": 23.087,
+     "end": 23.325
+    },
+    {
+     "word": "any",
+     "start": 23.325,
+     "end": 23.525
+    },
+    {
+     "word": "high-severity",
+     "start": 23.525,
+     "end": 24.175
+    },
+    {
+     "word": "issue",
+     "start": 24.175,
+     "end": 24.475
+    },
+    {
+     "word": "is",
+     "start": 24.475,
+     "end": 24.6
+    },
+    {
+     "word": "open",
+     "start": 24.6,
+     "end": 25.275
+    },
+    {
+     "word": "Here",
+     "start": 25.8,
+     "end": 26.15
+    },
+    {
+     "word": "that's",
+     "start": 26.225,
+     "end": 26.487
+    },
+    {
+     "word": "the",
+     "start": 26.487,
+     "end": 26.575
+    },
+    {
+     "word": "chest-pain",
+     "start": 26.575,
+     "end": 27.1
+    },
+    {
+     "word": "rule",
+     "start": 27.1,
+     "end": 27.688
+    },
+    {
+     "word": "and",
+     "start": 27.688,
+     "end": 27.812
+    },
+    {
+     "word": "a",
+     "start": 27.812,
+     "end": 27.875
+    },
+    {
+     "word": "broken",
+     "start": 27.875,
+     "end": 28.262
+    },
+    {
+     "word": "phone",
+     "start": 28.262,
+     "end": 28.575
+    },
+    {
+     "word": "number",
+     "start": 28.575,
+     "end": 29.15
+    }
+   ],
+   "audio": "scene_08.wav",
+   "frames": 901,
+   "duration": 30.033333,
+   "start": 200.666667
+  },
+  {
+   "scene": 9,
+   "title": "Run the demo",
+   "chapter": "09 / Run the demo",
+   "narration": "To try it, run make demo, and open localhost, port eight thousand. It needs no keys, no Node, and no network. There are four screens. Practices, with status and open exceptions. Packet to konfig, where clicking a field highlights its source line. Exceptions, with evidence, the proposed fix, and its confidence. And the smoke test, with the export button.",
+   "hold": 0.0,
+   "audio_seconds": 24.2,
+   "sentences": [
+    {
+     "text": "To try it, run make demo, and open localhost, port eight thousand.",
+     "start": 0.0,
+     "end": 4.5
+    },
+    {
+     "text": "It needs no keys, no Node, and no network.",
+     "start": 4.5,
+     "end": 7.8
+    },
+    {
+     "text": "There are four screens.",
+     "start": 7.8,
+     "end": 9.625
+    },
+    {
+     "text": "Practices, with status and open exceptions.",
+     "start": 9.625,
+     "end": 12.975
+    },
+    {
+     "text": "Packet to konfig, where clicking a field highlights its source line.",
+     "start": 12.975,
+     "end": 17.15
+    },
+    {
+     "text": "Exceptions, with evidence, the proposed fix, and its confidence.",
+     "start": 17.15,
+     "end": 21.375
+    },
+    {
+     "text": "And the smoke test, with the export button.",
+     "start": 21.375,
+     "end": 24.2
     }
    ],
    "words": [
     {
      "word": "To",
      "start": 0.275,
-     "end": 0.4
+     "end": 0.375
     },
     {
-     "word": "run",
-     "start": 0.4,
-     "end": 0.613
+     "word": "try",
+     "start": 0.375,
+     "end": 0.675
     },
     {
      "word": "it",
-     "start": 0.613,
-     "end": 0.725
+     "start": 0.675,
+     "end": 0.8
     },
     {
-     "word": "today",
-     "start": 0.725,
-     "end": 1.15
+     "word": "run",
+     "start": 0.85,
+     "end": 1.038
     },
     {
-     "word": "install",
+     "word": "make",
+     "start": 1.038,
+     "end": 1.25
+    },
+    {
+     "word": "demo",
      "start": 1.25,
-     "end": 1.663
-    },
-    {
-     "word": "the",
-     "start": 1.663,
-     "end": 1.738
-    },
-    {
-     "word": "requirements",
-     "start": 1.738,
-     "end": 2.7
-    },
-    {
-     "word": "run",
-     "start": 2.837,
-     "end": 3.087
-    },
-    {
-     "word": "the",
-     "start": 3.087,
-     "end": 3.175
-    },
-    {
-     "word": "generator",
-     "start": 3.175,
-     "end": 3.75
+     "end": 1.625
     },
     {
      "word": "and",
-     "start": 3.825,
-     "end": 3.95
+     "start": 1.7,
+     "end": 1.825
     },
     {
-     "word": "run",
-     "start": 3.95,
-     "end": 4.2
+     "word": "open",
+     "start": 1.825,
+     "end": 2.125
     },
     {
-     "word": "pie-test",
-     "start": 4.2,
-     "end": 5.1
+     "word": "localhost",
+     "start": 2.125,
+     "end": 2.85
     },
     {
-     "word": "The",
-     "start": 5.6,
-     "end": 5.712
+     "word": "port",
+     "start": 2.95,
+     "end": 3.25
     },
     {
-     "word": "thirty-nine",
-     "start": 5.712,
-     "end": 6.262
+     "word": "eight",
+     "start": 3.25,
+     "end": 3.475
     },
     {
-     "word": "tests",
-     "start": 6.262,
-     "end": 6.775
+     "word": "thousand",
+     "start": 3.475,
+     "end": 4.25
     },
     {
-     "word": "include",
-     "start": 6.775,
-     "end": 7.175
+     "word": "It",
+     "start": 4.75,
+     "end": 4.862
     },
     {
-     "word": "one",
-     "start": 7.175,
-     "end": 7.4
+     "word": "needs",
+     "start": 4.862,
+     "end": 5.125
     },
     {
-     "word": "per",
-     "start": 7.4,
-     "end": 7.612
+     "word": "no",
+     "start": 5.125,
+     "end": 5.312
     },
     {
-     "word": "rule",
-     "start": 7.612,
-     "end": 8.25
+     "word": "keys",
+     "start": 5.312,
+     "end": 5.9
+    },
+    {
+     "word": "no",
+     "start": 6.0,
+     "end": 6.175
+    },
+    {
+     "word": "Node",
+     "start": 6.175,
+     "end": 6.525
     },
     {
      "word": "and",
-     "start": 8.35,
-     "end": 8.462
+     "start": 6.562,
+     "end": 6.675
     },
     {
-     "word": "a",
-     "start": 8.462,
-     "end": 8.537
+     "word": "no",
+     "start": 6.675,
+     "end": 6.85
     },
     {
-     "word": "golden",
-     "start": 8.537,
-     "end": 8.975
+     "word": "network",
+     "start": 6.85,
+     "end": 7.55
     },
     {
-     "word": "konfig",
-     "start": 8.975,
-     "end": 9.475
+     "word": "There",
+     "start": 8.075,
+     "end": 8.188
     },
     {
-     "word": "for",
-     "start": 9.475,
-     "end": 9.587
+     "word": "are",
+     "start": 8.188,
+     "end": 8.312
     },
     {
-     "word": "the",
-     "start": 9.587,
-     "end": 9.675
+     "word": "four",
+     "start": 8.312,
+     "end": 8.575
     },
     {
-     "word": "clean",
-     "start": 9.675,
-     "end": 10.0
+     "word": "screens",
+     "start": 8.575,
+     "end": 9.35
     },
     {
-     "word": "practice",
-     "start": 10.0,
-     "end": 10.825
-    },
-    {
-     "word": "In",
-     "start": 11.375,
-     "end": 11.475
-    },
-    {
-     "word": "mock",
-     "start": 11.475,
-     "end": 11.725
-    },
-    {
-     "word": "mode",
-     "start": 11.725,
-     "end": 12.125
-    },
-    {
-     "word": "on",
-     "start": 12.2,
-     "end": 12.337
-    },
-    {
-     "word": "this",
-     "start": 12.337,
-     "end": 12.475
-    },
-    {
-     "word": "synthetic",
-     "start": 12.475,
-     "end": 12.975
-    },
-    {
-     "word": "data",
-     "start": 12.975,
-     "end": 13.55
-    },
-    {
-     "word": "the",
-     "start": 13.675,
-     "end": 13.812
-    },
-    {
-     "word": "checks",
-     "start": 13.812,
-     "end": 14.175
-    },
-    {
-     "word": "find",
-     "start": 14.175,
-     "end": 14.487
-    },
-    {
-     "word": "all",
-     "start": 14.487,
-     "end": 14.825
-    },
-    {
-     "word": "thirty",
-     "start": 14.825,
-     "end": 15.175
-    },
-    {
-     "word": "planted",
-     "start": 15.175,
-     "end": 15.55
-    },
-    {
-     "word": "defects",
-     "start": 15.55,
-     "end": 16.075
+     "word": "Practices",
+     "start": 9.875,
+     "end": 10.575
     },
     {
      "word": "with",
-     "start": 16.075,
-     "end": 16.262
+     "start": 10.65,
+     "end": 10.825
     },
     {
-     "word": "no",
-     "start": 16.262,
-     "end": 16.538
-    },
-    {
-     "word": "false",
-     "start": 16.538,
-     "end": 16.85
-    },
-    {
-     "word": "alarms",
-     "start": 16.85,
-     "end": 17.625
-    },
-    {
-     "word": "But",
-     "start": 18.125,
-     "end": 18.238
-    },
-    {
-     "word": "there's",
-     "start": 18.238,
-     "end": 18.45
-    },
-    {
-     "word": "no",
-     "start": 18.45,
-     "end": 18.762
-    },
-    {
-     "word": "ee-val",
-     "start": 18.762,
-     "end": 19.212
-    },
-    {
-     "word": "script",
-     "start": 19.212,
-     "end": 19.575
-    },
-    {
-     "word": "yet",
-     "start": 19.575,
-     "end": 20.1
+     "word": "status",
+     "start": 10.825,
+     "end": 11.35
     },
     {
      "word": "and",
-     "start": 20.2,
-     "end": 20.325
+     "start": 11.35,
+     "end": 11.488
     },
     {
-     "word": "synthetic",
-     "start": 20.325,
-     "end": 20.875
+     "word": "open",
+     "start": 11.488,
+     "end": 11.8
     },
     {
-     "word": "defects",
-     "start": 20.875,
-     "end": 21.35
+     "word": "exceptions",
+     "start": 11.8,
+     "end": 12.725
     },
     {
-     "word": "are",
-     "start": 21.35,
-     "end": 21.512
-    },
-    {
-     "word": "easier",
-     "start": 21.512,
-     "end": 21.975
-    },
-    {
-     "word": "than",
-     "start": 21.975,
-     "end": 22.15
-    },
-    {
-     "word": "real",
-     "start": 22.15,
-     "end": 22.4
-    },
-    {
-     "word": "ones",
-     "start": 22.4,
-     "end": 22.975
-    },
-    {
-     "word": "Other",
-     "start": 23.575,
-     "end": 23.8
-    },
-    {
-     "word": "limits",
-     "start": 23.8,
-     "end": 24.475
-    },
-    {
-     "word": "the",
-     "start": 25.0,
-     "end": 25.075
-    },
-    {
-     "word": "packet",
-     "start": 25.075,
-     "end": 25.475
-    },
-    {
-     "word": "format",
-     "start": 25.475,
-     "end": 25.962
-    },
-    {
-     "word": "is",
-     "start": 25.962,
-     "end": 26.087
-    },
-    {
-     "word": "a",
-     "start": 26.087,
-     "end": 26.15
-    },
-    {
-     "word": "guess",
-     "start": 26.15,
-     "end": 26.875
-    },
-    {
-     "word": "the",
-     "start": 27.0,
-     "end": 27.125
-    },
-    {
-     "word": "red-flag",
-     "start": 27.125,
-     "end": 27.725
-    },
-    {
-     "word": "lists",
-     "start": 27.725,
-     "end": 28.05
-    },
-    {
-     "word": "need",
-     "start": 28.05,
-     "end": 28.238
-    },
-    {
-     "word": "a",
-     "start": 28.238,
-     "end": 28.3
-    },
-    {
-     "word": "physician's",
-     "start": 28.3,
-     "end": 28.875
-    },
-    {
-     "word": "review",
-     "start": 28.875,
-     "end": 29.55
-    },
-    {
-     "word": "and",
-     "start": 29.675,
-     "end": 29.8
-    },
-    {
-     "word": "escalation",
-     "start": 29.8,
-     "end": 30.475
-    },
-    {
-     "word": "fixes",
-     "start": 30.475,
-     "end": 31.012
-    },
-    {
-     "word": "are",
-     "start": 31.012,
-     "end": 31.2
-    },
-    {
-     "word": "flagged",
-     "start": 31.2,
-     "end": 31.65
+     "word": "Packet",
+     "start": 13.25,
+     "end": 13.575
     },
     {
      "word": "to",
-     "start": 31.65,
-     "end": 31.788
+     "start": 13.575,
+     "end": 13.675
     },
     {
-     "word": "always",
-     "start": 31.788,
-     "end": 32.2
+     "word": "konfig",
+     "start": 13.675,
+     "end": 14.4
     },
     {
-     "word": "need",
-     "start": 32.2,
-     "end": 32.388
+     "word": "where",
+     "start": 14.5,
+     "end": 14.65
+    },
+    {
+     "word": "clicking",
+     "start": 14.65,
+     "end": 14.963
     },
     {
      "word": "a",
-     "start": 32.388,
-     "end": 32.45
+     "start": 14.963,
+     "end": 15.062
     },
     {
-     "word": "person",
-     "start": 32.45,
-     "end": 33.225
+     "word": "field",
+     "start": 15.062,
+     "end": 15.438
     },
     {
-     "word": "Next",
-     "start": 33.775,
-     "end": 34.038
+     "word": "highlights",
+     "start": 15.438,
+     "end": 15.912
     },
     {
-     "word": "come",
-     "start": 34.038,
-     "end": 34.163
+     "word": "its",
+     "start": 15.912,
+     "end": 16.025
     },
     {
-     "word": "repair",
-     "start": 34.163,
-     "end": 34.575
+     "word": "source",
+     "start": 16.025,
+     "end": 16.3
     },
     {
-     "word": "review",
-     "start": 34.625,
-     "end": 35.175
+     "word": "line",
+     "start": 16.3,
+     "end": 16.9
+    },
+    {
+     "word": "Exceptions",
+     "start": 17.425,
+     "end": 18.1
+    },
+    {
+     "word": "with",
+     "start": 18.15,
+     "end": 18.325
+    },
+    {
+     "word": "evidence",
+     "start": 18.325,
+     "end": 18.875
     },
     {
      "word": "the",
-     "start": 35.3,
-     "end": 35.4
+     "start": 18.95,
+     "end": 19.05
     },
     {
-     "word": "smoke",
-     "start": 35.4,
-     "end": 35.7
+     "word": "proposed",
+     "start": 19.05,
+     "end": 19.55
     },
     {
-     "word": "test",
-     "start": 35.7,
-     "end": 36.075
+     "word": "fix",
+     "start": 19.55,
+     "end": 19.925
     },
     {
      "word": "and",
-     "start": 36.075,
-     "end": 36.188
+     "start": 19.975,
+     "end": 20.087
+    },
+    {
+     "word": "its",
+     "start": 20.087,
+     "end": 20.225
+    },
+    {
+     "word": "confidence",
+     "start": 20.225,
+     "end": 21.125
+    },
+    {
+     "word": "And",
+     "start": 21.65,
+     "end": 21.762
     },
     {
      "word": "the",
-     "start": 36.188,
-     "end": 36.275
+     "start": 21.762,
+     "end": 21.85
+    },
+    {
+     "word": "smoke",
+     "start": 21.85,
+     "end": 22.15
+    },
+    {
+     "word": "test",
+     "start": 22.15,
+     "end": 22.625
+    },
+    {
+     "word": "with",
+     "start": 22.7,
+     "end": 22.837
+    },
+    {
+     "word": "the",
+     "start": 22.837,
+     "end": 22.95
+    },
+    {
+     "word": "export",
+     "start": 22.95,
+     "end": 23.375
+    },
+    {
+     "word": "button",
+     "start": 23.375,
+     "end": 23.95
+    }
+   ],
+   "audio": "scene_09.wav",
+   "frames": 744,
+   "duration": 24.8,
+   "start": 230.7
+  },
+  {
+   "scene": 10,
+   "title": "Evaluation and limits",
+   "chapter": "10 / Eval & limits",
+   "narration": "Make ee-val scores everything against the answer key. In mock mode, the checks find all thirty planted defects, with no false alarms. All twenty-four scored fixes match the known answer, and ninety-five percent of fields need no review. Before review, fifty-seven of sixty smoke tests pass. The three failures are escalation fixes it won't apply alone. These numbers are optimistic, because the defects and the checks were written together. Other limits: the packet format is a guess, the red-flag lists need a physician's review, and the router matches keywords; it isn't a live agent.",
+   "hold": 0.0,
+   "audio_seconds": 39.175,
+   "sentences": [
+    {
+     "text": "Make ee-val scores everything against the answer key.",
+     "start": 0.0,
+     "end": 3.375
+    },
+    {
+     "text": "In mock mode, the checks find all thirty planted defects, with no false alarms.",
+     "start": 3.375,
+     "end": 9.0
+    },
+    {
+     "text": "All twenty-four scored fixes match the known answer, and ninety-five percent of fields need no review.",
+     "start": 9.0,
+     "end": 15.725
+    },
+    {
+     "text": "Before review, fifty-seven of sixty smoke tests pass.",
+     "start": 15.725,
+     "end": 19.575
+    },
+    {
+     "text": "The three failures are escalation fixes it won't apply alone.",
+     "start": 19.575,
+     "end": 23.925
+    },
+    {
+     "text": "These numbers are optimistic, because the defects and the checks were written together.",
+     "start": 23.925,
+     "end": 29.15
+    },
+    {
+     "text": "Other limits:",
+     "start": 29.15,
+     "end": 30.675
+    },
+    {
+     "text": "the packet format is a guess, the red-flag lists need a physician's review, and the router matches keywords; it isn't a live agent.",
+     "start": 30.675,
+     "end": 39.175
+    }
+   ],
+   "words": [
+    {
+     "word": "Make",
+     "start": 0.275,
+     "end": 0.512
     },
     {
      "word": "ee-val",
-     "start": 36.275,
-     "end": 37.025
+     "start": 0.512,
+     "end": 0.938
+    },
+    {
+     "word": "scores",
+     "start": 0.938,
+     "end": 1.363
+    },
+    {
+     "word": "everything",
+     "start": 1.363,
+     "end": 1.8
+    },
+    {
+     "word": "against",
+     "start": 1.8,
+     "end": 2.112
+    },
+    {
+     "word": "the",
+     "start": 2.112,
+     "end": 2.225
+    },
+    {
+     "word": "answer",
+     "start": 2.225,
+     "end": 2.575
+    },
+    {
+     "word": "key",
+     "start": 2.575,
+     "end": 3.125
+    },
+    {
+     "word": "In",
+     "start": 3.675,
+     "end": 3.775
+    },
+    {
+     "word": "mock",
+     "start": 3.775,
+     "end": 4.025
+    },
+    {
+     "word": "mode",
+     "start": 4.025,
+     "end": 4.475
+    },
+    {
+     "word": "the",
+     "start": 4.55,
+     "end": 4.688
+    },
+    {
+     "word": "checks",
+     "start": 4.688,
+     "end": 5.025
+    },
+    {
+     "word": "find",
+     "start": 5.025,
+     "end": 5.338
+    },
+    {
+     "word": "all",
+     "start": 5.338,
+     "end": 5.662
+    },
+    {
+     "word": "thirty",
+     "start": 5.662,
+     "end": 6.0
+    },
+    {
+     "word": "planted",
+     "start": 6.0,
+     "end": 6.375
+    },
+    {
+     "word": "defects",
+     "start": 6.375,
+     "end": 7.125
+    },
+    {
+     "word": "with",
+     "start": 7.225,
+     "end": 7.412
+    },
+    {
+     "word": "no",
+     "start": 7.412,
+     "end": 7.688
+    },
+    {
+     "word": "false",
+     "start": 7.688,
+     "end": 7.975
+    },
+    {
+     "word": "alarms",
+     "start": 7.975,
+     "end": 8.75
+    },
+    {
+     "word": "All",
+     "start": 9.3,
+     "end": 9.525
+    },
+    {
+     "word": "twenty-four",
+     "start": 9.525,
+     "end": 10.05
+    },
+    {
+     "word": "scored",
+     "start": 10.05,
+     "end": 10.4
+    },
+    {
+     "word": "fixes",
+     "start": 10.4,
+     "end": 10.938
+    },
+    {
+     "word": "match",
+     "start": 10.938,
+     "end": 11.275
+    },
+    {
+     "word": "the",
+     "start": 11.275,
+     "end": 11.375
+    },
+    {
+     "word": "known",
+     "start": 11.375,
+     "end": 11.65
+    },
+    {
+     "word": "answer",
+     "start": 11.65,
+     "end": 12.4
+    },
+    {
+     "word": "and",
+     "start": 12.512,
+     "end": 12.662
+    },
+    {
+     "word": "ninety-five",
+     "start": 12.662,
+     "end": 13.375
+    },
+    {
+     "word": "percent",
+     "start": 13.375,
+     "end": 13.713
+    },
+    {
+     "word": "of",
+     "start": 13.713,
+     "end": 13.8
+    },
+    {
+     "word": "fields",
+     "start": 13.8,
+     "end": 14.225
+    },
+    {
+     "word": "need",
+     "start": 14.225,
+     "end": 14.55
+    },
+    {
+     "word": "no",
+     "start": 14.55,
+     "end": 14.8
+    },
+    {
+     "word": "review",
+     "start": 14.8,
+     "end": 15.45
+    },
+    {
+     "word": "Before",
+     "start": 15.975,
+     "end": 16.325
+    },
+    {
+     "word": "review",
+     "start": 16.325,
+     "end": 16.875
+    },
+    {
+     "word": "fifty-seven",
+     "start": 17.012,
+     "end": 17.587
+    },
+    {
+     "word": "of",
+     "start": 17.587,
+     "end": 17.675
+    },
+    {
+     "word": "sixty",
+     "start": 17.675,
+     "end": 18.025
+    },
+    {
+     "word": "smoke",
+     "start": 18.025,
+     "end": 18.325
+    },
+    {
+     "word": "tests",
+     "start": 18.325,
+     "end": 18.7
+    },
+    {
+     "word": "pass",
+     "start": 18.7,
+     "end": 19.325
+    },
+    {
+     "word": "The",
+     "start": 19.85,
+     "end": 19.962
+    },
+    {
+     "word": "three",
+     "start": 19.962,
+     "end": 20.2
+    },
+    {
+     "word": "failures",
+     "start": 20.2,
+     "end": 20.812
+    },
+    {
+     "word": "are",
+     "start": 20.812,
+     "end": 20.975
+    },
+    {
+     "word": "escalation",
+     "start": 20.975,
+     "end": 21.625
+    },
+    {
+     "word": "fixes",
+     "start": 21.625,
+     "end": 22.375
+    },
+    {
+     "word": "it",
+     "start": 22.375,
+     "end": 22.5
+    },
+    {
+     "word": "won't",
+     "start": 22.5,
+     "end": 22.688
+    },
+    {
+     "word": "apply",
+     "start": 22.688,
+     "end": 22.975
+    },
+    {
+     "word": "alone",
+     "start": 22.975,
+     "end": 23.675
+    },
+    {
+     "word": "These",
+     "start": 24.2,
+     "end": 24.475
+    },
+    {
+     "word": "numbers",
+     "start": 24.475,
+     "end": 24.9
+    },
+    {
+     "word": "are",
+     "start": 24.9,
+     "end": 25.05
+    },
+    {
+     "word": "optimistic",
+     "start": 25.05,
+     "end": 26.025
+    },
+    {
+     "word": "because",
+     "start": 26.125,
+     "end": 26.45
+    },
+    {
+     "word": "the",
+     "start": 26.45,
+     "end": 26.587
+    },
+    {
+     "word": "defects",
+     "start": 26.587,
+     "end": 27.2
+    },
+    {
+     "word": "and",
+     "start": 27.2,
+     "end": 27.312
+    },
+    {
+     "word": "the",
+     "start": 27.312,
+     "end": 27.412
+    },
+    {
+     "word": "checks",
+     "start": 27.412,
+     "end": 27.75
+    },
+    {
+     "word": "were",
+     "start": 27.75,
+     "end": 27.9
+    },
+    {
+     "word": "written",
+     "start": 27.9,
+     "end": 28.175
+    },
+    {
+     "word": "together",
+     "start": 28.175,
+     "end": 28.875
+    },
+    {
+     "word": "Other",
+     "start": 29.5,
+     "end": 29.725
+    },
+    {
+     "word": "limits",
+     "start": 29.725,
+     "end": 30.4
+    },
+    {
+     "word": "the",
+     "start": 30.925,
+     "end": 31.0
+    },
+    {
+     "word": "packet",
+     "start": 31.0,
+     "end": 31.4
+    },
+    {
+     "word": "format",
+     "start": 31.4,
+     "end": 31.85
+    },
+    {
+     "word": "is",
+     "start": 31.85,
+     "end": 31.962
+    },
+    {
+     "word": "a",
+     "start": 31.962,
+     "end": 32.05
+    },
+    {
+     "word": "guess",
+     "start": 32.05,
+     "end": 32.725
+    },
+    {
+     "word": "the",
+     "start": 32.85,
+     "end": 32.975
+    },
+    {
+     "word": "red-flag",
+     "start": 32.975,
+     "end": 33.6
+    },
+    {
+     "word": "lists",
+     "start": 33.6,
+     "end": 33.925
+    },
+    {
+     "word": "need",
+     "start": 33.925,
+     "end": 34.112
+    },
+    {
+     "word": "a",
+     "start": 34.112,
+     "end": 34.175
+    },
+    {
+     "word": "physician's",
+     "start": 34.175,
+     "end": 34.75
+    },
+    {
+     "word": "review",
+     "start": 34.75,
+     "end": 35.3
+    },
+    {
+     "word": "and",
+     "start": 35.425,
+     "end": 35.537
+    },
+    {
+     "word": "the",
+     "start": 35.537,
+     "end": 35.625
+    },
+    {
+     "word": "router",
+     "start": 35.625,
+     "end": 36.0
+    },
+    {
+     "word": "matches",
+     "start": 36.0,
+     "end": 36.425
+    },
+    {
+     "word": "keywords",
+     "start": 36.425,
+     "end": 37.35
+    },
+    {
+     "word": "it",
+     "start": 37.462,
+     "end": 37.6
+    },
+    {
+     "word": "isn't",
+     "start": 37.6,
+     "end": 37.837
+    },
+    {
+     "word": "a",
+     "start": 37.837,
+     "end": 37.925
+    },
+    {
+     "word": "live",
+     "start": 37.925,
+     "end": 38.225
+    },
+    {
+     "word": "agent",
+     "start": 38.225,
+     "end": 38.925
     }
    ],
-   "duration": 37.875,
-   "start": 174.75,
-   "hold": 0.0
+   "audio": "scene_10.wav",
+   "frames": 1194,
+   "duration": 39.8,
+   "start": 255.5
   },
   {
-   "scene": 8,
+   "scene": 11,
    "title": "Recap",
-   "chapter": "08 / Recap",
-   "narration": "So, to recap. The compiler is deterministic, and every value points back to a file and a line. Nine rules and one semantic check turn mistakes into issues with evidence. A model is optional, validated, and never required. And the sample data carries its own answer key, so the checker can be scored.",
-   "audio": "scene_08.wav",
-   "audio_seconds": 21.275,
+   "chapter": "11 / Recap",
+   "narration": "So, to recap. The compiler is deterministic, and every value points back to a file and a line. Nine rules and one semantic check turn mistakes into issues with evidence. Confident fixes apply themselves; escalation always waits for a person. And the answer key lets make ee-val score all of it.",
+   "hold": 0.0,
+   "audio_seconds": 21.125,
    "sentences": [
     {
      "text": "So, to recap.",
@@ -2948,14 +4049,14 @@
      "end": 12.55
     },
     {
-     "text": "A model is optional, validated, and never required.",
+     "text": "Confident fixes apply themselves; escalation always waits for a person.",
      "start": 12.55,
-     "end": 16.4
+     "end": 17.6
     },
     {
-     "text": "And the sample data carries its own answer key, so the checker can be scored.",
-     "start": 16.4,
-     "end": 21.275
+     "text": "And the answer key lets make ee-val score all of it.",
+     "start": 17.6,
+     "end": 21.125
     }
    ],
    "words": [
@@ -3110,131 +4211,122 @@
      "end": 12.3
     },
     {
-     "word": "A",
+     "word": "Confident",
      "start": 12.825,
-     "end": 12.9
+     "end": 13.325
     },
     {
-     "word": "model",
-     "start": 12.9,
-     "end": 13.275
+     "word": "fixes",
+     "start": 13.325,
+     "end": 13.775
     },
     {
-     "word": "is",
-     "start": 13.275,
-     "end": 13.438
+     "word": "apply",
+     "start": 13.775,
+     "end": 14.062
     },
     {
-     "word": "optional",
-     "start": 13.438,
-     "end": 13.975
+     "word": "themselves",
+     "start": 14.062,
+     "end": 14.875
     },
     {
-     "word": "validated",
-     "start": 14.05,
-     "end": 14.825
+     "word": "escalation",
+     "start": 15.0,
+     "end": 15.713
     },
     {
-     "word": "and",
-     "start": 14.925,
-     "end": 15.05
+     "word": "always",
+     "start": 15.713,
+     "end": 16.1
     },
     {
-     "word": "never",
-     "start": 15.05,
-     "end": 15.3
+     "word": "waits",
+     "start": 16.1,
+     "end": 16.4
     },
     {
-     "word": "required",
-     "start": 15.3,
-     "end": 16.15
+     "word": "for",
+     "start": 16.4,
+     "end": 16.512
+    },
+    {
+     "word": "a",
+     "start": 16.512,
+     "end": 16.575
+    },
+    {
+     "word": "person",
+     "start": 16.575,
+     "end": 17.35
     },
     {
      "word": "And",
-     "start": 16.675,
-     "end": 16.788
-    },
-    {
-     "word": "the",
-     "start": 16.788,
-     "end": 16.888
-    },
-    {
-     "word": "sample",
-     "start": 16.888,
-     "end": 17.3
-    },
-    {
-     "word": "data",
-     "start": 17.3,
-     "end": 17.6
-    },
-    {
-     "word": "carries",
-     "start": 17.6,
+     "start": 17.875,
      "end": 17.988
     },
     {
-     "word": "its",
+     "word": "the",
      "start": 17.988,
-     "end": 18.163
-    },
-    {
-     "word": "own",
-     "start": 18.163,
-     "end": 18.45
+     "end": 18.113
     },
     {
      "word": "answer",
-     "start": 18.45,
-     "end": 18.825
+     "start": 18.113,
+     "end": 18.5
     },
     {
      "word": "key",
-     "start": 18.825,
-     "end": 19.3
+     "start": 18.5,
+     "end": 19.013
     },
     {
-     "word": "so",
-     "start": 19.425,
-     "end": 19.563
+     "word": "lets",
+     "start": 19.013,
+     "end": 19.238
     },
     {
-     "word": "the",
-     "start": 19.563,
-     "end": 19.663
+     "word": "make",
+     "start": 19.238,
+     "end": 19.463
     },
     {
-     "word": "checker",
-     "start": 19.663,
-     "end": 20.025
+     "word": "ee-val",
+     "start": 19.463,
+     "end": 19.9
     },
     {
-     "word": "can",
-     "start": 20.025,
-     "end": 20.138
+     "word": "score",
+     "start": 19.9,
+     "end": 20.2
     },
     {
-     "word": "be",
-     "start": 20.138,
-     "end": 20.288
+     "word": "all",
+     "start": 20.2,
+     "end": 20.388
     },
     {
-     "word": "scored",
-     "start": 20.288,
-     "end": 21.0
+     "word": "of",
+     "start": 20.388,
+     "end": 20.475
+    },
+    {
+     "word": "it",
+     "start": 20.475,
+     "end": 20.875
     }
    ],
-   "duration": 21.875,
-   "start": 212.625,
-   "hold": 0.0
+   "audio": "scene_11.wav",
+   "frames": 652,
+   "duration": 21.733333,
+   "start": 295.3
   },
   {
-   "scene": 9,
+   "scene": 12,
    "title": "Thank you",
-   "chapter": "09 / Thank you",
+   "chapter": "12 / Thank you",
    "narration": "Thank you for watching.",
-   "audio": "scene_09.wav",
+   "audio": "scene_12.wav",
    "audio_seconds": 1.825,
    "sentences": [
     {
@@ -3265,9 +4357,10 @@
      "end": 1.55
     }
    ],
-   "duration": 5.425,
-   "start": 234.5,
-   "hold": 3.0
+   "duration": 5.433333,
+   "start": 317.033333,
+   "hold": 3.0,
+   "frames": 163
   }
  ]
 }

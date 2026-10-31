@@ -1,9 +1,12 @@
 0:00 The problem
 0:30 Architecture
-1:01 Sample data
-1:29 Compile
-1:59 Validate
-2:29 Semantic check
-2:54 Run it & limits
-3:32 Recap
-3:54 Thank you
+0:57 Sample data
+1:26 Compile
+1:56 Validate
+2:25 Semantic check
+2:51 Repair
+3:20 Review & export
+3:50 Run the demo
+4:15 Eval & limits
+4:55 Recap
+5:17 Thank you

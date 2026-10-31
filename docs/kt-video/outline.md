@@ -3,37 +3,36 @@
 ## Summary
 
 Practice Onboarding Compiler is a prototype that turns a medical practice's intake packet (office hours, provider
-roster, call script, FAQ and red-flag protocols) into a structured agent configuration, then checks that
-configuration for the mistakes a person would otherwise catch by hand. The compiler is deterministic and records
-`file:line` provenance for every value. Nine deterministic rules and a semantic FAQ-vs-script check produce issues
-with a severity and evidence, so a reviewer only looks at exceptions. It is for an onboarding engineer or ops
-person setting up a new practice. It runs offline on six synthetic practices with 30 planted, ground-truth defects.
+roster, call script, FAQ and red-flag protocols) into a structured agent configuration, then checks and repairs it so
+a person only reviews the exceptions. The compiler is deterministic and records `file:line` provenance for every
+value. Nine deterministic rules and a semantic FAQ-vs-script check (keyword mock, or a model through LiteLLM) produce
+issues with a severity and evidence. A repairer proposes a fix for each, applies it automatically only at confidence
+>= 0.8 and never for escalation, and sends the rest to a review queue stored in SQLite. A keyword smoke-test router
+runs ten scripted patient messages against the approved config, and export is blocked while any high-severity issue
+is open. It is for an onboarding engineer or ops person setting up a new practice; it runs offline (`make demo`) on six
+synthetic practices with 30 planted, ground-truth defects, and `make eval` scores it against them.
 
-**Build state today (important):** the repo implements build-plan steps 1–4 of PRD.md (schema, taxonomy,
-generator, compiler, rules, tests) plus an uncommitted `onboarding/semantic.py` (step 5). The repairer, review
-state, FastAPI endpoints, React UI, smoke-test router, `make eval`, `make demo` and README do not exist yet.
+## Scenes (~5:20)
 
-## Scenes (target ~3:30)
+Scenes 1 and 3–5 are unchanged from the first version. Scenes 2 and 6 were updated for the current code, and scenes
+7–10 are new (they replace the earlier "Run it & limits" scene, which described these parts as not built yet).
 
 | # | Title | One idea | Visual | Files |
 |---|-------|----------|--------|-------|
-| 1 | The onboarding bottleneck | If each practice is configured by hand, revenue grows only as fast as engineers can configure; this prototype tests that guess. | Stack of contracted practices queueing at a narrow "manual setup" funnel; PRD quotes as small cards with source labels. | PRD.md:5-11 |
-| 2 | Architecture | Plain code where exactness matters, a model only where meaning matters. Packet → compiler → validator → issues (built), then repair → review → smoke test → export (planned, drawn dashed). | Architecture diagram; arrows animate in data order; planned stages greyed/dashed. | PRD.md:78-86, compiler.py, validator.py, semantic.py |
-| 3 | The packet and the generator | Six seeded synthetic practices; each packet ships a `defects.json` answer key so the checker can be scored. | Directory map of `data/practices/p03/` with one-line purposes; defects.json card. | generator.py:1-9, 465, PRACTICES; data/practices/p03/* ; test_generator.py |
-| 4 | Trace: compiling p03 (Harborview Heart Clinic) | `load_packet` → `compile_packet`: each line becomes a typed field with `source="hours.txt:12"`. | Request trace: the line "Friday: 8:00 AM - 3:00 PM" travels through `DAY_LINE_RE` → `parse_time` → `DayHours(open="08:00", close="15:00", source="hours.txt:12")`. Then code focus on compiler.py:83-93. | compiler.py:38-46, 76-93; schema.py:34-53 |
-| 5 | Trace continued: validating p03 | `run_rules` runs nine rules; `rule_hours_conflict` compares what the script *says* with the official hours and cites both lines. p03 yields 7 issues matching its 7 planted defects. | Code focus validator.py:88-111; then an issue card with evidence lines; then the 7-issue list with severities. | validator.py:88-111, 215-224; taxonomy.py:24-39 |
-| 6 | The semantic check and its fallback | FAQ-vs-script contradictions: LiteLLM if `LLM_MODEL` is set, otherwise a keyword mock with the same output shape; malformed model output falls back to the mock. | With/without split: "LLM_MODEL set" vs "no key"; both arrive at the same Issue card. Code focus semantic.py:138-149. | semantic.py |
-| 7 | Running it, gotchas and next steps | How to run today; honest limits: packet format is a guess, red-flag lists are placeholders needing physician review, escalation repairs are always human, synthetic defects are easier than real ones; next: repairer, review UI, smoke router, eval. | Terminal card with commands; gotcha list; roadmap of remaining PRD build steps. | taxonomy.py:20-21, 43; PRD.md:105-124 |
-| 8 | Recap | 5 takeaways. | Recap list. | — |
+| 1 | The onboarding bottleneck | If each practice is configured by hand, revenue grows only as fast as that work; this prototype tests that guess. | Practices queueing at a "manual setup" gate; PRD quotes as cards with source labels. | PRD.md:3-9 |
+| 2 | Architecture | Plain code where exactness matters, a model only where meaning matters; then repair, review, smoke test and a gated export. | Architecture diagram; arrows animate in data order; second row `propose → build_state → run_smoke → export`. | compiler.py, validator.py, semantic.py, pipeline.py, review.py, router.py, app.py |
+| 3 | Synthetic packets with an answer key | Six seeded synthetic practices; each packet ships `defects.json` so the checker can be scored. | Directory map of `data/practices/p03/`; six practice cards with planted-defect counts. | generator.py, test_generator.py |
+| 4 | Trace: compiling p03 (Harborview Heart Clinic) | Each line becomes a typed field with `source="hours.txt:12"`. | Trace token through `load_packet → DAY_LINE_RE → parse_time → DayHours`; code focus compiler.py:83-93, schema.py:27-35. | compiler.py, schema.py |
+| 5 | Trace: validating p03 | `rule_hours_conflict` cites both lines; p03 yields 7 issues matching its 7 planted defects. | Code focus validator.py:88-101; issue card; 7-issue list. | validator.py, taxonomy.py |
+| 6 | The semantic check and its fallback | Model via LiteLLM when `LLM_MODEL` is set, keyword mock otherwise; same output shape; bad model output falls back. | Two lanes converging on one Issue card; code focus semantic.py:148-159. | semantic.py |
+| 7 | Repair with confidence gating | Auto-apply only at >= 0.8 and never for escalation; p03: 2 auto, 5 to a person (chest pain is 0.8 but escalation). | Code focus repairer.py:18-25; p03 table with confidence bars and route chips. | repairer.py, taxonomy.py |
+| 8 | Review, smoke test, gated export | Decisions in SQLite replayed on the compiled config; the router reads only that config; p03 passes 9/10; export blocked by 2 high issues. | Decision flow; smoke table with the failing chest-pain row; disabled export + 409 message. | review.py, router.py, app.py |
+| 9 | Run the demo | `make demo`, port 8000, no keys/Node/network; four screens. | Terminal card; the four committed UI screenshots switching as each screen is named. | Makefile, app.py, static/index.html, README.md, docs/screenshots |
+| 10 | Evaluation and limits | `make eval` numbers, why they're optimistic, and the remaining limits. | Real `make eval` output with lines highlighted as spoken; limits list. | eval.py, README.md, taxonomy.py, router.py |
+| 11 | Recap | 4 takeaways. | Recap list. | — |
+| 12 | Thank you | End card. | "Thank you" / "Made by Medhaja H L". | — |
 
 ## Open questions
 
-1. **The demo doesn't exist yet.** "How to run the demo" can't be covered truthfully: there is no UI, no `make demo`,
-   no README. Options: (a) pause the video until the app is finished, (b) make the video about the current core
-   (compiler + validator) and show "run it" as `python -m onboarding.generator` + `pytest` with the UI as a next
-   step, (c) script the planned UI as "planned", clearly labelled. I recommend (a) if the build will continue soon,
-   otherwise (b).
-2. `onboarding/semantic.py` is untracked (uncommitted). Should the video cover it as if it's part of the repo?
-3. An ad-hoc run I did shows the mock checker finds all 30 planted defects with 0 false positives across the six
-   practices. There's no eval script in the repo yet, so this can't be cited from code. Mention it (flagged as
-   "measured on synthetic data, no eval script yet") or leave it out?
+1. The video is now about 5:20, over the original 3–4 minute target, because the repairer, review, smoke test, UI and
+   eval are new. Scenes 3 and 10 are the easiest places to cut if a shorter cut is wanted.

@@ -41,153 +41,225 @@ A semantic check looks for an FAQ answer that contradicts the call script.
 That is the only place a language model is allowed.
 
 11
-00:00:50.650 --> 00:00:53.550
-Everything ends up as a list of issues.
+00:00:50.650 --> 00:00:53.300
+Each issue then gets a proposed fix.
 
 12
-00:00:53.550 --> 00:01:00.550
-The later stages, repair, review, smoke test and export, are designed in the PRD but not built yet.
+00:00:53.300 --> 00:00:57.350
+After that come review, a smoke test, and a gated export.
 
 13
-00:01:01.150 --> 00:01:04.000
+00:00:57.967 --> 00:01:00.817
 There's no real practice data anywhere.
 
 14
-00:01:04.000 --> 00:01:07.275
+00:01:00.817 --> 00:01:04.092
 A seeded generator writes six fake practices:
 
 15
-00:01:07.275 --> 00:01:13.300
+00:01:04.092 --> 00:01:10.117
 internal medicine, cardiology, pulmonology, urgent care and a multispecialty group.
 
 16
-00:01:13.300 --> 00:01:18.275
+00:01:10.117 --> 00:01:15.092
 Each packet ships a defects file, the answer key for the mistakes planted in it.
 
 17
-00:01:18.275 --> 00:01:23.675
+00:01:15.092 --> 00:01:20.492
 Thirty in total, and one practice is deliberately clean, to catch false alarms.
 
 18
-00:01:23.675 --> 00:01:28.775
+00:01:20.492 --> 00:01:25.592
 A test regenerates everything and fails if the committed data has drifted.
 
 19
-00:01:29.375 --> 00:01:34.250
+00:01:26.200 --> 00:01:31.075
 Let's follow one practice, Harborview Heart Clinic, a cardiology packet.
 
 20
-00:01:34.250 --> 00:01:39.300
+00:01:31.075 --> 00:01:36.125
 Load packet reads the five files as lines, and compile packet walks them.
 
 21
-00:01:39.300 --> 00:01:43.075
+00:01:36.125 --> 00:01:39.900
 Line twelve of the hours file says Friday, eight to three.
 
 22
-00:01:43.075 --> 00:01:54.650
+00:01:39.900 --> 00:01:51.475
 A pattern match finds the day, parse time converts the times to twenty-four hour form, and the result is a day-hours object with the source hours.txt:12.
 
 23
-00:01:54.650 --> 00:01:59.075
+00:01:51.475 --> 00:01:55.900
 Pydantic requires a source on every item, and checks its format.
 
 24
-00:01:59.675 --> 00:02:02.750
+00:01:56.500 --> 00:01:59.575
 Now the compiled config goes to run rules.
 
 25
-00:02:02.750 --> 00:02:05.100
+00:01:59.575 --> 00:02:01.925
 Take the hours conflict rule.
 
 26
-00:02:05.100 --> 00:02:13.100
+00:02:01.925 --> 00:02:09.925
 It scans every line the agent might say, script lines and FAQ answers, for phrases like "our Friday hours are".
 
 27
-00:02:13.100 --> 00:02:15.825
+00:02:09.925 --> 00:02:12.650
 Line nine of the script says eight to five.
 
 28
-00:02:15.825 --> 00:02:18.325
+00:02:12.650 --> 00:02:15.150
 The official hours say eight to three.
 
 29
-00:02:18.325 --> 00:02:23.100
+00:02:15.150 --> 00:02:19.925
 So it raises a high-severity issue, and cites both lines as evidence.
 
 30
-00:02:23.100 --> 00:02:28.525
+00:02:19.925 --> 00:02:25.350
 For this practice the checks raise seven issues, matching its seven planted defects.
 
 31
-00:02:29.125 --> 00:02:33.075
+00:02:25.967 --> 00:02:29.917
 The contradiction check has two backends with the same output.
 
 32
-00:02:33.075 --> 00:02:40.950
+00:02:29.917 --> 00:02:37.792
 If an LLM model is configured and LiteLLM is installed, it asks the model for contradictions as JSON.
 
 33
-00:02:40.950 --> 00:02:45.475
+00:02:37.792 --> 00:02:42.317
 That reply is validated, and every cited line must exist.
 
 34
-00:02:45.475 --> 00:02:49.000
+00:02:42.317 --> 00:02:45.842
 If anything fails, it falls back to a keyword mock.
 
 35
-00:02:49.000 --> 00:02:54.150
+00:02:45.842 --> 00:02:50.992
 The mock runs whenever no model is set, so nothing needs a key or a network.
 
 36
-00:02:54.750 --> 00:03:00.100
-To run it today, install the requirements, run the generator, and run pytest.
+00:02:51.600 --> 00:02:58.700
+Next, the repairer proposes a fix for every issue, with a confidence score and the lines it was drawn from.
 
 37
-00:03:00.100 --> 00:03:05.825
-The thirty-nine tests include one per rule, and a golden config for the clean practice.
+00:02:58.700 --> 00:03:05.975
+A fix is applied automatically only when confidence is at least zero point eight, and never for escalation.
 
 38
-00:03:05.825 --> 00:03:12.625
-In mock mode, on this synthetic data, the checks find all thirty planted defects with no false alarms.
+00:03:05.975 --> 00:03:11.725
+For Harborview, the Friday hours and the duplicate visit type are fixed automatically.
 
 39
-00:03:12.625 --> 00:03:17.975
-But there's no eval script yet, and synthetic defects are easier than real ones.
+00:03:11.725 --> 00:03:20.050
+The missing chest-pain rule scores exactly zero point eight, but it's escalation, so it waits for a person, along with four others.
 
 40
-00:03:17.975 --> 00:03:19.500
-Other limits:
+00:03:20.667 --> 00:03:28.542
+Reviewer decisions, accept, edit or reject, are stored in SQLite, and replayed on top of the compiled config.
 
 41
-00:03:19.500 --> 00:03:28.225
-the packet format is a guess, the red-flag lists need a physician's review, and escalation fixes are flagged to always need a person.
+00:03:28.542 --> 00:03:35.742
+Then a smoke test sends ten scripted patient messages through a keyword router that reads only that config.
 
 42
-00:03:28.225 --> 00:03:32.025
-Next come repair, review, the smoke test and the eval.
+00:03:35.742 --> 00:03:37.767
+Harborview passes nine.
 
 43
-00:03:32.625 --> 00:03:34.300
-So, to recap.
+00:03:37.767 --> 00:03:41.767
+The chest-pain message finds no rule, so nothing escalates.
 
 44
-00:03:34.300 --> 00:03:39.875
-The compiler is deterministic, and every value points back to a file and a line.
+00:03:41.767 --> 00:03:46.192
+And export stays blocked while any high-severity issue is open.
 
 45
-00:03:39.875 --> 00:03:45.175
-Nine rules and one semantic check turn mistakes into issues with evidence.
+00:03:46.192 --> 00:03:50.092
+Here, that's the chest-pain rule and a broken phone number.
 
 46
-00:03:45.175 --> 00:03:49.025
-A model is optional, validated, and never required.
+00:03:50.700 --> 00:03:55.200
+To try it, run make demo, and open localhost, port eight thousand.
 
 47
-00:03:49.025 --> 00:03:53.900
-And the sample data carries its own answer key, so the checker can be scored.
+00:03:55.200 --> 00:03:58.500
+It needs no keys, no Node, and no network.
 
 48
-00:03:54.500 --> 00:03:56.325
+00:03:58.500 --> 00:04:00.325
+There are four screens.
+
+49
+00:04:00.325 --> 00:04:03.675
+Practices, with status and open exceptions.
+
+50
+00:04:03.675 --> 00:04:07.850
+Packet to config, where clicking a field highlights its source line.
+
+51
+00:04:07.850 --> 00:04:12.075
+Exceptions, with evidence, the proposed fix, and its confidence.
+
+52
+00:04:12.075 --> 00:04:14.900
+And the smoke test, with the export button.
+
+53
+00:04:15.500 --> 00:04:18.875
+Make eval scores everything against the answer key.
+
+54
+00:04:18.875 --> 00:04:24.500
+In mock mode, the checks find all thirty planted defects, with no false alarms.
+
+55
+00:04:24.500 --> 00:04:31.225
+All twenty-four scored fixes match the known answer, and ninety-five percent of fields need no review.
+
+56
+00:04:31.225 --> 00:04:35.075
+Before review, fifty-seven of sixty smoke tests pass.
+
+57
+00:04:35.075 --> 00:04:39.425
+The three failures are escalation fixes it won't apply alone.
+
+58
+00:04:39.425 --> 00:04:44.650
+These numbers are optimistic, because the defects and the checks were written together.
+
+59
+00:04:44.650 --> 00:04:46.175
+Other limits:
+
+60
+00:04:46.175 --> 00:04:54.675
+the packet format is a guess, the red-flag lists need a physician's review, and the router matches keywords; it isn't a live agent.
+
+61
+00:04:55.300 --> 00:04:56.975
+So, to recap.
+
+62
+00:04:56.975 --> 00:05:02.550
+The compiler is deterministic, and every value points back to a file and a line.
+
+63
+00:05:02.550 --> 00:05:07.850
+Nine rules and one semantic check turn mistakes into issues with evidence.
+
+64
+00:05:07.850 --> 00:05:12.900
+Confident fixes apply themselves; escalation always waits for a person.
+
+65
+00:05:12.900 --> 00:05:16.425
+And the answer key lets make eval score all of it.
+
+66
+00:05:17.033 --> 00:05:18.858
 Thank you for watching.

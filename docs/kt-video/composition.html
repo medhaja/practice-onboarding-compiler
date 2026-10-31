@@ -158,6 +158,7 @@
 
   // Code focus panel built from the real source file.
   const SOURCES = {};
+  const IMAGES = [];  // screenshots; rendering waits until they are decoded
   function highlightPy(line) {
     let out = "", rest = line;
     const re = /(#.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(def|for|in|if|elif|else|return|continue|not|and|or|is|None|True|False|try|except|as|import|from|class|with)\b|\b(\d+)\b/g;
@@ -288,17 +289,23 @@
     const a3b = arrow(root, xs[2] + BW + 8, Y + 218, GAP - 22, "var(--config)");
     const a4a = arrow(root, xs[3] + BW + 8, Y + 112, GAP - 22, "var(--issue)");
     const a4b = arrow(root, xs[3] + BW + 8, Y + 218, GAP - 22, "var(--issue)");
-    // planned stages
-    const planned = el(root, "abs"); place(planned, 0, 860, 1920, 160);
-    const pl = ["Repair", "Review", "Smoke test", "Export"].map((t, i) =>
-      place(el(planned, "box planned", `<div style="font-size:28px;text-align:center">${t}</div>`), 520 + i * 330, 30, 260, 80));
-    const plArrows = [0, 1, 2].map((i) => { const a = arrow(planned, 520 + i * 330 + 266, 70, 58, "#3d4552"); return a; });
-    const plLabel = place(el(planned, "abs label", "planned · in the PRD, not built yet"), 80, 55);
+    // later stages, all built
+    const then = el(root, "abs"); place(then, 0, 840, 1920, 180);
+    const pl = [["propose", "repairer"], ["build_state", "review · SQLite"], ["run_smoke", "smoke test"], ["export", "gated"]].map(([fn, lab], i) =>
+      place(el(then, "box", `<div class="fn" style="font-size:25px">${fn}</div><div class="mono muted" style="font-size:19px;margin-top:4px">${lab}</div>`),
+        xs[1] + i * (BW + GAP), 30, BW, 104));
+    const plArrows = [0, 1, 2].map((i) => arrow(then, xs[1] + i * (BW + GAP) + BW + 8, 82, GAP - 22));
+    // connector: down from list[Issue], left along the gap, down into propose
+    const x1c = xs[1] + BW / 2, x4c = xs[4] + BW / 2, yTurn = 815;
+    const c1 = place(el(root, "abs", null, { background: "var(--issue)", transformOrigin: "50% 0" }), x4c, Y + 250, 3, yTurn - Y - 250);
+    const c2 = place(el(root, "abs", null, { background: "var(--issue)", transformOrigin: "100% 50%" }), x1c, yTurn, x4c - x1c + 3, 3);
+    const plIn = place(el(root, "varrow", null, { color: "var(--issue)", background: "var(--issue)" }), x1c, yTurn, null, 52);
+    const plLabel = place(el(then, "abs label", "then"), 80, 70);
 
     const t = {
       exact: W(S, "Plain code"), comp: W(S, "The compiler"), five: W(S, "five packet"), typed: W(S, "typed konfig"),
       val: W(S, "The validator"), nine: W(S, "nine deterministic"), sem: W(S, "A semantic"), only: W(S, "only place"),
-      iss: W(S, "Everything ends"), later: W(S, "The later"), built: W(S, "not built"),
+      iss: W(S, "Each issue then"), later: W(S, "After that come"),
     };
     return (lt) => {
       show(head, p(lt, t.exact));
@@ -313,9 +320,13 @@
       sem.style.borderColor = p(lt, t.only) > 0.5 ? "var(--model)" : "var(--line)";
       grow(a4a, p(lt, t.iss)); grow(a4b, p(lt, t.iss));
       show(issues, p(lt, t.iss + 0.3));
-      pl.forEach((e, i) => show(e, p(lt, t.later + 0.8 + i * 0.65)));
-      plArrows.forEach((a, i) => grow(a, p(lt, t.later + 1.2 + i * 0.65)));
-      show(plLabel, p(lt, t.built));
+      growV(c1, p(lt, t.iss + 0.6, 0.4));
+      c2.style.opacity = p(lt, t.iss + 1.0) > 0 ? 1 : 0; c2.style.transform = `scaleX(${p(lt, t.iss + 1.0, 0.5)})`;
+      growV(plIn, p(lt, t.iss + 1.5, 0.3));
+      show(pl[0], p(lt, t.iss + 1.7));
+      pl.slice(1).forEach((e, i) => show(e, p(lt, t.later + 0.5 + i * 0.7)));
+      plArrows.forEach((a, i) => grow(a, p(lt, t.later + 0.2 + i * 0.7)));
+      show(plLabel, p(lt, t.later));
     };
   });
 
@@ -508,7 +519,7 @@
       padding: "4px 12px", fontFamily: "var(--mono)", fontSize: "20px", background: "var(--bg)" }), 1000, R1 + 92);
     const fb = place(el(root, "varrow", null, { color: "var(--high)", background: "var(--high)" }), 1160, R1 + 136, null, R2 - R1 - 140);
     const fbLabel = place(el(root, "abs mono", "fallback to mock", { color: "var(--high)", fontSize: "20px" }), 1180, R1 + 158);
-    const code = codePanel(root, "onboarding/semantic.py", 138, 149, 80, 540, 1760, 22);
+    const code = codePanel(root, "onboarding/semantic.py", 148, 159, 80, 540, 1760, 22);
 
     const t = { two: W(S, "two back ends"), same: W(S, "same output"), cfg: W(S, "If an"), ask: W(S, "asks the"),
       val: W(S, "is validated"), cited: W(S, "every cited"), fails: W(S, "If anything"), back: W(S, "falls back"),
@@ -526,68 +537,227 @@
       const mockOn = p(lt, t.back + 0.4);
       n2[0].style.borderColor = mockOn > 0.5 ? "var(--ink)" : "var(--line)";
       show(code, p(lt, t.fails));
-      code.highlight(lt, [{ lines: [143, 144, 145, 146, 147, 148, 149], at: t.back, until: t.def },
-        { lines: [140, 141, 142], at: t.def }]);
+      code.highlight(lt, [{ lines: [153, 154, 155, 156, 157, 158, 159], at: t.back, until: t.def },
+        { lines: [150, 151, 152], at: t.def }]);
     };
   });
 
-  // 07 Run it & limits
+  // 07 Repair
   SCENES.push((root) => {
     const S = 7;
-    const term = place(el(root, "code"), 80, 140, 900);
-    el(term, "path", "terminal · repo root");
-    const tl = ["pip install -r requirements.txt", "python -m onboarding.generator", "pytest"].map((c) =>
-      el(term, "mono", `<span style="color:var(--config)">$</span> ${c}`, { fontSize: "25px", padding: "6px 24px" }));
-    const passed = el(term, "mono", "39 passed", { fontSize: "25px", padding: "6px 24px 18px", color: "var(--config)" });
-    const testsNote = place(el(root, "abs muted", "one test per rule · golden config for the clean practice (p06)", { fontSize: "22px" }), 80, 450);
-    const stat = place(el(root, "box issue", `<div style="font-family:var(--display);font-size:64px">30 / 30 <span style="font-size:32px">found</span></div>
-      <div style="font-size:28px;margin-top:4px">0 false alarms</div>`), 1040, 140, 800, 190);
-    const caveat = place(el(root, "abs mono", "synthetic data · mock mode · no eval script yet", { fontSize: "21px", color: "var(--issue)" }), 1044, 350);
-    const caveat2 = place(el(root, "abs muted", "synthetic defects are easier than real ones", { fontSize: "23px" }), 1044, 392);
-    const limHead = place(el(root, "abs label", "honest limits"), 80, 540);
-    const lims = [
-      ["The packet format is a guess", "PRD.md · risks"],
-      ["Red-flag lists are placeholders — need physician review", "onboarding/taxonomy.py:43"],
-      ["Escalation fixes flagged to always need a person", "always_human=True · taxonomy.py:20"],
-    ].map(([a, b], i) => place(el(root, "abs", `<span style="color:var(--issue);font-size:30px;margin-right:16px">▲</span>
-      <span style="font-size:29px">${a}</span><span class="mono muted" style="font-size:20px;margin-left:18px">${b}</span>`), 80, 590 + i * 70));
-    const roadHead = place(el(root, "abs label", "next"), 80, 850);
-    const road = ["Repair", "Review UI", "Smoke test", "Eval"].map((r, i) =>
-      place(el(root, "box planned", `<div style="font-size:27px;text-align:center">${r}</div>`), 80 + i * 330, 890, 270, 76));
-    const roadA = [0, 1, 2].map((i) => arrow(root, 80 + i * 330 + 276, 928, 46, "#3d4552"));
+    const code = codePanel(root, "onboarding/repairer.py", 18, 25, 80, 130, 1760, 22);
+    const head = place(el(root, "abs", `<span style="font-family:var(--display);font-size:32px">Harborview</span>
+      <span class="muted" style="font-size:24px;margin-left:12px">7 issues, 7 proposals</span>`), 80, 490);
+    const rows = [
+      ["Hours conflict", "friday → 08:00-15:00", 0.9, "auto"],
+      ["Duplicate visit types", "→ Follow-up Visit", 0.9, "auto"],
+      ["Required red-flag rule missing", "chest pain → emergency", 0.8, "esc"],
+      ["FAQ contradicts call script", "new_patients", 0.6, "human"],
+      ["Holidays written as free text", "partial day in the text", 0.6, "human"],
+      ["Provider not on roster", "Whitcombe", 0.3, "human"],
+      ["Invalid phone number", "3 numbers could match", 0.2, "human"],
+    ].map(([title, detail, conf, route], i) => {
+      const r = place(el(root, "abs"), 80, 550 + i * 62, 1760, 54);
+      r.style.borderRadius = "10px";
+      el(r, "abs", `<span style="font-size:26px">${title}</span><span class="mono muted" style="font-size:19px;margin-left:16px">${esc(detail)}</span>`,
+        { left: "16px", top: "10px", width: "800px" });
+      const track = el(r, "abs", null, { left: "860px", top: "22px", width: "300px", height: "10px", background: "#1f2630", borderRadius: "5px" });
+      const fill = el(track, "abs", null, { left: 0, top: 0, height: "10px", width: conf * 300 + "px", background: "var(--muted)", borderRadius: "5px" });
+      el(track, "abs", null, { left: 0.8 * 300 + "px", top: "-8px", width: "2px", height: "26px", background: "var(--ink)" });
+      el(r, "abs mono", conf.toFixed(2), { left: "1180px", top: "12px", fontSize: "22px" });
+      const chip = el(r, "abs", route === "auto" ? "auto-applied" : "to a person", {
+        left: "1290px", top: "9px", fontSize: "20px", fontWeight: 600, padding: "4px 12px", borderRadius: "6px",
+        background: route === "auto" ? "rgba(63,185,80,0.16)" : "rgba(240,180,41,0.14)",
+        color: route === "auto" ? "var(--config)" : "var(--issue)" });
+      const tag = route === "esc" ? el(r, "abs", "escalation · never auto", { left: "1460px", top: "9px", fontSize: "20px", fontWeight: 600,
+        padding: "4px 12px", borderRadius: "6px", background: "rgba(248,81,73,0.16)", color: "var(--high)" }) : null;
+      return { r, fill, chip, tag, route };
+    });
+    const thr = place(el(root, "abs mono muted", "│ 0.8 threshold", { fontSize: "18px" }), 80 + 860 + 0.8 * 300 - 6, 520);
+    const badge = place(el(root, "abs", "5 need a person", { fontSize: "24px", fontWeight: 600, color: "var(--issue)",
+      border: "2px solid var(--issue)", borderRadius: "8px", padding: "4px 14px" }), 1580, 486);
 
-    const t = { inst: W(S, "install the"), gen: W(S, "run the generator"), pyt: W(S, "pie-test"), n39: W(S, "thirty-nine"),
-      mock: W(S, "In mock"), all: W(S, "find all"), but: W(S, "But there's"), easier: W(S, "synthetic defects are"),
-      other: W(S, "Other limits"), fmt: W(S, "packet format"), red: W(S, "red-flag"), esc: W(S, "escalation fixes"),
-      next: W(S, "Next come"), rv: W(S, "repair review"), smoke: W(S, "the smoke"), ev: W(S, "the ee-val") };
+    const t = { start: W(S, "Next the repairer"), least: W(S, "at least zero"), never: W(S, "never for escalation"),
+      harb: W(S, "For Harborview"), fixed: W(S, "fixed automatically"), esc: W(S, "it's escalation"), others: W(S, "four others") };
     return (lt) => {
-      show(term, p(lt, 0.1));
-      show(tl[0], p(lt, t.inst, 0.4), 4); show(tl[1], p(lt, t.gen, 0.4), 4); show(tl[2], p(lt, t.pyt, 0.4), 4);
-      show(passed, p(lt, t.n39, 0.4), 4); show(testsNote, p(lt, t.n39 + 1.0));
-      show(stat, p(lt, t.all)); show(caveat, p(lt, t.but)); show(caveat2, p(lt, t.easier));
-      show(limHead, p(lt, t.other));
-      [t.fmt, t.red, t.esc].forEach((tt, i) => show(lims[i], p(lt, tt - 0.2), 0, -16));
-      show(roadHead, p(lt, t.next));
-      [t.rv, t.rv + 0.5, t.smoke, t.ev].forEach((tt, i) => show(road[i], p(lt, tt - 0.1)));
-      roadA.forEach((a, i) => grow(a, p(lt, [t.rv + 0.3, t.smoke - 0.2, t.ev - 0.2][i])));
+      show(code, p(lt, t.start));
+      code.highlight(lt, [{ lines: [18, 23], at: t.least, until: t.never }, { lines: [23], at: t.never }]);
+      show(head, p(lt, t.harb)); show(thr, p(lt, t.harb + 0.4));
+      rows.forEach((o, i) => {
+        show(o.r, p(lt, t.harb + 0.2 + i * 0.12, 0.4), 6);
+        const autoOn = o.route === "auto" ? p(lt, t.fixed) : 0;
+        o.chip.style.opacity = o.route === "auto" ? autoOn : p(lt, i === 2 ? t.esc : t.others);
+        o.fill.style.background = autoOn > 0.5 ? "var(--config)" : "var(--muted)";
+        o.r.style.background = autoOn > 0.5 ? "rgba(63,185,80,0.07)" : "transparent";
+        if (o.tag) show(o.tag, p(lt, t.esc), 0, -8);
+      });
+      show(badge, p(lt, t.others));
     };
   });
 
-  // 08 Recap
+  // 08 Review, smoke test and export
   SCENES.push((root) => {
     const S = 8;
+    const chips = ["accept", "edit", "reject"].map((c, i) => place(el(root, "abs chip", c, { fontSize: "22px" }), 80, 130 + i * 46));
+    const store = place(el(root, "box", `<div class="label">decisions</div><div class="fn" style="font-size:24px;margin-top:6px">SQLite</div>
+      <div class="mono muted" style="font-size:18px;margin-top:4px">var/review.sqlite</div>`), 330, 130, 300, 130);
+    const replay = place(el(root, "box", `<div class="fn" style="font-size:24px">build_state</div>
+      <div class="muted" style="font-size:20px;margin-top:6px">compiled config + auto fixes + decisions</div>`), 730, 130, 470, 130);
+    const approved = place(el(root, "box config", `<div class="label" style="color:var(--config)">approved config</div>
+      <div class="mono muted" style="font-size:18px;margin-top:8px">the only input to the router</div>`), 1300, 130, 540, 130);
+    const a1 = arrow(root, 236, 195, 80), a2 = arrow(root, 638, 195, 84), a3 = arrow(root, 1208, 195, 84, "var(--config)");
+
+    const tableHead = place(el(root, "abs", `<span class="label" style="display:inline-block;width:840px">smoke test · p03 message</span>
+      <span class="label" style="display:inline-block;width:330px">expected</span><span class="label">actual</span>`), 80, 310, 1760);
+    const msgs = [
+      ["Hi, I'd like to book an appointment for next week.", "book_appointment", "book_appointment", true],
+      ["What are your hours on Saturday?", "hours", "hours", true],
+      ["I'm having chest pain and it won't go away.", "red_flag · emergency", "unknown · none", false],
+      ["My mother fainted twice this morning.", "red_flag · emergency", "red_flag · emergency", true],
+      ["Who do I call after hours if the office is closed?", "after_hours", "after_hours", true],
+    ].map(([m, exp, act, ok], i) => {
+      const r = place(el(root, "abs", `<span style="display:inline-block;width:840px;font-size:24px">${esc(m)}</span>
+        <span class="mono" style="display:inline-block;width:330px;font-size:20px">${exp}</span>
+        <span class="mono" style="display:inline-block;width:330px;font-size:20px;color:${ok ? "var(--ink)" : "var(--high)"}">${act}</span>
+        <span style="font-size:24px;color:${ok ? "var(--config)" : "var(--high)"}">${ok ? "✓" : "✕"}</span>`), 80, 352 + i * 56, 1760, 50);
+      r.style.padding = "8px 12px"; r.style.borderRadius = "8px";
+      return { r, ok };
+    });
+    const counter = place(el(root, "abs", `<span style="font-family:var(--display);font-size:44px">9 / 10</span>
+      <span class="muted" style="font-size:24px;margin-left:10px">passed · 5 of 10 shown</span>`), 80, 650);
+    const button = place(el(root, "abs", "Export config", { fontSize: "26px", padding: "14px 26px", borderRadius: "10px",
+      background: "#1f2630", color: "#5b6470", border: "2px solid var(--line)" }), 80, 790);
+    const resp = place(el(root, "box issue", `<div class="mono" style="font-size:21px;line-height:1.6"><span style="color:var(--high)">409</span>
+      Export is blocked by 2 open high-severity issue(s):<br><span class="hlname">invalid phone number</span>, <span class="hlname">required red-flag rule missing</span>.</div>`),
+      380, 760, 1460);
+    const names = [...resp.querySelectorAll(".hlname")];
+
+    const t = { dec: W(S, "Reviewer decisions"), sql: W(S, "stored in SQLite"), rep: W(S, "and replayed"),
+      smoke: W(S, "smoke test sends"), nine: W(S, "passes nine"), chest: W(S, "message finds no rule"),
+      exp: W(S, "export stays blocked"), here: W(S, "Here that's") };
+    return (lt) => {
+      chips.forEach((c, i) => show(c, p(lt, t.dec + i * 0.25, 0.4), 6));
+      grow(a1, p(lt, t.sql - 0.3)); show(store, p(lt, t.sql));
+      grow(a2, p(lt, t.rep)); show(replay, p(lt, t.rep + 0.3)); grow(a3, p(lt, t.rep + 0.8)); show(approved, p(lt, t.rep + 1.0));
+      show(tableHead, p(lt, t.smoke));
+      msgs.forEach((o, i) => {
+        show(o.r, p(lt, t.smoke + 0.4 + i * 0.25, 0.4), 6);
+        o.r.style.background = !o.ok && p(lt, t.chest) > 0.5 ? "rgba(248,81,73,0.12)" : "transparent";
+      });
+      show(counter, p(lt, t.nine));
+      show(button, p(lt, t.exp)); show(resp, p(lt, t.exp + 0.3));
+      names.forEach((n) => { n.style.background = `rgba(240,180,41,${0.25 * p(lt, t.here)})`; });
+    };
+  });
+
+  // 09 Run the demo
+  SCENES.push((root) => {
+    const S = 9;
+    const term = place(el(root, "code"), 80, 130, 760);
+    el(term, "path", "terminal · repo root");
+    const l1 = el(term, "mono", `<span style="color:var(--config)">$</span> make demo`, { fontSize: "24px", padding: "10px 22px 4px" });
+    const l2 = el(term, "mono muted", "running at http://127.0.0.1:8000", { fontSize: "21px", padding: "4px 22px 16px" });
+    const note = place(el(root, "abs mono", "no keys · no Node · no network", { fontSize: "21px", color: "var(--config)" }), 84, 330);
+    const screens = [
+      ["Practices", "status, open exceptions", "1-practices.png"],
+      ["Packet → Config", "click a field, see its source line", "2-packet-to-config.png"],
+      ["Exceptions", "evidence, proposed fix, confidence", "3-exceptions.png"],
+      ["Smoke test & export", "routes, pass/fail, export button", "4-smoke-test.png"],
+    ];
+    const list = screens.map(([name, sub], i) => place(el(root, "abs", `<div style="font-size:30px">${i + 1}. ${name}</div>
+      <div class="muted" style="font-size:21px;margin-top:2px">${sub}</div>`), 80, 430 + i * 110, 740));
+    const frame = place(el(root, "abs", null, { border: "2px solid var(--line)", borderRadius: "12px", overflow: "hidden", background: "#fff" }),
+      880, 130, 960, 607);
+    const imgs = screens.map(([, , file]) => {
+      const img = document.createElement("img");
+      img.src = "../../docs/screenshots/" + file;
+      Object.assign(img.style, { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" });
+      frame.appendChild(img); IMAGES.push(img);
+      return img;
+    });
+    const cap = place(el(root, "abs mono muted", "docs/screenshots · synthetic data", { fontSize: "19px" }), 884, 752);
+
+    const t = { make: W(S, "run make demo"), port: W(S, "port eight"), keys: W(S, "no keys"), four: W(S, "four screens"),
+      s: [W(S, "Practices with"), W(S, "Packet to"), W(S, "Exceptions with"), W(S, "And the smoke")] };
+    return (lt) => {
+      show(term, p(lt, 0.1)); show(l1, p(lt, t.make, 0.4), 4); show(l2, p(lt, t.port, 0.4), 4); show(note, p(lt, t.keys));
+      show(frame, p(lt, t.four)); show(cap, p(lt, t.four + 0.3));
+      list.forEach((e, i) => {
+        show(e, p(lt, t.four + 0.2 + i * 0.15, 0.4), 6);
+        const on = p(lt, t.s[i], 0.4) * (i < 3 ? 1 - p(lt, t.s[i + 1], 0.4) : 1);
+        e.style.color = on > 0.5 ? "var(--ink)" : "var(--muted)";
+        e.style.borderLeft = `4px solid rgba(88,166,255,${on})`;
+        e.style.paddingLeft = "16px";
+      });
+      imgs.forEach((img, i) => { img.style.opacity = i === 0 ? 1 : p(lt, t.s[i], 0.5); });
+    };
+  });
+
+  // 10 Evaluation and limits
+  SCENES.push((root) => {
+    const S = 10;
+    const term = place(el(root, "code"), 80, 120, 1760);
+    el(term, "path", "$ make eval");
+    const out = [
+      "Checker mode: mock   practices: 6   planted defects: 30",
+      "Detection precision   1.00   (30 true, 0 false alarms)      target >= 0.80",
+      "Detection recall      1.00   (30 found, 0 missed)            target >= 0.90",
+      "Escalation misses     0                                      target = 0",
+      "Repair accuracy       100%   (24/24 proposals match the known fix)",
+      "Fields auto-approved  95%   (330/346)",
+      "Exceptions per practice  p01: 3, p02: 3, p03: 5, p04: 3, p05: 2, p06: 0",
+      "Smoke tests, auto repairs only       57/60",
+      "Smoke tests, all proposals accepted  60/60",
+    ].map((l) => {
+      const r = el(term, "mono", esc(l), { fontSize: "22px", lineHeight: "34px", padding: "0 24px", whiteSpace: "pre", position: "relative" });
+      return r;
+    });
+    out[out.length - 1].style.paddingBottom = "14px";
+    out[0].style.paddingTop = "12px";
+    const opt = place(el(root, "abs", `<span style="color:var(--issue);font-weight:600">Optimistic:</span>
+      <span style="font-size:26px">synthetic defects, and the defects and checks were written together</span>`, { fontSize: "26px" }), 80, 560);
+    const limHead = place(el(root, "abs label", "other limits"), 80, 650);
+    const lims = [
+      ["The packet format is a guess", "README · limitations"],
+      ["Red-flag lists need physician review", "onboarding/taxonomy.py:43"],
+      ["The router matches keywords; it isn't a live agent", "onboarding/router.py:1-4"],
+    ].map(([a, b], i) => place(el(root, "abs", `<span style="color:var(--issue);font-size:28px;margin-right:16px">▲</span>
+      <span style="font-size:29px">${a}</span><span class="mono muted" style="font-size:20px;margin-left:18px">${b}</span>`), 80, 700 + i * 70));
+
+    const t = { make: W(S, "Make ee-val"), all: W(S, "find all"), rep: W(S, "twenty-four"), ninety: W(S, "ninety-five"),
+      fifty: W(S, "fifty-seven"), three: W(S, "three failures"), opt: W(S, "optimistic"), other: W(S, "Other"),
+      fmt: W(S, "packet format"), red: W(S, "red-flag"), router: W(S, "router matches") };
+    const beats = [[1, 2], [4], [5], [7]];
+    const beatT = [t.all, t.rep, t.ninety, t.fifty];
+    return (lt) => {
+      show(term, p(lt, t.make));
+      out.forEach((r, i) => {
+        let k = 0;
+        beats.forEach((ls, b) => { if (ls.includes(i)) k = p(lt, beatT[b], 0.4) * (b < 3 ? 1 - p(lt, beatT[b + 1], 0.4) : 1 - p(lt, t.opt, 0.4)); });
+        r.style.background = `rgba(240,180,41,${0.16 * k})`;
+        r.style.boxShadow = k > 0.5 ? "inset 4px 0 0 var(--issue)" : "none";
+      });
+      show(opt, p(lt, t.opt));
+      show(limHead, p(lt, t.other));
+      [t.fmt, t.red, t.router].forEach((tt, i) => show(lims[i], p(lt, tt - 0.2), 0, -16));
+    };
+  });
+
+  // 11 Recap
+  SCENES.push((root) => {
+    const S = 11;
     const head = place(el(root, "abs", `<div class="h2">Recap</div>`), 80, 130);
     const items = [
       ["var(--config)", "Deterministic compile, <span class='mono'>file:line</span> on every value"],
       ["var(--issue)", "9 rules + 1 semantic check → issues with evidence"],
-      ["var(--model)", "A model is optional, validated, never required"],
-      ["var(--data)", "Synthetic data with its own answer key"],
+      ["var(--high)", "Confident fixes auto-apply; escalation waits for a person"],
+      ["var(--data)", "An answer key, so <span class='mono'>make eval</span> can score it all"],
     ].map(([c, txt], i) => place(el(root, "abs", `<span style="display:inline-block;width:14px;height:44px;background:${c};border-radius:4px;vertical-align:middle;margin-right:28px"></span>
       <span style="font-size:42px;vertical-align:middle">${txt}</span>`), 80, 280 + i * 120));
     const foot = place(el(root, "abs muted", "Independent prototype built from public information and synthetic data. Not affiliated with Asha Health.",
       { fontSize: "24px" }), 80, 940);
-    const t = [W(S, "The compiler"), W(S, "Nine rules"), W(S, "A model"), W(S, "And the sample")];
-    const tf = W(S, "so the checker");
+    const t = [W(S, "The compiler"), W(S, "Nine rules"), W(S, "Confident fixes"), W(S, "And the answer")];
+    const tf = W(S, "score all");
     return (lt) => {
       show(head, p(lt, 0.2));
       items.forEach((e, i) => show(e, p(lt, t[i] - 0.2), 0, -20));
@@ -595,9 +765,9 @@
     };
   });
 
-  // 09 Thank you
+  // 12 Thank you
   SCENES.push((root) => {
-    const S = 9;
+    const S = 12;
     const card = place(el(root, "abs", `<h1 style="font-size:120px">Thank you</h1>`), 0, 400, 1920);
     const by = place(el(root, "abs muted", "Made by Medhaja H L", { fontSize: "40px" }), 0, 570, 1920);
     card.style.textAlign = by.style.textAlign = "center";
@@ -630,7 +800,8 @@
 
   async function init() {
     TIMING = await (await fetch("timing.json", { cache: "no-store" })).json();
-    const files = ["onboarding/compiler.py", "onboarding/schema.py", "onboarding/validator.py", "onboarding/semantic.py"];
+    const files = ["onboarding/compiler.py", "onboarding/schema.py", "onboarding/validator.py", "onboarding/semantic.py",
+      "onboarding/repairer.py"];
     for (const f of files) SOURCES[f] = (await (await fetch("../../" + f, { cache: "no-store" })).text()).replace(/\r/g, "").split("\n");
     await document.fonts.ready;
     built = SCENES.map((make) => {
@@ -640,7 +811,9 @@
     });
     // put a section wrapper on each scene root
     built.forEach((b) => (b.root.style.position = "absolute", b.root.style.inset = "0"));
+    await Promise.all(IMAGES.map((img) => img.decode()));
     window.renderAt = renderAt;
+    window.SCENE_SOURCES = SCENES.map((fn) => fn.toString());
     window.TOTAL = TIMING.total;
     renderAt(0);
     window.READY = true;
