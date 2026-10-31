@@ -1,5 +1,11 @@
 # Practice Onboarding Compiler
 
+<!-- walkthrough-video -->
+[![Watch the 5:22 walkthrough](docs/kt-video/poster.jpg)](https://medhaja.github.io/practice-onboarding-compiler/)
+
+**[Watch the 5:22 walkthrough](https://medhaja.github.io/practice-onboarding-compiler/)** (plays in your browser)
+<!-- /walkthrough-video -->
+
 ```bash
 make demo        # or: pip install -r requirements.txt && python -m onboarding.app
 ```
