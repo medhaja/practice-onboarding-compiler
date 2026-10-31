@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 from pathlib import Path
 
@@ -26,6 +27,7 @@ SRT = HERE / "captions.srt"
 VOICE = "af_heart"
 RATE = 24000
 PADDING = 0.6
+FPS = 30
 SENTENCE_SPLIT = r"(?<=[.!?:])\s+"
 
 
@@ -103,28 +105,40 @@ def main() -> None:
     pipeline = KPipeline(lang_code="a", repo_id="hexgrad/Kokoro-82M")
     AUDIO.mkdir(exist_ok=True)
 
-    old = {s["scene"]: s for s in json.loads(TIMING.read_text())["scenes"]} if TIMING.exists() else {}
+    # Reuse audio by narration text, so renumbered scenes keep their WAV. Old audio is read up front
+    # because a renumbered scene may overwrite another scene's file.
+    old = {}
+    if TIMING.exists():
+        for s in json.loads(TIMING.read_text(encoding="utf-8"))["scenes"]:
+            path = AUDIO / s["audio"]
+            if path.exists():
+                old[s["narration"]] = (s, sf.read(path)[0])
     scenes_out = []
     for scene in read_scenes():
         wav = AUDIO / f"scene_{scene['scene']:02d}.wav"
-        prev = old.get(scene["scene"])
-        changed = prev is None or prev.get("narration") != scene["narration"] or not wav.exists()
-        if (only is None and changed) or (only is not None and scene["scene"] in only) or args.all:
+        prev = old.get(scene["narration"])
+        forced = args.all or (only is not None and scene["scene"] in only)
+        if prev is None or forced:
             audio, sentences, words = synthesize(pipeline, scene["narration"])
             sf.write(wav, audio, RATE)
-            entry = {**scene, "audio": wav.name, "audio_seconds": round(len(audio) / RATE, 3),
-                     "sentences": sentences, "words": words}
+            entry = {**scene, "audio_seconds": round(len(audio) / RATE, 3), "sentences": sentences, "words": words}
             print(f"scene {scene['scene']}: {entry['audio_seconds']:.2f}s")
         else:
-            entry = {**old[scene["scene"]], **scene}
-        entry["duration"] = round(entry["audio_seconds"] + PADDING + entry["hold"], 3)
+            entry = {**prev[0], **scene}
+            sf.write(wav, prev[1], RATE)
+        entry["audio"] = wav.name
+        # Whole frames, so every scene starts on a frame boundary and can be rendered as its own segment.
+        entry["frames"] = math.ceil((entry["audio_seconds"] + PADDING + entry["hold"]) * FPS - 1e-6)
+        entry["duration"] = round(entry["frames"] / FPS, 6)
         scenes_out.append(entry)
 
-    t = 0.0
+    frames = 0
     for s in scenes_out:
-        s["start"] = round(t, 3)
-        t += s["duration"]
-    timing = {"fps": 30, "padding": PADDING, "sample_rate": RATE, "total": round(t, 3), "scenes": scenes_out}
+        s["start"] = round(frames / FPS, 6)
+        frames += s["frames"]
+    t = frames / FPS
+    timing = {"fps": FPS, "padding": PADDING, "sample_rate": RATE, "total": round(t, 6), "total_frames": frames,
+              "scenes": scenes_out}
     TIMING.write_text(json.dumps(timing, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     write_srt(timing)
     print(f"total {t:.2f}s")

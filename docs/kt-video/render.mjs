@@ -3,9 +3,15 @@
 //   npm run kt-video            full pipeline (regenerates only changed narration)
 //   node render.mjs --preview   serve the composition for scrubbing in a browser
 //   node render.mjs --skip-tts  reuse the existing audio and timing.json
+//   node render.mjs --force     re-render every scene instead of reusing cached segments
 //   node render.mjs --frames 12.5,40   write single PNG frames to out/ (for checking)
+//
+// Each scene is encoded as its own segment in out/segments/, named by a hash of everything that can change
+// its frames (the scene's code, its timing, the shared page code and styles, the quoted source files and
+// screenshots). Unchanged scenes are reused, so editing one scene re-renders only that scene.
 import { spawn, spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { dirname, extname, join, normalize, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,7 +26,13 @@ const args = process.argv.slice(2);
 const flag = (name) => args.includes(name);
 const option = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
 
-const TYPES = { ".html": "text/html", ".json": "application/json", ".py": "text/plain", ".wav": "audio/wav", ".js": "text/javascript" };
+const TYPES = { ".html": "text/html", ".json": "application/json", ".py": "text/plain", ".wav": "audio/wav", ".js": "text/javascript",
+  ".png": "image/png" };
+const SEGMENTS = join(OUT, "segments");
+// Files the page reads besides itself; a change to any of them re-renders every scene.
+const PAGE_INPUTS = ["onboarding/compiler.py", "onboarding/schema.py", "onboarding/validator.py", "onboarding/semantic.py",
+  "onboarding/repairer.py", "docs/screenshots/1-practices.png", "docs/screenshots/2-packet-to-config.png",
+  "docs/screenshots/3-exceptions.png", "docs/screenshots/4-smoke-test.png"];
 
 // Serve the repo root so the page can read timing.json and the real source files it quotes.
 function serve(port = 0) {
@@ -62,24 +74,63 @@ async function openPage(server) {
   return { browser, page, stage: await page.$("#stage") };
 }
 
-async function renderFrames(server, total) {
-  const { browser, page, stage } = await openPage(server);
-  const frames = Math.round(total * FPS);
-  const video = join(OUT, "video.mp4");
+const sha = (...parts) => {
+  const h = createHash("sha256");
+  for (const part of parts) h.update(part);
+  return h.digest("hex");
+};
+
+// Hash of everything shared by all scenes: the page minus its SCENES section, the files it reads, the encoder settings.
+function sharedKey() {
+  const html = readFileSync(join(HERE, "composition.html"), "utf8").replace(/\r/g, "");
+  const start = html.indexOf("// ---------------------------------------------------------------- scenes");
+  const end = html.indexOf("// ---------------------------------------------------------------- runtime");
+  if (start < 0 || end < 0) throw new Error("composition.html is missing its scenes/runtime markers");
+  return sha(html.slice(0, start), html.slice(end), ...PAGE_INPUTS.map((f) => readFileSync(join(REPO, f))),
+    `fps=${FPS} crf=${process.env.CRF || "20"}`);
+}
+
+async function encodeScene(page, stage, scene, file) {
   const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", "png", "-framerate", String(FPS), "-i", "-",
-    "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", process.env.CRF || "20", "-preset", "veryfast", "-r", String(FPS), video],
+    "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", process.env.CRF || "20", "-preset", "veryfast", "-r", String(FPS), file],
     { stdio: ["pipe", "inherit", "inherit"] });
   const done = new Promise((ok, fail) => ff.on("close", (c) => (c === 0 ? ok() : fail(new Error("ffmpeg video encode failed")))));
-  const started = Date.now();
-  for (let i = 0; i < frames; i++) {
-    await page.evaluate((t) => window.renderAt(t), i / FPS);
+  const first = Math.round(scene.start * FPS);
+  for (let j = 0; j < scene.frames; j++) {
+    await page.evaluate((t) => window.renderAt(t), (first + j) / FPS);
     const png = await stage.screenshot({ type: "png" });
     if (!ff.stdin.write(png)) await new Promise((ok) => ff.stdin.once("drain", ok));
-    if (i % 300 === 0) console.log(`frame ${i}/${frames}  (${((Date.now() - started) / 1000).toFixed(0)} s)`);
   }
   ff.stdin.end();
   await done;
+}
+
+async function renderVideo(server, timing) {
+  const { browser, page, stage } = await openPage(server);
+  const sources = await page.evaluate(() => window.SCENE_SOURCES);
+  const shared = sharedKey();
+  mkdirSync(SEGMENTS, { recursive: true });
+  const list = [];
+  for (const [k, scene] of timing.scenes.entries()) {
+    const { start, ...rest } = scene;  // a scene's frames do not depend on where it starts
+    const key = sha(shared, sources[k], JSON.stringify(rest), `index=${k} last=${k === timing.scenes.length - 1}`).slice(0, 12);
+    const name = `scene_${String(k + 1).padStart(2, "0")}`;
+    const file = join(SEGMENTS, `${name}-${key}.mp4`);
+    if (existsSync(file) && !flag("--force")) {
+      console.log(`${name}: unchanged, reusing segment`);
+    } else {
+      for (const old of readdirSync(SEGMENTS).filter((f) => f.startsWith(name + "-"))) rmSync(join(SEGMENTS, old));
+      const started = Date.now();
+      await encodeScene(page, stage, scene, file);
+      console.log(`${name}: rendered ${scene.frames} frames in ${((Date.now() - started) / 1000).toFixed(0)} s`);
+    }
+    list.push(`file '${file.replace(/\\/g, "/")}'`);
+  }
   await browser.close();
+  const listFile = join(SEGMENTS, "list.txt");
+  writeFileSync(listFile, list.join("\n") + "\n");
+  const video = join(OUT, "video.mp4");
+  run("ffmpeg", ["-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", listFile, "-c", "copy", video]);
   return video;
 }
 
@@ -125,7 +176,7 @@ async function main() {
   }
 
   const audio = buildAudio(timing);
-  const video = await renderFrames(server, timing.total);
+  const video = await renderVideo(server, timing);
   server.close();
 
   const final = join(OUT, "kt-video.mp4");
