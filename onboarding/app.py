@@ -158,11 +158,16 @@ def index() -> FileResponse:
     return FileResponse(STATIC / "index.html")
 
 
+def _port_in_use(port: int) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(("127.0.0.1", port)) == 0
+
+
 def _free_port(preferred: int, tries: int = 20) -> int:
+    """Return the first port from `preferred` that nothing is listening on."""
     for port in range(preferred, preferred + tries):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            if s.connect_ex(("127.0.0.1", port)) != 0:
-                return port
+        if not _port_in_use(port):
+            return port
     raise SystemExit(f"No free port between {preferred} and {preferred + tries - 1}; set PORT to choose one.")
 
 
@@ -170,7 +175,12 @@ def main() -> None:
     import uvicorn
 
     load_env_file()
-    port =int(os.environ["PORT"]) if os.getenv("PORT") else _free_port(8000)
+    if os.getenv("PORT"):
+        port = int(os.environ["PORT"])
+        if _port_in_use(port):
+            raise SystemExit(f"Port {port} is already in use. Pick another PORT, or unset it to use the next free port.")
+    else:
+        port = _free_port(8000)
     print(f"Practice Onboarding Compiler running at http://127.0.0.1:{port}  (Ctrl+C to stop)", flush=True)
     uvicorn.run(app, host="127.0.0.1", port=port, log_level="warning")
 

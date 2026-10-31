@@ -51,3 +51,19 @@ def test_export_blocked_then_allowed(client):
 
     assert client.get("/api/practices/p02/smoke").json()["passed"] == 10
     assert client.post("/api/practices/p02/reset").json()["status"] == "draft"
+
+
+def test_busy_explicit_port_exits_with_clear_message(monkeypatch):
+    import socket
+
+    import pytest
+
+    from onboarding import app as app_module
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
+        listener.bind(("127.0.0.1", 0))
+        listener.listen(1)
+        busy = listener.getsockname()[1]
+        monkeypatch.setenv("PORT", str(busy))
+        with pytest.raises(SystemExit, match=f"Port {busy} is already in use"):
+            app_module.main()
